@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>消費——示範 | Yrrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/tokens.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="wrap" style="max-width:880px">
+    <a class="back" href="../../work-dashboard.html">← 回案例說明</a>
+    <p class="banner">示範模式，金額、分類、逐筆備註全部是示意內容，版面跟互動邏輯（分類圓餅可展開明細、跨期比較、大額單筆列表）跟實際使用中的工具相同。</p>
+
+    <nav class="demo-tabs">
+      <a class="demo-tab" href="index.html">總覽</a>
+      <a class="demo-tab" href="reading.html">閱讀</a>
+      <a class="demo-tab" href="skill.html">技能</a>
+      <a class="demo-tab" href="threads.html">Threads</a>
+      <a class="demo-tab is-on" href="spending.html">消費</a>
+      <a class="demo-tab" href="schedule.html">每週</a>
+    </nav>
+
+    <p style="font-size:var(--text-sm);color:var(--color-muted);margin:0">近 12 個收齊月，一個月平均花</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);margin:var(--space-2xs) 0">18,600 元</h1>
+    <p style="font-size:var(--text-sm);color:var(--color-muted);margin:0 0 var(--space-xl)">資料涵蓋 2025-09–2026-08 · 412 筆 · 共 223,200 元</p>
+
+    <div class="ex-periods">
+      <button class="ex-per-btn on" type="button">近 6 個月</button>
+      <button class="ex-per-btn" type="button">2026 全年</button>
+      <button class="ex-per-btn" type="button">2025 全年</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:var(--space-2xl)">
+      <div>
+        <div class="ex-pie-wrap">
+          <canvas id="exPie"></canvas>
+          <div class="ex-pie-mid"><b>223,200</b><span>412 筆</span></div>
+        </div>
+        <ul class="ex-leg" id="exLeg"></ul>
+      </div>
+      <div>
+        <div class="label" style="font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--space-xs)">近 12 個月</div>
+        <div class="th-chartbox th-chartbox-s"><canvas id="exTrend"></canvas></div>
+      </div>
+    </div>
+
+    <div class="th-sec">
+      <div class="rp-tabs">
+        <button class="rp-tab on" data-pane="yoy" type="button">跨年</button>
+        <button class="rp-tab" data-pane="fixed" type="button">固定 vs 變動</button>
+        <button class="rp-tab" data-pane="big" type="button">大額單筆</button>
+      </div>
+
+      <div class="th-pane" id="pane-yoy">
+        <ul class="an-list">
+          <li><span>2025 年 09–12 月</span><span>76,400 元</span></li>
+          <li><span>2026 年 01–08 月</span><span>146,800 元</span></li>
+        </ul>
+        <p class="an-say">同樣 4 個月區間比較，2026 年平均月花比 2025 年同期高約 8%，主要落在「居家」分類。</p>
+      </div>
+
+      <div class="th-pane" id="pane-fixed" hidden>
+        <ul class="an-list">
+          <li><span>固定支出</span><span>8,200 元／月</span></li>
+          <li><span>變動支出</span><span>10,400 元／月</span></li>
+        </ul>
+        <p class="an-say">固定支出占比約 44%，剩下 56% 是每月會變動的餐飲、娛樂、臨時採買。</p>
+      </div>
+
+      <div class="th-pane" id="pane-big" hidden>
+        <ul class="an-list an-big">
+          <li><span class="an-date">2026-01-10</span><span class="wd-proj">居家</span><span class="an-note">家具</span><span class="an-amt">12,000</span></li>
+          <li><span class="an-date">2026-07-20</span><span class="wd-proj">學習</span><span class="an-note">線上課程</span><span class="an-amt">8,000</span></li>
+          <li><span class="an-date">2026-03-14</span><span class="wd-proj">居家</span><span class="an-note">家電維修</span><span class="an-amt">6,200</span></li>
+          <li><span class="an-date">2026-05-02</span><span class="wd-proj">交通</span><span class="an-note">機車保養</span><span class="an-amt">5,400</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ink = getComputedStyle(document.documentElement).getPropertyValue("--color-ink").trim();
+    const paper = getComputedStyle(document.documentElement).getPropertyValue("--color-paper").trim();
+    const muted = getComputedStyle(document.documentElement).getPropertyValue("--color-muted").trim();
+    const rule = getComputedStyle(document.documentElement).getPropertyValue("--color-rule").trim();
+
+    // 以強調色為錨，往暖色相偏轉做一組類比色階（跟真實版邏輯一致，只是簡化）
+    const baseHue = 35;
+    function ramp(n) {
+      const out = [];
+      for (let i = 0; i < n; i++) {
+        const h = baseHue + i * 12;
+        const l = 70 - i * 7;
+        out.push(`oklch(${l}% 0.13 ${h})`);
+      }
+      return out;
+    }
+
+    const categories = [
+      { name: "餐飲", amt: 78120, items: [["09-03", "晚餐聚會", 680], ["09-11", "早午餐", 320], ["09-18", "外送", 410]] },
+      { name: "居家", amt: 44640, items: [["08-02", "日用品", 950], ["07-14", "家電維修", 6200]] },
+      { name: "娛樂", amt: 33480, items: [["08-20", "電影", 560], ["07-30", "訂閱服務", 390]] },
+      { name: "交通", amt: 26784, items: [["08-15", "加油", 800], ["05-02", "機車保養", 5400]] },
+      { name: "學習", amt: 22320, items: [["07-20", "線上課程", 8000]] },
+      { name: "其他", amt: 17856, items: [["06-10", "禮物", 1200]] }
+    ];
+    const colors = ramp(categories.length);
+    const total = categories.reduce((s, c) => s + c.amt, 0);
+
+    new Chart(document.getElementById("exPie"), {
+      type: "doughnut",
+      data: {
+        labels: categories.map(c => c.name),
+        datasets: [{ data: categories.map(c => c.amt), backgroundColor: colors, borderColor: paper, borderWidth: 2 }]
+      },
+      options: { cutout: "62%", plugins: { legend: { display: false }, tooltip: { enabled: true } } }
+    });
+
+    const legEl = document.getElementById("exLeg");
+    legEl.innerHTML = categories.map((c, i) => `
+      <li>
+        <button class="ex-leg-row" data-i="${i}" aria-expanded="false" type="button">
+          <span class="ex-leg-sw" style="background:${colors[i]}"></span>
+          <span class="ex-leg-name">${c.name}</span>
+          <span class="ex-leg-pct">${Math.round(c.amt / total * 100)}%</span>
+          <span class="ex-leg-amt">${c.amt.toLocaleString()}</span>
+        </button>
+        <div class="ex-leg-detail" id="detail-${i}" hidden>
+          <ul class="ex-det-list">${c.items.map(it => `<li><span>${it[0]} ${it[1]}</span><span>${it[2].toLocaleString()}</span></li>`).join("")}</ul>
+        </div>
+      </li>`).join("");
+
+    legEl.querySelectorAll(".ex-leg-row").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const i = btn.dataset.i;
+        const open = btn.getAttribute("aria-expanded") === "true";
+        legEl.querySelectorAll(".ex-leg-row").forEach(b => b.setAttribute("aria-expanded", "false"));
+        legEl.querySelectorAll(".ex-leg-detail").forEach(d => d.hidden = true);
+        if (!open) { btn.setAttribute("aria-expanded", "true"); document.getElementById("detail-" + i).hidden = false; }
+      });
+    });
+
+    const months = ["09","10","11","12","01","02","03","04","05","06","07","08"];
+    const monthVals = [16200, 17800, 21400, 24600, 15900, 17200, 19800, 18100, 20300, 16900, 18700, 20200];
+    new Chart(document.getElementById("exTrend"), {
+      type: "bar",
+      data: { labels: months, datasets: [{ data: monthVals, backgroundColor: ink, borderRadius: 4 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { grid: { display: false }, ticks: { color: muted } }, y: { beginAtZero: true, ticks: { color: muted }, grid: { color: rule } } }
+      }
+    });
+
+    document.querySelectorAll(".ex-per-btn").forEach(b => b.addEventListener("click", () => {
+      document.querySelectorAll(".ex-per-btn").forEach(x => x.classList.toggle("on", x === b));
+    }));
+
+    const tabs = document.querySelectorAll(".rp-tabs .rp-tab");
+    tabs.forEach(tab => tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.toggle("on", t === tab));
+      document.querySelectorAll(".th-pane").forEach(p => p.hidden = true);
+      document.getElementById("pane-" + tab.dataset.pane).hidden = false;
+    }));
+  </script>
+</body>
+</html>

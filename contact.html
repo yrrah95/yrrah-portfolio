@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>聯絡 — Yrrah</title>
+  <meta name="description" content="想找 Yrrah 聊案子？填表單，或在 Threads 上找我。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+
+  <header class="nav-edge">
+    <a class="wordmark" href="index.html">Yrrah</a>
+    <a class="cta-outline" href="contact.html">聯絡 →</a>
+  </header>
+
+  <main id="main">
+    <section class="contact">
+      <h1 class="contact__heading">聊聊你的案子</h1>
+      <p class="contact__lede">網頁開發、UI設計、平面設計，小案子也歡迎。填一下你想做什麼，我會回信。</p>
+
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="c61263c4-36c2-4062-a952-fddbaaa58a81" />
+        <input type="hidden" name="subject" value="作品集案子邀約" />
+        <input type="checkbox" name="botcheck" class="contact-form__hp" tabindex="-1" autocomplete="off" />
+
+        <div class="contact-form__row">
+          <div>
+            <label for="cf-name">怎麼稱呼你</label>
+            <input id="cf-name" type="text" name="name" required />
+          </div>
+          <div>
+            <label for="cf-email">你的信箱</label>
+            <input id="cf-email" type="email" name="email" required />
+          </div>
+        </div>
+
+        <div>
+          <label for="cf-line">LINE ID（方便的話留一下，非必填，回信會比較快）</label>
+          <input id="cf-line" type="text" name="LINE ID" />
+        </div>
+
+        <div class="contact-form__row">
+          <div>
+            <label for="cf-type">案子類型</label>
+            <select id="cf-type" name="案子類型">
+              <option>網頁開發</option>
+              <option>UI設計</option>
+              <option>平面設計</option>
+              <option>不確定，想聊聊</option>
+            </select>
+          </div>
+          <div>
+            <label for="cf-budget">預算範圍（大概就好）</label>
+            <input id="cf-budget" type="text" name="預算範圍" placeholder="例如：1–3 萬" />
+          </div>
+        </div>
+
+        <div>
+          <label for="cf-time">時間點／deadline</label>
+          <input id="cf-time" type="text" name="時間點" placeholder="例如：這個月內、不急" />
+        </div>
+
+        <div>
+          <label for="cf-message">想做什麼，簡單說一下</label>
+          <textarea id="cf-message" name="message" required></textarea>
+        </div>
+
+        <button class="contact-form__submit" type="submit">送出</button>
+        <p class="contact-form__status" id="cfStatus" role="status"></p>
+      </form>
+
+      <p class="contact__or">或</p>
+
+      <div class="contact__links">
+        <a href="https://www.threads.net/@yrrah9_" target="_blank" rel="noopener">Threads</a>
+        <a href="index.html">回作品集</a>
+        <a href="about.html">關於我</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot-letter">
+    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign" style="font-family:var(--font-outlier)">— Yrrah</span></p>
+    <p class="foot-letter__ps">P.S. — 沒有制式報價單，把想法填進上面的表單就好。</p>
+  </footer>
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var form = e.target;
+      var status = document.getElementById("cfStatus");
+      var btn = form.querySelector(".contact-form__submit");
+      btn.disabled = true;
+      btn.textContent = "送出中…";
+      status.textContent = "";
+      status.removeAttribute("data-state");
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.success) {
+            form.reset();
+            form.hidden = true;
+            status.textContent = "收到了，我會盡快回信給你。";
+            status.setAttribute("data-state", "ok");
+          } else {
+            throw new Error(data.message || "送出失敗");
+          }
+        })
+        .catch(function () {
+          status.textContent = "送出失敗，麻煩重新整理頁面後再試一次。";
+          status.setAttribute("data-state", "err");
+          btn.disabled = false;
+          btn.textContent = "送出";
+        });
+    });
+  </script>
+</body>
+</html>

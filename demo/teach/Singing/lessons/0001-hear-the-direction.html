@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-Hant" data-kind="lesson" data-topic="Singing" data-page="Singing/0001-hear-the-direction">
+<head>
+<meta charset="utf-8">
+<title>第一課：聽出方向</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="目標只有一個：兩個音放給你聽，你要分得出「後面那個比較高，還是比較低」。">
+<meta property="og:title" content="第一課：聽出方向｜唱歌音準">
+<meta property="og:description" content="目標只有一個：兩個音放給你聽，你要分得出「後面那個比較高，還是比較低」。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://teach-tw.pages.dev/Singing/lessons/0001-hear-the-direction.html">
+<meta property="og:image" content="https://teach-tw.pages.dev/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0d9488">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../../shared/site.css?v=57d4caed">
+</head>
+<body>
+
+<nav class="site-crumbs" aria-label="麵包屑"><a href="../../index.html">TEACH</a><span class="site-sep">/</span><a href="../../Singing/index.html">唱歌音準</a><span class="site-sep">/</span>第 1 課</nav>
+
+<h1>抓音準 第一課：聽出方向</h1>
+<p class="lede">目標只有一個：兩個音放給你聽，你要分得出「後面那個比較高，還是比較低」。</p>
+<p class="site-needs"><strong>這一課要聽聲音。</strong>請戴耳機，並確認手機側邊的靜音開關沒有打開——iPhone 的實體靜音鍵會讓這一頁完全沒聲音，而且畫面上不會有任何提示。</p>
+
+<div class="nav-links">
+  <a href="../index.html">課程總覽</a>
+  <a href="../reference/pitch-glossary.html">音準詞彙卡</a>
+  <a href="../resources.html">資料來源</a>
+  <a href="0002-smaller-gaps.html">下一課</a>
+</div>
+
+<h2>先講個畫面</h2>
+<p>
+  想像你在投籃。球投出去，落點不是太前就是太後，很少一次正中籃框。
+  唱歌走音也一樣：你唱出來的音，不是偏高（像球投太用力飛過框）就是偏低（像力道不夠掉在框前）。
+</p>
+<p>
+  想調整投籃手感，你得先看得出「這球是過還是不足」。唱歌也一樣——想唱準之前，耳朵要先聽得出「這個音比目標高還是低」。
+  這件事跟會不會唱歌沒關係，是純粹的聽力，可以練。今天只練這一步。
+</p>
+
+<h2>練習：兩個音，哪個高？</h2>
+<div class="card">
+  <p>按「播放」，會聽到兩個音，中間停頓一下。聽完選：後面那個音，比第一個<strong>高</strong>還是<strong>低</strong>。</p>
+  <p id="status">第 <span id="round-num">1</span> / 8 題　答對 <span id="score">0</span> 題</p>
+
+  <button id="play-btn">▶ 播放</button>
+  <button id="higher-btn" disabled>比較高</button>
+  <button id="lower-btn" disabled>比較低</button>
+
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="callout" id="summary" style="display:none;"></div>
+
+<h2>為什麼這樣練</h2>
+<p>
+  今天故意把兩個音的差距設定得比較明顯（差一個全音，見<a href="../reference/pitch-glossary.html">詞彙卡</a>），
+  讓耳朵先抓到「方向感」這個概念，不用一開始就挑戰細微差異。
+  等這一步穩了（8 題對 6 題以上），下一課會把差距縮小，逼耳朵更敏銳。
+</p>
+<p class="source">
+  方法參考：<a href="https://sciencevocal.com/pitchfixing/" target="_blank" rel="noopener">SV科學歌唱——音準不好嗎？科學的方法解救五音不全</a>，
+  文章指出走音多半是「辨音的耳朵」沒練過，而不是天生唱不準。
+</p>
+
+<h2>回家練</h2>
+<p>
+  想要更精細、有分數回饋的版本，可以用
+  <a href="https://pitchdetector.com/ear-training/" target="_blank" rel="noopener">PitchDetector.com 的 Ear Training 工具</a>——
+  它會播一個參考音，你唱回去，直接給你偏差幾個「音分」（見詞彙卡的 cents）。今天這個練習是暖身，那個工具是進階版。
+</p>
+
+<script>
+(function () {
+  const TOTAL_ROUNDS = 8;
+  const SEMITONE_RATIO = Math.pow(2, 1 / 12);
+  const INTERVAL_SEMITONES = 2; // 全音，第一課用明顯一點的差距
+
+  let audioCtx = null;
+  let round = 1;
+  let score = 0;
+  let currentDirection = null; // 'higher' | 'lower'
+  let awaitingAnswer = false;
+
+  const playBtn = document.getElementById('play-btn');
+  const higherBtn = document.getElementById('higher-btn');
+  const lowerBtn = document.getElementById('lower-btn');
+  const feedbackEl = document.getElementById('feedback');
+  const roundNumEl = document.getElementById('round-num');
+  const scoreEl = document.getElementById('score');
+  const statusEl = document.getElementById('status');
+  const summaryEl = document.getElementById('summary');
+
+  function ensureAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    // iOS Safari 切到背景再回來會停在 suspended，播放不會有聲音也不報錯。
+    if (audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playTone(freq, startTime, duration) {
+    const ctx = ensureAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(0.3, startTime + 0.03);
+    gain.gain.setValueAtTime(0.3, startTime + duration - 0.05);
+    gain.gain.linearRampToValueAtTime(0, startTime + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + duration);
+  }
+
+  function runRound() {
+    const ctx = ensureAudio();
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    playBtn.disabled = true;
+    higherBtn.disabled = true;
+    lowerBtn.disabled = true;
+
+    const baseFreq = 220 + Math.random() * 110; // 220~330 Hz 之間隨機起音
+    currentDirection = Math.random() < 0.5 ? 'higher' : 'lower';
+    const secondFreq = currentDirection === 'higher'
+      ? baseFreq * Math.pow(SEMITONE_RATIO, INTERVAL_SEMITONES)
+      : baseFreq / Math.pow(SEMITONE_RATIO, INTERVAL_SEMITONES);
+
+    const now = ctx.currentTime;
+    const toneDur = 0.7;
+    const gap = 0.5;
+    playTone(baseFreq, now + 0.05, toneDur);
+    playTone(secondFreq, now + 0.05 + toneDur + gap, toneDur);
+
+    const totalMs = (0.05 + toneDur + gap + toneDur) * 1000;
+    setTimeout(() => {
+      higherBtn.disabled = false;
+      lowerBtn.disabled = false;
+      awaitingAnswer = true;
+    }, totalMs);
+  }
+
+  function handleAnswer(choice) {
+    if (!awaitingAnswer) return;
+    awaitingAnswer = false;
+    higherBtn.disabled = true;
+    lowerBtn.disabled = true;
+
+    const correct = choice === currentDirection;
+    if (correct) {
+      score++;
+      feedbackEl.textContent = '對，方向聽對了。';
+      feedbackEl.className = 'feedback correct';
+    } else {
+      const answer = currentDirection === 'higher' ? '比較高' : '比較低';
+      feedbackEl.textContent = '不對，第二個音其實' + answer + '。再聽下一題感覺一下。';
+      feedbackEl.className = 'feedback wrong';
+    }
+    scoreEl.textContent = String(score);
+
+    if (round >= TOTAL_ROUNDS) {
+      setTimeout(finishSession, 900);
+    } else {
+      setTimeout(() => {
+        round++;
+        roundNumEl.textContent = String(round);
+        playBtn.disabled = false;
+      }, 900);
+    }
+  }
+
+  function finishSession() {
+    statusEl.style.display = 'none';
+    playBtn.style.display = 'none';
+    higherBtn.style.display = 'none';
+    lowerBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+
+    summaryEl.style.display = 'block';
+    if (score >= 6) {
+      summaryEl.innerHTML = '<strong>' + score + ' / ' + TOTAL_ROUNDS + '</strong> 題答對。方向感抓住了，下一課可以練更小的音程差距。';
+    } else {
+      summaryEl.innerHTML = '<strong>' + score + ' / ' + TOTAL_ROUNDS + '</strong> 題答對。方向感還不穩，建議先重整旗鼓，重新整理這頁再練一輪，同一個難度多練幾次會有感。';
+    }
+  }
+
+  playBtn.addEventListener('click', runRound);
+  higherBtn.addEventListener('click', () => handleAnswer('higher'));
+  lowerBtn.addEventListener('click', () => handleAnswer('lower'));
+})();
+</script>
+
+
+<footer class="site-foot">
+  <p class="site-foot-lead">這一課是為一個具體的人設計的：先問他卡在哪，再決定教什麼、出什麼題。想要一份為你設計的？</p>
+  <p><button type="button" class="site-door"
+        aria-expanded="false" aria-controls="site-door-panel-Singing-0001-hear-the-direction">我也想做自己的課</button></p>
+<div class="site-door-panel" id="site-door-panel-Singing-0001-hear-the-direction" data-open="0">
+  <p>這個功能還在做。</p>
+  <p>現在是我一堂一堂手工設計的。如果有夠多人想要，我就把它做成任何人都能用的東西。</p>
+  <p><a class="site-door-go" href="/go-threads.html" target="_blank" rel="noopener">到 Threads 告訴我你想學什麼 →</a></p>
+</div>
+  <p class="site-foot-nav"><a href="../../index.html">全部主題</a><span class="site-sep">·</span><a href="../../Singing/index.html">唱歌音準</a><span class="site-sep">·</span><a href="../../Singing/resources.html">資料來源</a></p>
+</footer>
+
+<script src="../../shared/site.js?v=57d4caed"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a61fd171a409490fa7ea276d14835e35"}'></script></body>
+</html>

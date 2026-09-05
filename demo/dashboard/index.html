@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>個人資料儀表板——示範 | Yrrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/tokens.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../work-dashboard.html">← 回案例說明</a>
+    <p class="banner">示範模式，日期、機構、聯絡人都換成示意內容，不是真實進度。任務清單可以點擊打勾試試看。</p>
+
+    <nav class="demo-tabs">
+      <a class="demo-tab is-on" href="index.html">總覽</a>
+      <a class="demo-tab" href="reading.html">閱讀</a>
+      <a class="demo-tab" href="skill.html">技能</a>
+      <a class="demo-tab" href="threads.html">Threads</a>
+      <a class="demo-tab" href="spending.html">消費</a>
+      <a class="demo-tab" href="schedule.html">每週</a>
+    </nav>
+
+    <div class="dash">
+      <div class="dash__hero">
+        <span class="dash__count" id="count">42</span>
+        <span class="dash__count-label">天後進入下一關</span>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__node timeline__node--done">
+          <div class="timeline__node-label">準備資料</div>
+          <div class="timeline__node-date">已完成</div>
+        </div>
+        <div class="timeline__node timeline__node--done">
+          <div class="timeline__node-label">送出申請</div>
+          <div class="timeline__node-date">已完成</div>
+        </div>
+        <div class="timeline__node timeline__node--now">
+          <div class="timeline__node-label">資格審查</div>
+          <div class="timeline__node-date">進行中</div>
+        </div>
+        <div class="timeline__node">
+          <div class="timeline__node-label">結果公布</div>
+          <div class="timeline__node-date">42 天後</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>分數怎麼算</h2>
+        <div class="score-row">
+          <span class="score-row__label">基本資格 · 20%</span>
+          <div class="score-row__track"><div class="score-row__fill" style="width:100%"></div></div>
+          <span class="score-row__value">20/20</span>
+        </div>
+        <div class="score-row">
+          <span class="score-row__label">書面審查 · 30%</span>
+          <div class="score-row__track"><div class="score-row__fill" style="width:60%"></div></div>
+          <span class="score-row__value">18/30</span>
+        </div>
+        <div class="score-row">
+          <span class="score-row__label">面談 · 50%</span>
+          <div class="score-row__track"><div class="score-row__fill" style="width:0%"></div></div>
+          <span class="score-row__value">?/50</span>
+        </div>
+      </div>
+
+      <div class="card tasks">
+        <div class="tasks__head">
+          <h2 style="margin:0">準備進度</h2>
+          <span class="tasks__count" id="taskCount">5 / 12 項</span>
+        </div>
+        <div class="tasks__track"><div class="tasks__fill" id="taskFill" style="width:42%"></div></div>
+        <ul class="tasks__list" id="taskList">
+          <li><button class="tasks__item tasks__item--done" type="button"><span class="tasks__check">✓</span>整理備審資料</button></li>
+          <li><button class="tasks__item tasks__item--done" type="button"><span class="tasks__check">✓</span>寫讀書計畫</button></li>
+          <li><button class="tasks__item" type="button"><span class="tasks__check"></span>找兩位推薦人</button></li>
+          <li><button class="tasks__item" type="button"><span class="tasks__check"></span>模擬面試練習</button></li>
+          <li><button class="tasks__item" type="button"><span class="tasks__check"></span>整理成績單</button></li>
+        </ul>
+        <p class="hint">點清單項目可以打勾／取消，純前端示範，不會存檔。</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const list = document.getElementById("taskList");
+    const fill = document.getElementById("taskFill");
+    const countEl = document.getElementById("taskCount");
+    const items = Array.from(list.querySelectorAll(".tasks__item"));
+    const TOTAL = 12; // 總項目數固定；清單只展示部分項目
+    const BASE_DONE = 3; // 清單以外、已知完成的項目數
+
+    function refresh() {
+      const doneShown = items.filter(i => i.classList.contains("tasks__item--done")).length;
+      const done = Math.min(TOTAL, BASE_DONE + doneShown);
+      countEl.textContent = done + " / " + TOTAL + " 項";
+      fill.style.width = Math.round((done / TOTAL) * 100) + "%";
+    }
+
+    items.forEach(item => {
+      const check = item.querySelector(".tasks__check");
+      item.addEventListener("click", () => {
+        const on = item.classList.toggle("tasks__item--done");
+        check.textContent = on ? "✓" : "";
+        refresh();
+      });
+    });
+
+    refresh();
+  </script>
+</body>
+</html>

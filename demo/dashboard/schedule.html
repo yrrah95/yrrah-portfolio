@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>每週——示範 | Yrrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/tokens.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap" style="max-width:960px">
+    <a class="back" href="../../work-dashboard.html">← 回案例說明</a>
+    <p class="banner">示範模式，行程、任務、日記內容全部是示意內容，版面（週曆格線、完成率、時數分配軌道、日記週格）跟實際使用中的工具相同。任務可以點擊打勾。</p>
+
+    <nav class="demo-tabs">
+      <a class="demo-tab" href="index.html">總覽</a>
+      <a class="demo-tab" href="reading.html">閱讀</a>
+      <a class="demo-tab" href="skill.html">技能</a>
+      <a class="demo-tab" href="threads.html">Threads</a>
+      <a class="demo-tab" href="spending.html">消費</a>
+      <a class="demo-tab is-on" href="schedule.html">每週</a>
+    </nav>
+
+    <p style="font-size:var(--text-sm);color:var(--color-muted);margin:0">現在</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(1.75rem,3.5vw,2.5rem);margin:var(--space-2xs) 0">讀書時間</h1>
+    <p style="font-size:var(--text-sm);color:var(--color-muted);margin:0 0 var(--space-lg)">週三・19:00–21:00・示範任務 B</p>
+
+    <div class="card" style="display:grid;grid-template-columns:auto 1fr;gap:var(--space-lg);align-items:center;margin-bottom:var(--space-xl)">
+      <div>
+        <div style="font-size:var(--text-xs);color:var(--color-muted)">這禮拜</div>
+        <div class="th-big" style="font-size:var(--text-2xl)" id="rateVal">0 件</div>
+      </div>
+      <div style="font-size:var(--text-sm);color:var(--color-muted)">做完了。這禮拜排了 <span id="rateTotal">0</span> 件。</div>
+    </div>
+
+    <h2>這週行事曆</h2>
+    <div class="wk-grid" id="wkGrid"></div>
+
+    <div class="th-sec" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl)">
+      <div>
+        <h2>這禮拜的任務</h2>
+        <ul class="tw-list" id="twList"></ul>
+      </div>
+      <div>
+        <h2>時數分配</h2>
+        <div id="wtTracks"></div>
+        <h2 style="margin-top:var(--space-xl)">週末優先順序</h2>
+        <ol class="wk-order">
+          <li class="on">示範任務 A（本週決定）</li>
+          <li>運動</li>
+          <li>朋友聚會</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="th-sec">
+      <h2>本週日記</h2>
+      <div class="dy-grid" id="dyGrid"></div>
+    </div>
+
+    <div class="th-sec">
+      <h2>刻意的決定</h2>
+      <div class="wk-dec">
+        <div><b>22:30 後不碰螢幕</b><span>睡前留一段不用手機的時間，示意規則。</span></div>
+        <div><b>週末保留一格空白</b><span>不排滿，留給臨時想做的事。</span></div>
+        <div><b>固定運動時段</b><span>排進行事曆才會真的去，不放在「有空再說」。</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const days = ["一","二","三","四","五","六","日"];
+    const dates = ["09/01","09/02","09/03","09/04","09/05","09/06","09/07"];
+
+    const slots = [
+      [{ t: "09:00–12:00", do: "示範任務 A", item: "整理資料", done: true }],
+      [{ t: "19:00–21:00", do: "讀書", item: "示範任務 B", done: true }],
+      [{ t: "19:00–21:00", do: "讀書", item: "示範任務 B", done: false, now: true }],
+      [{ t: "19:00–20:00", do: "運動", item: "跑步", done: false }],
+      [],
+      [{ t: "10:00–12:00", do: "示範任務 A", item: "模擬練習", done: false, wkend: true }, { t: "14:00–", do: "可能打球", item: "", blank: true }],
+      [{ t: "全天", do: "休息", item: "陪家人", done: true, wkend: true }]
+    ];
+
+    const grid = document.getElementById("wkGrid");
+    grid.innerHTML = days.map((d, i) => `
+      <div class="wk-col ${i === 2 ? "today" : ""}">
+        <div class="wk-day">週${d}</div>
+        <div class="wk-date">${dates[i]}</div>
+        ${slots[i].length ? slots[i].map(s => s.blank ? `<div class="wk-blank">${s.t} ${s.do}</div>` : `
+          <div class="wk-slot ${s.wkend ? "wkend" : ""} ${s.now ? "now" : ""}">
+            <div class="wk-t">${s.t}</div>
+            <div class="wk-item">${s.item}</div>
+            <div class="wk-state">${s.done ? "✓ 做完了" : "○ 還沒做"}</div>
+          </div>`).join("") : `<div class="wk-blank">沒排事</div>`}
+      </div>`).join("");
+
+    const tasks = [
+      { text: "示範任務 A・整理資料", meta: "週一", done: true },
+      { text: "示範任務 B・第一次", meta: "週二", done: true },
+      { text: "示範任務 B・第二次", meta: "週三", done: false },
+      { text: "運動・跑步", meta: "週四", done: false },
+      { text: "示範任務 A・模擬練習", meta: "週六", done: false }
+    ];
+    const twList = document.getElementById("twList");
+    function renderTasks() {
+      twList.innerHTML = tasks.map((t, i) => `
+        <li class="tw-item ${t.done ? "done" : ""}" data-i="${i}">
+          <span class="tw-mark"></span>
+          <span class="tw-text">${t.text}</span>
+          <span class="tw-meta">${t.meta}</span>
+        </li>`).join("");
+      twList.querySelectorAll(".tw-item").forEach(el => {
+        el.style.cursor = "pointer";
+        el.addEventListener("click", () => {
+          const i = +el.dataset.i;
+          tasks[i].done = !tasks[i].done;
+          renderTasks();
+          updateRate();
+        });
+      });
+    }
+    function updateRate() {
+      document.getElementById("rateVal").textContent = tasks.filter(t => t.done).length + " 件";
+      document.getElementById("rateTotal").textContent = tasks.length;
+    }
+    renderTasks();
+    updateRate();
+
+    document.getElementById("wtTracks").innerHTML = [
+      { k: "示範任務 A", pct: 57, v: "7h" },
+      { k: "讀書", pct: 32, v: "4h" },
+      { k: "運動", pct: 11, v: "1h20" }
+    ].map(t => `
+      <div class="wt-row">
+        <span class="wt-k">${t.k}</span>
+        <div class="wt-bay" style="width:${t.pct}%"><div class="wt-fill"></div></div>
+        <span class="wt-v">${t.v}</span>
+      </div>`).join("");
+
+    const diary = ["", "示範日記：今天把示範任務 B 做完了，比預期順利。", "", "", "示範日記：休息一天，跟朋友吃飯。", "", ""];
+    const dyGrid = document.getElementById("dyGrid");
+    function renderDiary() {
+      dyGrid.innerHTML = days.map((d, i) => `
+        <div class="dy-cell ${i === 2 ? "today" : ""} ${diary[i] ? "has" : ""}">
+          <div class="dy-h">週${d} ${dates[i]}</div>
+          <div class="dy-text">${diary[i] || ""}</div>
+          <button class="dy-open" data-i="${i}" type="button" style="all:unset;cursor:pointer;font-size:11px;color:var(--color-muted);margin-top:4px;display:inline-block">${diary[i] ? "改寫" : "＋"}</button>
+        </div>`).join("");
+      dyGrid.querySelectorAll(".dy-open").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = +btn.dataset.i;
+          const text = prompt("寫一句今天的示範日記（純前端示範，不會存檔）：", diary[i] || "");
+          if (text !== null) { diary[i] = text; renderDiary(); }
+        });
+      });
+    }
+    renderDiary();
+  </script>
+</body>
+</html>

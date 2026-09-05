@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Family——示範 | Yrrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { overflow-x: clip; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, oklch(96% 0.03 20), var(--color-paper) 40%);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    padding: var(--space-xl) var(--page-gutter) var(--space-3xl);
+  }
+  .wrap { max-width: 480px; margin-inline: auto; }
+  .back { display: inline-block; margin-bottom: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; border-bottom: 1px solid transparent; }
+  .back:hover { color: var(--color-accent); border-color: var(--color-accent); }
+  .banner { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-xl); }
+
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); margin: 0 0 var(--space-2xs); }
+  .sub { color: var(--color-muted); font-size: var(--text-sm); margin: 0 0 var(--space-xl); }
+
+  .composer { background: #fff; border-radius: 16px; padding: var(--space-lg); margin-bottom: var(--space-xl); box-shadow: 0 1px 2px oklch(20% 0.01 20 / 0.06); }
+  .composer label { display: block; font-size: var(--text-xs); color: var(--color-muted); margin-bottom: var(--space-2xs); }
+  .row { display: flex; gap: var(--space-sm); margin-bottom: var(--space-md); }
+  select, input[type=text] {
+    width: 100%; padding: var(--space-sm); border-radius: 10px; border: 1px solid var(--color-rule);
+    font-family: inherit; font-size: var(--text-sm); background: var(--color-paper);
+  }
+  .send-btn {
+    width: 100%; padding: var(--space-sm) var(--space-md); border-radius: 999px; border: none;
+    background: var(--color-accent); color: var(--color-paper); font-family: inherit; font-weight: 600;
+    font-size: var(--text-sm); cursor: pointer; min-height: 44px;
+  }
+  .send-btn:hover { filter: brightness(1.05); }
+  .send-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+  .wall { display: grid; gap: var(--space-md); }
+  .msg { background: #fff; border-radius: 14px; padding: var(--space-md) var(--space-lg); box-shadow: 0 1px 2px oklch(20% 0.01 20 / 0.05); }
+  .msg__meta { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--color-muted); margin-bottom: var(--space-2xs); }
+  .msg__text { font-size: var(--text-md); }
+  .msg__heart { color: #d94f5c; }
+  .empty { text-align: center; color: var(--color-muted); font-size: var(--text-sm); padding: var(--space-xl) 0; }
+  .clear { margin-top: var(--space-xl); font-size: var(--text-xs); color: var(--color-muted); background: none; border: none; text-decoration: underline; cursor: pointer; padding: 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../work-family.html">← 回案例說明</a>
+    <p class="banner">示範模式，這裡沒有真的帳號跟後端，訊息只存在你自己的瀏覽器裡，重整不會消失，換裝置就看不到。</p>
+
+    <h1>今天家裡有 <span id="msgCount">0</span> 份付出被看見</h1>
+    <p class="sub">選一個對象，寫一句話，送出試試看。</p>
+
+    <div class="composer">
+      <div class="row">
+        <div style="flex:1">
+          <label for="to">留言給誰</label>
+          <select id="to">
+            <option>媽媽</option>
+            <option>爸爸</option>
+            <option>兒子</option>
+            <option>妹妹</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: var(--space-sm)">
+        <div style="flex:1">
+          <label for="text">一句話</label>
+          <input id="text" type="text" placeholder="例如：煮飯" maxlength="24" />
+        </div>
+      </div>
+      <button class="send-btn" id="send" type="button">送出感謝</button>
+    </div>
+
+    <div class="wall" id="wall">
+      <p class="empty" id="empty">牆上還沒有留言，寫第一句試試看。</p>
+    </div>
+
+    <button class="clear" id="clearAll" type="button">清空示範內容</button>
+  </div>
+
+  <script>
+    const KEY = "yrrah-demo-family-wall";
+    const wall = document.getElementById("wall");
+    const empty = document.getElementById("empty");
+    const countEl = document.getElementById("msgCount");
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]"); }
+      catch (e) { return []; }
+    }
+    function save(items) {
+      try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {}
+    }
+    function render() {
+      const items = load();
+      countEl.textContent = items.length;
+      wall.querySelectorAll(".msg").forEach(n => n.remove());
+      empty.hidden = items.length > 0;
+      items.slice().reverse().forEach(item => {
+        const div = document.createElement("div");
+        div.className = "msg";
+        div.innerHTML =
+          '<div class="msg__meta"><span>' + item.from + ' 留給 ' + item.to + '</span><span>' + item.time + '</span></div>' +
+          '<div class="msg__text">' + item.text + ' <span class="msg__heart">♥</span></div>';
+        wall.appendChild(div);
+      });
+    }
+
+    document.getElementById("send").addEventListener("click", () => {
+      const to = document.getElementById("to").value;
+      const textInput = document.getElementById("text");
+      const text = textInput.value.trim();
+      if (!text) { textInput.focus(); return; }
+      const items = load();
+      const now = new Date();
+      items.push({
+        to, from: "你",
+        text,
+        time: now.getHours() + ":" + String(now.getMinutes()).padStart(2, "0")
+      });
+      save(items);
+      textInput.value = "";
+      render();
+    });
+
+    document.getElementById("text").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("send").click();
+    });
+
+    document.getElementById("clearAll").addEventListener("click", () => {
+      save([]);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

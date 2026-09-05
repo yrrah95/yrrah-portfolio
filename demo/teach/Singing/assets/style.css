@@ -1,0 +1,216 @@
+/* 唱歌教學共用樣式 — Tufte 風排版，螢幕讀、印出來也讀得舒服 */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --paper: #fdfcf9;
+  --paper-raised: #f5f2ea;
+  --accent: #a8452f;
+  --accent-soft: #d98a72;
+  --rule: #ddd6c7;
+  --good: #3a6b47;
+  --bad: #a8452f;
+  --max-width: 40rem;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  max-width: var(--max-width);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Serif TC", "Georgia", "PMingLiU", serif;
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Serif TC", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: 1.9rem;
+  margin: 0 0 0.3em;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 0.4em;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 2.2em 0 0.6em;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 1.6em 0 0.5em;
+  color: var(--accent);
+}
+
+p { margin: 0.9em 0; }
+
+.lede {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  margin-top: 0.2em;
+}
+
+a { color: var(--accent); text-decoration-color: var(--accent-soft); }
+a:hover { text-decoration-thickness: 2px; }
+
+.nav-links {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 2em 0;
+  padding: 0.8em 1em;
+  background: var(--paper-raised);
+  border-left: 3px solid var(--rule);
+}
+.nav-links a { margin-right: 1.2em; }
+
+.card {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.2em 1.4em;
+  margin: 1.4em 0;
+}
+
+.callout {
+  border-left: 4px solid var(--accent);
+  padding: 0.8em 1.2em;
+  margin: 1.4em 0;
+  background: var(--paper-raised);
+}
+
+.source {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.ask-agent {
+  margin-top: 3em;
+  padding: 1em 1.3em;
+  border: 1px dashed var(--rule);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.6em 1.3em;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--paper);
+  color: var(--accent);
+  cursor: pointer;
+}
+button:hover { background: var(--accent); color: var(--paper); }
+button:disabled { opacity: 0.4; cursor: default; }
+
+.feedback {
+  margin-top: 1em;
+  font-weight: 700;
+  min-height: 1.6em;
+}
+.feedback.correct { color: var(--good); }
+.feedback.wrong { color: var(--bad); }
+
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td {
+  text-align: left;
+  padding: 0.5em 0.8em;
+  border-bottom: 1px solid var(--rule);
+}
+th { color: var(--ink-soft); font-weight: 700; font-size: 0.9rem; }
+
+.pitch-meter {
+  position: relative;
+  height: 14px;
+  background: linear-gradient(
+    to right,
+    var(--bad), var(--paper-raised) 42%,
+    var(--good) 47%, var(--good) 53%,
+    var(--paper-raised) 58%, var(--bad)
+  );
+  border-radius: 7px;
+  margin: 1em 0 0.4em;
+  border: 1px solid var(--rule);
+}
+.pitch-meter-needle {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 3px;
+  height: 22px;
+  background: var(--ink);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: left 0.08s linear;
+}
+.pitch-readout {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  min-height: 1.4em;
+}
+.progress-track {
+  height: 10px;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 0.6em;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--good);
+  transition: width 0.1s linear;
+}
+
+@media print {
+  body { max-width: none; padding: 0.5in; }
+  .ask-agent, button { display: none; }
+}
+
+
+/* ============================================================
+   手機（2026-08-18 加）
+   ============================================================ */
+
+:root { color-scheme: light; }
+
+@media (max-width: 34em) {
+
+  body {
+    padding: 22px 16px 56px;
+  }
+
+  /* 第三課一排四顆按鈕（播放目標音／開始唱／停止／跳過）
+     沒有 flex 容器，在窄螢幕會不規則換行。 */
+  .controls,
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  button {
+    min-height: 44px;      /* 觸控目標下限 */
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

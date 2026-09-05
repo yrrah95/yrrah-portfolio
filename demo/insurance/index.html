@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>客戶分堆</title>
+<style>
+:root{
+  --ink:#0E1419;          /* 桌面：深色，讓卡片像被聚光燈打亮 */
+  --ink-soft:#18222C;
+  --paper:#FBF8F3;        /* 卡片：紙 */
+  --paper-edge:#E4DCCC;
+  --text:#141C24;
+  --muted:#6C7885;
+  --hair:#D8CFBF;
+  --opp:#C2410C;          /* 今年有機會 */
+  --keep:#0F766E;         /* 要維繫 */
+  --park:#48566A;         /* 先放著 */
+  --gap:clamp(16px,2.2vw,28px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overscroll-behavior:none;
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+
+/* 三個畫面，一次只顯示一個 */
+.screen{display:none;min-height:100dvh;padding:var(--gap);padding-bottom:max(var(--gap),env(safe-area-inset-bottom))}
+.screen.on{display:flex;flex-direction:column}
+
+/* ── 畫面一：匯入 ───────────────────────────── */
+#load{justify-content:center;align-items:center;text-align:center;gap:28px}
+.brand{font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:.16em;margin:0}
+.brand span{color:var(--opp)}
+.lede{max-width:34ch;margin:0;color:#9FAAB6;font-size:clamp(16px,2vw,20px);line-height:1.75}
+.pick{
+  display:inline-block;padding:22px 44px;border-radius:999px;
+  background:var(--paper);color:var(--text);font-size:clamp(19px,2.4vw,24px);font-weight:600;
+}
+.pick:active{transform:scale(.97)}
+#file{display:none}
+.note{color:#69747F;font-size:15px;max-width:40ch;line-height:1.7;margin:0}
+.err{color:#F0A08A;font-size:16px;min-height:1.4em;margin:0}
+
+/* ── 畫面二：分堆 ───────────────────────────── */
+#sort{gap:var(--gap)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:0 0 auto}
+.left{font-size:clamp(15px,1.8vw,18px);color:#8B97A3;letter-spacing:.04em}
+.left b{color:var(--paper);font-size:clamp(22px,3vw,30px);font-weight:700;font-variant-numeric:tabular-nums}
+.pre{display:block;margin-top:4px;color:#F97316;font-size:clamp(13px,1.5vw,15px)}
+.pre:empty{display:none}
+.undo{padding:12px 22px;border-radius:999px;border:1px solid #33404D;color:#9FAAB6;font-size:16px}
+.undo:disabled{opacity:.3}
+
+.stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;position:relative;min-height:0}
+/* 訊號元素：後方疊著的紙，越接近分完越薄 */
+.stack{position:relative;width:min(760px,100%)}
+.stack::before,.stack::after{
+  content:"";position:absolute;left:0;right:0;top:0;bottom:0;border-radius:20px;
+  background:var(--paper-edge);z-index:0;transition:transform .3s ease,opacity .3s ease;
+}
+.stack::before{transform:translateY(calc(var(--depth) * 7px)) scale(.965);opacity:.5}
+.stack::after{transform:translateY(calc(var(--depth) * 3.5px)) scale(.983);opacity:.75}
+.card{
+  position:relative;z-index:1;background:var(--paper);color:var(--text);
+  border-radius:20px;padding:clamp(28px,4.5vw,52px);
+  box-shadow:0 26px 60px rgba(0,0,0,.5);
+}
+.card.go{transition:transform .22s ease-in,opacity .22s ease-in}
+.name{font-size:clamp(40px,7.4vw,76px);font-weight:700;letter-spacing:-.01em;line-height:1.12;margin:0 0 clamp(18px,2.6vw,26px);word-break:break-word}
+.facts{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px 22px;border-top:1px solid var(--hair);padding-top:clamp(18px,2.6vw,26px)}
+.grade{padding:8px 18px;border-radius:8px;background:var(--text);color:var(--paper);font-size:clamp(17px,2vw,21px);font-weight:700;letter-spacing:.1em}
+.gap{font-size:clamp(24px,3.6vw,38px);font-weight:700;font-variant-numeric:tabular-nums}
+.gap.cold{color:var(--opp)}
+.when{color:var(--muted);font-size:clamp(15px,1.9vw,19px);font-variant-numeric:tabular-nums}
+.memo{
+  margin-top:clamp(16px,2.4vw,24px);padding:14px 20px;border-radius:12px;width:100%;text-align:left;
+  background:#F1EBDF;color:var(--text);font-size:clamp(16px,2vw,20px);line-height:1.5;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.memo:empty,.memo[hidden]{display:none}
+.memo span{color:var(--muted);font-size:.85em;white-space:nowrap}
+.memo:active{background:#E7DFCF}
+
+/* 紀錄面板：蓋在分堆畫面上 */
+.sheet{position:fixed;inset:0;background:rgba(14,20,25,.72);display:none;align-items:flex-end;justify-content:center;z-index:9}
+.sheet.on{display:flex}
+.panel{
+  width:min(760px,100%);max-height:82dvh;overflow:auto;background:var(--paper);color:var(--text);
+  border-radius:20px 20px 0 0;padding:clamp(22px,3.6vw,36px);padding-bottom:max(24px,env(safe-area-inset-bottom));
+}
+.panel h3{margin:0 0 6px;font-size:clamp(24px,3.6vw,32px)}
+.panel .sub{margin:0 0 18px;color:var(--muted);font-size:16px}
+.entry{border-top:1px solid var(--hair);padding:16px 0}
+.entry time{display:block;font-weight:700;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.entry p{margin:0;white-space:pre-wrap;line-height:1.7;font-size:clamp(16px,2vw,19px)}
+.close{margin-top:18px;width:100%;padding:16px;border-radius:999px;background:var(--text);color:var(--paper);font-size:17px;font-weight:600}
+
+.choices{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.choice{
+  padding:clamp(20px,3vw,30px) 12px;border-radius:18px;text-align:center;color:#fff;
+  display:flex;flex-direction:column;gap:6px;align-items:center;
+}
+.choice:active{transform:translateY(2px)}
+.choice b{font-size:clamp(20px,2.7vw,28px);font-weight:700;letter-spacing:.02em}
+.choice small{font-size:clamp(13px,1.5vw,15px);opacity:.82;font-weight:400}
+.c-opp{background:var(--opp)}
+.c-keep{background:var(--keep)}
+.c-park{background:var(--park)}
+
+/* ── 畫面三：結果 ───────────────────────────── */
+#done{justify-content:center;align-items:center;gap:26px;text-align:center}
+.tally{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:12px;width:min(760px,100%)}
+.tile{background:var(--ink-soft);border-radius:18px;padding:clamp(22px,3vw,32px) 14px}
+.tile b{display:block;font-size:clamp(40px,6vw,60px);font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.tile span{display:block;margin-top:10px;color:#93A0AC;font-size:clamp(14px,1.7vw,17px)}
+.t-opp b{color:#F97316}.t-keep b{color:#2DD4BF}.t-park b{color:#94A3B8}
+.acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.ghost{padding:18px 32px;border-radius:999px;border:1px solid #33404D;color:#B8C2CC;font-size:17px;text-decoration:none;display:inline-block}
+.solid{padding:18px 34px;border-radius:999px;background:var(--paper);color:var(--text);font-size:17px;font-weight:600}
+
+@media (max-width:720px){
+  .choices{grid-template-columns:1fr;gap:10px}
+  .choice{flex-direction:row;justify-content:center;gap:10px;padding:18px}
+  .choice small{opacity:.75}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+:focus-visible{outline:3px solid #F97316;outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- 畫面一：把 clients.json 讀進來 -->
+<section id="load" class="screen on">
+  <h1 class="brand">客戶<span>分堆</span></h1>
+  <p class="lede">一次看一位客戶，決定他該進哪一堆。分完之前不會問你別的事。</p>
+  <button class="pick" id="loadDemo" type="button">看示範資料 →</button>
+  <p class="note" style="margin-top:6px">示範模式，以下全部是假客戶名單，不是真實資料。</p>
+  <label class="ghost" for="file" style="cursor:pointer">或選自己的客戶檔案</label>
+  <input id="file" type="file" accept=".json,application/json">
+  <p class="err" id="err"></p>
+  <p class="note">檔案是 clients.json。資料只留在這台裝置上，不會上傳。</p>
+</section>
+
+<!-- 畫面二：一次一張卡 -->
+<section id="sort" class="screen">
+  <div class="bar">
+    <div class="left">還剩 <b id="left">0</b> 位<span class="pre" id="pre"></span></div>
+    <button class="undo" id="undo" disabled>回上一位</button>
+  </div>
+  <div class="stage">
+    <div class="stack" id="stack" style="--depth:1">
+      <article class="card" id="card">
+        <h2 class="name" id="name">—</h2>
+        <div class="facts">
+          <span class="grade" id="grade">D</span>
+          <span class="gap" id="gap">—</span>
+          <span class="when" id="when"></span>
+        </div>
+        <button class="memo" id="memo" hidden></button>
+      </article>
+    </div>
+  </div>
+  <div class="choices">
+    <button class="choice c-opp"  data-pick="A"><b>今年有機會</b><small>要主動經營</small></button>
+    <button class="choice c-keep" data-pick="B"><b>要維繫</b><small>別讓他忘了我</small></button>
+    <button class="choice c-park" data-pick="D"><b>先放著</b><small>今年不碰</small></button>
+  </div>
+</section>
+
+<!-- 紀錄面板：看這位客戶在備忘錄裡記過什麼 -->
+<div class="sheet" id="sheet">
+  <div class="panel" role="dialog" aria-modal="true">
+    <h3 id="sheetName"></h3>
+    <p class="sub" id="sheetSub"></p>
+    <div id="sheetBody"></div>
+    <button class="close" id="sheetClose">關閉</button>
+  </div>
+</div>
+
+<!-- 畫面三：分完之後 -->
+<section id="done" class="screen">
+  <h1 class="brand">分完了</h1>
+  <div class="tally">
+    <div class="tile t-opp"><b id="nA">0</b><span>今年有機會</span></div>
+    <div class="tile t-keep"><b id="nB">0</b><span>要維繫</span></div>
+    <div class="tile t-park"><b id="nD">0</b><span>先放著</span></div>
+  </div>
+  <p class="lede" id="summary"></p>
+  <div class="acts">
+    <button class="solid" id="save">下載分堆結果</button>
+    <button class="ghost" id="copy">複製成文字</button>
+    <button class="ghost" id="reset">重新分一次</button>
+  </div>
+</section>
+
+<script type="application/json" id="demoData">
+[
+ {
+  "name": "測試客戶01",
+  "marketing": { "active": true, "kind": "預計下回聯絡", "date": "2026-10-04", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "star": true,
+  "notes": [
+   { "date": "2026-08-21", "text": "問過保費調整方案，說要跟家人商量\n下次聯絡可以直接帶新方案的比較表" },
+   { "date": null, "text": "生日在 11 月，記得提前打招呼" }
+  ],
+  "attachments": 2
+ },
+ {
+  "name": "測試客戶02",
+  "marketing": { "active": false, "kind": null, "date": null, "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "notes": [
+   { "date": "2026-06-02", "text": "小孩剛出生，提過想加保，還沒回覆" }
+  ],
+  "attachments": 3
+ },
+ {
+  "name": "測試客戶03",
+  "marketing": { "active": true, "kind": "上回聯絡", "date": "2026-05-06", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶04",
+  "marketing": { "active": true, "kind": "預計下回聯絡", "date": "2026-10-07", "grade": "新" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "notes": [
+   { "date": "2026-09-01", "text": "朋友介紹的新客戶，第一次見面聊得不錯" }
+  ]
+ },
+ {
+  "name": "測試客戶05",
+  "marketing": { "active": false, "kind": null, "date": null, "grade": "C" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶06",
+  "marketing": { "active": true, "kind": "上回聯絡", "date": "2026-05-09", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "notes": [
+   { "date": "2026-05-09", "text": "換工作了，收入穩定下來再談增額" }
+  ]
+ },
+ {
+  "name": "測試客戶07",
+  "marketing": { "active": true, "kind": "預計下回聯絡", "date": "2026-10-10", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶08",
+  "marketing": { "active": false, "kind": null, "date": null, "grade": "B" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "notes": [
+   { "date": "2026-07-14", "text": "對長照險有興趣，之前寄過資料還沒約時間" }
+  ],
+  "attachments": 1
+ },
+ {
+  "name": "測試客戶09",
+  "marketing": { "active": true, "kind": "上回聯絡", "date": "2026-05-12", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶10",
+  "marketing": { "active": true, "kind": "預計下回聯絡", "date": "2026-10-13", "grade": "C" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶11",
+  "marketing": { "active": false, "kind": null, "date": null, "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null }
+ },
+ {
+  "name": "測試客戶12",
+  "marketing": { "active": true, "kind": "上回聯絡", "date": "2026-05-15", "grade": "D" },
+  "recruit": { "active": false, "kind": null, "date": null, "grade": null },
+  "notes": [
+   { "date": "2026-02-01", "text": "續保金額調整過，已經說明清楚" },
+   { "date": "2026-05-15", "text": "接起來聊了一下近況，沒特別的事" }
+  ]
+ },
+ {
+  "name": "只有增員線的人",
+  "marketing": { "active": false, "kind": null, "date": null, "grade": null },
+  "recruit": { "active": true, "kind": "上回聯絡", "date": "2025-03-16", "grade": "RC" },
+  "notes": [
+   { "date": "2025-03-16", "text": "對轉職有興趣，約了下次喝咖啡聊增員" }
+  ]
+ }
+]
+</script>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const KEY = "kehu-fendui-v1";           // 進度存在這台裝置上
+const DAY = 86400000;
+
+let queue = [];   // 還沒分的
+let history = []; // 已分的，供回上一位
+let source = [];  // 匯入的原始資料，重新分一次時用
+
+/* 只處理行銷線且有分級的人；增員線第一版不碰 */
+function build(raw){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const rows = raw
+    .filter(r => r.marketing && r.marketing.grade)
+    .map(r => {
+      const m = r.marketing, d = m.date ? new Date(m.date) : null;
+      const past = m.kind === "上回聯絡";
+      return {
+        name: r.name,
+        grade: m.grade,
+        kind: m.kind || null,
+        date: m.date || null,
+        days: past && d ? Math.round((today - d) / DAY) : null,
+        star: r.star === true,     /* 她手打名單上的人 */
+        notes: Array.isArray(r.notes) ? r.notes : [],   /* 備忘錄裡的紀錄 */
+        attachments: r.attachments || 0
+      };
+    });
+  /* 最近聯絡過的排前面：她記得住的先分，速度最快 */
+  rows.sort((a,b) => {
+    const rank = x => x.days !== null ? 0 : (x.kind ? 1 : 2);
+    if (rank(a) !== rank(b)) return rank(a) - rank(b);
+    return (a.days ?? 0) - (b.days ?? 0);
+  });
+  return rows;
+}
+
+/* 她自己手打的重點客戶，先放進「今年有機會」，不用再分一次 */
+function start(raw){
+  const rows = build(raw);
+  history = rows.filter(r => r.star).map(r => ({ ...r, choice:"A", preset:true }));
+  queue = rows.filter(r => !r.star);
+}
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+}
+
+function render(){
+  if (!queue.length) return finish();
+  const p = queue[0];
+  $("#name").textContent = p.name;
+  $("#grade").textContent = p.grade === "新" ? "新客戶" : p.grade + " 級";
+  const gap = $("#gap");
+  if (p.days !== null){
+    gap.textContent = "已 " + p.days + " 天沒聯絡";
+    gap.classList.toggle("cold", p.days > 90);
+    $("#when").textContent = "上次 " + p.date;
+  } else if (p.kind){
+    gap.textContent = "還沒聯絡過";
+    gap.classList.remove("cold");
+    $("#when").textContent = "系統排定 " + p.date;
+  } else {
+    gap.textContent = "從未聯絡";
+    gap.classList.remove("cold");
+    $("#when").textContent = "";
+  }
+  /* 有紀錄就在卡片上多一行，點了看內文 */
+  /* 舊版存下的進度沒有 notes 欄位，補成空的 */
+  p.notes = p.notes || []; p.attachments = p.attachments || 0;
+  const memo = $("#memo"), n = p.notes.length, latest = p.notes.find(x => x.date);
+  if (n || p.attachments){
+    memo.hidden = false;
+    memo.innerHTML = (n ? `備忘錄有 ${n} 筆紀錄` : `備忘錄有 ${p.attachments} 張照片`) +
+      `<span>${latest ? "最近 " + latest.date : (p.attachments && !n ? "" : "沒標日期")}</span>`;
+  } else memo.hidden = true;
+  $("#left").textContent = queue.length;
+  const pre = history.filter(h => h.preset).length;
+  $("#pre").textContent = pre ? `你名單上的 ${pre} 位已先放進「今年有機會」` : "";
+  /* 預填的人不給回上一位，回到底就停 */
+  $("#undo").disabled = !history.length || history[history.length - 1].preset === true;
+  /* 後方紙堆的厚度跟著剩餘量走 */
+  $("#stack").style.setProperty("--depth", Math.min(1, queue.length / 40).toFixed(2));
+}
+
+const OFFSET = { A:[-1,0], B:[0,1], D:[1,0] };  // 卡片飛向對應的按鈕
+
+function pick(choice){
+  if (!queue.length) return;
+  const p = queue.shift();
+  history.push({ ...p, choice });
+  const card = $("#card"), [x,y] = OFFSET[choice];
+  card.classList.add("go");
+  card.style.transform = `translate(${x*55}%, ${y*35}%) rotate(${x*7}deg)`;
+  card.style.opacity = "0";
+  setTimeout(() => {
+    card.classList.remove("go");
+    card.style.transform = ""; card.style.opacity = "";
+    save(); render();
+  }, 200);
+}
+
+function undo(){
+  if (!history.length || history[history.length - 1].preset) return;
+  const p = history.pop();
+  delete p.choice;
+  queue.unshift(p);
+  save(); render();
+}
+
+function finish(){
+  const n = c => history.filter(h => h.choice === c).length;
+  $("#nA").textContent = n("A"); $("#nB").textContent = n("B"); $("#nD").textContent = n("D");
+  const work = n("A") + n("B");
+  const pre = history.filter(h => h.preset).length;
+  $("#summary").textContent =
+    `${history.length} 位分完，其中 ${work} 位要主動經營` +
+    (pre ? `（含你名單上先放進去的 ${pre} 位）` : "") +
+    `。剩下 ${n("D")} 位今年先放著。`;
+  show("done");
+}
+
+function save(){
+  try {
+    localStorage.setItem(KEY, JSON.stringify({ source, queue, history }));
+  } catch (e) { /* 空間不足或私密瀏覽，不影響分堆本身 */ }
+}
+
+function restore(){
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!s || !s.source) return false;
+    source = s.source; queue = s.queue || []; history = s.history || [];
+    if (!queue.length && history.length) { finish(); return true; }
+    show("sort"); render(); return true;
+  } catch (e) { return false; }
+}
+
+function asText(){
+  const label = { A:"今年有機會", B:"要維繫", D:"先放著" };
+  return ["A","B","D"].map(c =>
+    label[c] + "（" + history.filter(h => h.choice === c).length + " 位）\n" +
+    history.filter(h => h.choice === c).map(h => "  " + h.name).join("\n")
+  ).join("\n\n");
+}
+
+/* 示範資料：作品集 demo 用，內容全是假客戶。直接內嵌，不靠 fetch，
+   file:// 直接雙擊打開也能跑（fetch 讀本機檔案在 file:// 下會被瀏覽器擋掉）。 */
+const DEMO_DATA = JSON.parse(document.getElementById("demoData").textContent);
+$("#loadDemo").addEventListener("click", () => {
+  $("#err").textContent = "";
+  try {
+    source = DEMO_DATA; start(DEMO_DATA);
+    save(); show("sort"); render();
+  } catch (err) {
+    $("#err").textContent = "示範資料載入失敗：" + err.message;
+  }
+});
+
+/* 匯入 */
+$("#file").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return;
+  $("#err").textContent = "";
+  try {
+    const raw = JSON.parse(await f.text());
+    if (!Array.isArray(raw)) throw new Error("格式不對");
+    source = raw; start(raw);
+    if (!queue.length && !history.length) throw new Error("這個檔案裡沒有行銷線的客戶");
+    save(); show("sort"); render();
+  } catch (err) {
+    $("#err").textContent = "讀不到客戶資料：" + err.message + "。請確認選的是 clients.json。";
+  }
+});
+
+/* 紀錄面板 */
+function openSheet(){
+  const p = queue[0]; if (!p) return;
+  $("#sheetName").textContent = p.name;
+  $("#sheetSub").textContent =
+    (p.attachments ? `${p.attachments} 張照片在「客戶紀錄」資料夾裡。` : "") +
+    (p.notes.length ? "" : "這位只有照片，沒有文字紀錄。");
+  $("#sheetBody").innerHTML = p.notes.map(x =>
+    `<div class="entry"><time>${x.date || "沒標日期"}</time><p></p></div>`).join("");
+  document.querySelectorAll("#sheetBody p").forEach((el, i) => el.textContent = p.notes[i].text);
+  $("#sheet").classList.add("on");
+}
+function closeSheet(){ $("#sheet").classList.remove("on"); }
+$("#memo").addEventListener("click", openSheet);
+$("#sheetClose").addEventListener("click", closeSheet);
+$("#sheet").addEventListener("click", e => { if (e.target === $("#sheet")) closeSheet(); });
+
+document.querySelectorAll(".choice").forEach(b =>
+  b.addEventListener("click", () => pick(b.dataset.pick)));
+$("#undo").addEventListener("click", undo);
+
+/* 鍵盤：桌機測試用 */
+document.addEventListener("keydown", e => {
+  if (!$("#sort").classList.contains("on")) return;
+  if ($("#sheet").classList.contains("on")) { if (e.key === "Escape") closeSheet(); return; }
+  const k = { "1":"A", "2":"B", "3":"D" }[e.key];
+  if (k) pick(k);
+  if (e.key === "Backspace") { e.preventDefault(); undo(); }
+});
+
+$("#save").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(history, null, 2)], { type:"application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "分堆結果.json"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+$("#copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(asText()); $("#copy").textContent = "已複製"; }
+  catch (e) { $("#copy").textContent = "複製失敗，請用下載"; }
+  setTimeout(() => $("#copy").textContent = "複製成文字", 2000);
+});
+
+$("#reset").addEventListener("click", () => {
+  start(source); save(); show("sort"); render();
+});
+
+restore();
+</script>
+</body>
+</html>

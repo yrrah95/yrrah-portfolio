@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>保險客戶分堆工具 — Yrrah</title>
+  <meta name="description" content="幫媽媽做的保險客戶管理工具，案例說明與設計決定。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+
+  <header class="nav-edge">
+    <a class="wordmark" href="index.html">Yrrah</a>
+    <a class="cta-outline" href="contact.html">聯絡 →</a>
+  </header>
+
+  <main id="main">
+    <div class="case-head">
+      <a class="case-back" href="index.html">← 回作品集</a>
+      <p class="case-head__tags">UI設計 · 工具設計</p>
+      <h1 class="case-head__title">保險客戶分堆工具——幫媽媽做的實戰案例</h1>
+    </div>
+
+    <article class="prose">
+      <p class="lede">保險從業幾十個客戶，誰該主動維繫、誰先放著，光憑記憶很容易漏掉——尤其是「已經很久沒聯絡」這種該主動的訊號，需要一個隨時看得到的地方。</p>
+
+      <div class="demo-cta">
+        <a class="demo-cta__link" href="demo/insurance/index.html" target="_blank" rel="noopener">▶ 試玩 demo</a>
+        <span class="demo-cta__note">點「看示範資料」就能滑分類，全是假客戶。</span>
+      </div>
+
+      <h2>問題</h2>
+      <p>這是我媽的真實工作痛點：客戶名單一多，分級跟聯絡狀況都在腦子裡，沒有整理過。</p>
+
+      <h2>怎麼做</h2>
+      <p>單檔網頁，不用裝、不用登入。上傳一份客戶名單，畫面一次顯示一位客戶——分級、已經幾天沒聯絡、上次聯絡日期，一眼看到。滑向三個桶：「今年有機會」「要維繫」「先放著」，分完就是一份可以照著做的名單。</p>
+
+      <figure>
+        <img src="assets/work/insurance.jpg" alt="保險客戶分堆工具介面，深色紙感風格，顯示客戶分級與未聯絡天數，下方三個分類按鈕" loading="lazy" />
+        <figcaption>分堆畫面——分級、未聯絡天數、三個去向，一次只看一位客戶。</figcaption>
+      </figure>
+
+      <h2>隱私設計</h2>
+      <p>資料只存在瀏覽器裡，不上傳雲端。另外寫了幾支 Python 小工具幫忙整理外部匯出的資料，但那些工具讀寫的資料夾刻意放在專案外面，程式碼本身沒有寫死任何真實客戶資料。</p>
+
+      <h2>我的角色</h2>
+      <p>一個人做的，使用者是真的在用——我媽。</p>
+
+      <p class="note">案例畫面使用測試資料（「測試客戶01」～「12」這類假名），不是真實客戶資訊。</p>
+
+      <p>家人、朋友的小工具，也值得好好設計。<a href="contact.html">寫信聊聊 →</a></p>
+    </article>
+  </main>
+
+  <div class="case-nav">
+    <a href="work-teach.html">← 上一個案例：TEACH</a>
+    <a href="work-dashboard.html">下一個案例：個人資料儀表板 →</a>
+  </div>
+
+  <footer class="foot-letter">
+    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign" style="font-family:var(--font-outlier)">— Yrrah</span></p>
+    <p class="foot-letter__ps">P.S. — 案子想聊聊，填<a href="contact.html">聯絡頁</a>的表單，或在 <a href="https://www.threads.net/@yrrah9_" target="_blank" rel="noopener">Threads</a> 上找我。</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Threads 粉絲儀表板——示範 | Yrrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/tokens.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="wrap" style="max-width:960px">
+    <a class="back" href="../../work-dashboard.html">← 回案例說明</a>
+    <p class="banner">示範模式，帳號、粉絲數、貼文標題、假設分析全部是示意內容，版面跟圖表邏輯（預測虛線、里程碑參考線、事件標註、可排序表格）跟實際使用中的工具相同。</p>
+
+    <nav class="demo-tabs">
+      <a class="demo-tab" href="index.html">總覽</a>
+      <a class="demo-tab" href="reading.html">閱讀</a>
+      <a class="demo-tab" href="skill.html">技能</a>
+      <a class="demo-tab is-on" href="threads.html">Threads</a>
+      <a class="demo-tab" href="spending.html">消費</a>
+      <a class="demo-tab" href="schedule.html">每週</a>
+    </nav>
+
+    <h1 style="font-family:var(--font-display);font-size:var(--text-xl);margin:0 0 var(--space-lg)">Threads</h1>
+
+    <div class="rp-tabs" role="tablist">
+      <button class="rp-tab on" data-pane="overview" type="button">總覽</button>
+      <button class="rp-tab" data-pane="insight" type="button">洞察</button>
+      <button class="rp-tab" data-pane="perf" type="button">表現</button>
+    </div>
+
+    <!-- ===== 總覽 ===== -->
+    <section class="th-pane" id="pane-overview">
+      <div class="th-split">
+        <div class="th-hero">
+          <div class="th-big" id="thBig">178</div>
+          <div class="th-status">
+            <span class="badge is-done">今天已排程</span>
+            <span class="th-status-n">自動跑排程 <b>07:45</b></span>
+            <span class="th-status-n">連續發文 <b>12</b> 天</span>
+          </div>
+          <p class="prose-like" style="font-size:var(--text-sm);color:var(--color-muted);margin:0 0 var(--space-xs)">近 21 日約 <b style="color:var(--color-ink)">+3.6</b>／日，照這速度 <b style="color:var(--color-ink)">2026 年 11 月上旬</b> 破 300</p>
+          <p class="prose-like" style="font-size:var(--text-sm);color:var(--color-muted);margin:0">07-01 的 50 走到今天 178，57 天 ＋128。破 100 是 07-19，下一個 200，還差 22。</p>
+
+          <div class="th-chartbox"><canvas id="trendChart"></canvas></div>
+          <p style="font-size:var(--text-xs);color:var(--color-muted);margin-top:var(--space-xs)">資料截止 2026-08-27（示意）</p>
+        </div>
+
+        <div class="th-side">
+          <div class="th-sec">
+            <h2 style="margin-bottom:var(--space-2xs)">示範系列</h2>
+            <p style="font-size:var(--text-sm);color:var(--color-muted);margin:0 0 var(--space-sm)">20 篇 · 3 篇沒有 72h 快照</p>
+            <div class="mo-grid" style="grid-template-columns:1fr 1fr">
+              <div class="card"><div style="font-size:var(--text-xs);color:var(--color-muted)">讚率中位</div><div class="th-big" style="font-size:var(--text-xl)">3.8%</div></div>
+              <div class="card"><div style="font-size:var(--text-xs);color:var(--color-muted)">互動率中位</div><div class="th-big" style="font-size:var(--text-xl)">5.2%</div></div>
+              <div class="card"><div style="font-size:var(--text-xs);color:var(--color-muted)">爆文<span style="display:block;font-size:10px">中位 2 倍以上</span></div><div class="th-big" style="font-size:var(--text-xl)">4 篇</div></div>
+              <div class="card"><div style="font-size:var(--text-xs);color:var(--color-muted)">最新熟成</div><div class="th-big" style="font-size:var(--text-xl)">Day 3<span class="badge is-done" style="margin-left:6px;font-size:10px">+5%對中位</span></div></div>
+            </div>
+          </div>
+
+          <div class="th-next">
+            <div class="label">下一篇處方</div>
+            <div style="font-size:var(--text-sm)">用「反差式開頭」試示範主題 B——目前樣本裡這個組合中位讚率比平均高，樣本數還不夠大，值得再測。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 洞察 ===== -->
+    <section class="th-pane" id="pane-insight" hidden>
+      <ol class="th-head">
+        <li><p><b>開頭句式</b>比主題本身更能預測讚率——「反差式開頭」中位數比「清單式開頭」高約 40%，樣本仍偏少。</p></li>
+        <li><p>發文時段落在 <b>18:45</b> 前後的互動率，普遍比其他時段高，但只驗證了 3 週。</p></li>
+        <li><p>系列文的<b>第 3～5 篇</b>常是熟成最快的位置，像是讀者對系列有印象之後才願意互動。</p></li>
+      </ol>
+
+      <div class="th-pats">
+        <div class="th-pat" data-detail="d1">
+          <div class="th-pat-h"><span class="th-lv ok">已驗證</span></div>
+          <p class="th-pat-t">反差式開頭 vs 清單式開頭，讚率差 1.4 倍</p>
+          <button class="th-pat-btn" type="button">細節</button>
+        </div>
+        <div class="th-pat" data-detail="d2">
+          <div class="th-pat-h"><span class="th-lv mid">趨勢中</span></div>
+          <p class="th-pat-t">晚間 18:45 前後發文，互動率高於其他時段</p>
+          <button class="th-pat-btn" type="button">細節</button>
+        </div>
+        <div class="th-pat" data-detail="d3">
+          <div class="th-pat-h"><span class="th-lv low">假設</span></div>
+          <p class="th-pat-t">系列文第 3～5 篇熟成最快</p>
+          <button class="th-pat-btn" type="button">細節</button>
+        </div>
+        <div class="th-pat" data-detail="d4">
+          <div class="th-pat-h"><span class="th-lv low">假設</span></div>
+          <p class="th-pat-t">提問式開頭的留言率比其他句式高</p>
+          <button class="th-pat-btn" type="button">細節</button>
+        </div>
+      </div>
+
+      <div id="patDetail"></div>
+
+      <div class="th-sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(24em,100%),1fr));gap:var(--space-lg)">
+        <div>
+          <h2>下一步實驗</h2>
+          <p style="font-size:var(--text-sm)">接下來兩週固定用「反差式開頭」發示範主題 B，其餘變數不動，看讚率差距是不是穩定重現。</p>
+        </div>
+        <details class="fold-demo">
+          <summary style="cursor:pointer;font-weight:600;font-size:var(--text-sm)">待驗證假設</summary>
+          <ul style="font-size:var(--text-sm);color:var(--color-muted)">
+            <li>發文時段對互動率的影響，是不是被「內容本身剛好也是那個時段寫的」混淆</li>
+            <li>系列文第 3～5 篇熟成快，會不會只是因為讀者剛好那幾天比較常滑</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== 表現 ===== -->
+    <section class="th-pane" id="pane-perf" hidden>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg)">
+        <div>
+          <div class="label" style="font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--space-xs)">讚率（每篇 vs 中位數）</div>
+          <div class="th-chartbox th-chartbox-s"><canvas id="likeScatter"></canvas></div>
+        </div>
+        <div>
+          <div class="label" style="font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--space-xs)">瀏覽數（每篇 vs 中位數）</div>
+          <div class="th-chartbox th-chartbox-s"><canvas id="viewScatter"></canvas></div>
+        </div>
+      </div>
+
+      <div class="th-tblwrap">
+        <table class="th-tbl" id="postTable">
+          <thead>
+            <tr>
+              <th><button class="th-sort" data-key="day" data-dir="asc" type="button">Day</button></th>
+              <th><button class="th-sort" data-key="date" type="button">日期</button></th>
+              <th><button class="th-sort" data-key="topic" type="button">題材</button></th>
+              <th><button class="th-sort" data-key="hook" type="button">鉤子</button></th>
+              <th><button class="th-sort" data-key="views" type="button">瀏覽</button></th>
+              <th><button class="th-sort" data-key="like" type="button">讚率</button></th>
+              <th><button class="th-sort" data-key="eng" type="button">互動率</button></th>
+            </tr>
+          </thead>
+          <tbody id="postBody"></tbody>
+        </table>
+      </div>
+      <button class="th-more" id="moreBtn" type="button">展開其餘項</button>
+    </section>
+  </div>
+
+  <script>
+    /* ---- 示範資料生成：全部假資料，用固定亂數種子讓每次畫面一致 ---- */
+    function seeded(seed) {
+      let s = seed;
+      return () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
+    }
+    const rand = seeded(42);
+
+    // 粉絲趨勢：57 天，50 -> 178，再往後預測到 300
+    const trendLabels = [];
+    const trendActual = [];
+    const startDate = new Date(2026, 6, 1); // 07-01
+    let val = 50;
+    for (let i = 0; i <= 57; i += 3) {
+      const d = new Date(startDate); d.setDate(d.getDate() + i);
+      trendLabels.push((d.getMonth() + 1).toString().padStart(2, "0") + "-" + d.getDate().toString().padStart(2, "0"));
+      val += 4 + rand() * 5;
+      trendActual.push(Math.round(val));
+    }
+    trendActual[trendActual.length - 1] = 178;
+    // 預測延伸：從最後一點到目標 300
+    const predLabels = [];
+    const predValues = [];
+    let pv = trendActual[trendActual.length - 1];
+    let pd = new Date(startDate); pd.setDate(pd.getDate() + 57);
+    for (let i = 0; i < 12; i++) {
+      pd = new Date(pd); pd.setDate(pd.getDate() + 5);
+      predLabels.push((pd.getMonth() + 1).toString().padStart(2, "0") + "-" + pd.getDate().toString().padStart(2, "0"));
+      pv += 10;
+      predValues.push(Math.round(pv));
+    }
+
+    const allLabels = trendLabels.concat(predLabels);
+    const actualData = trendActual.concat(new Array(predLabels.length).fill(null));
+    const predData = new Array(trendActual.length - 1).fill(null).concat([trendActual[trendActual.length - 1]]).concat(predValues);
+
+    const inkColor = getComputedStyle(document.documentElement).getPropertyValue("--color-ink").trim();
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue("--color-accent").trim();
+    const ruleColor = getComputedStyle(document.documentElement).getPropertyValue("--color-rule").trim();
+    const mutedColor = getComputedStyle(document.documentElement).getPropertyValue("--color-muted").trim();
+
+    // 事件標註 plugin：在特定 x 索引畫垂直虛線＋文字
+    const events = [
+      { index: 6, label: "首篇" },
+      { index: 20, label: "改版型" },
+      { index: 38, label: "系列開始" }
+    ];
+    const eventMarksPlugin = {
+      id: "eventMarks",
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        ctx.save();
+        events.forEach((ev, i) => {
+          const x = scales.x.getPixelForValue(ev.index);
+          if (x < chartArea.left || x > chartArea.right) return;
+          ctx.strokeStyle = ruleColor; ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(x, chartArea.top); ctx.lineTo(x, chartArea.bottom); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = mutedColor; ctx.font = "11px sans-serif";
+          ctx.fillText(ev.label, x + 4, chartArea.top + 12 + (i % 2) * 14);
+        });
+        ctx.restore();
+      }
+    };
+
+    new Chart(document.getElementById("trendChart"), {
+      type: "line",
+      data: {
+        labels: allLabels,
+        datasets: [
+          {
+            label: "粉絲數",
+            data: actualData,
+            borderColor: inkColor,
+            backgroundColor: "transparent",
+            borderWidth: 2,
+            pointRadius: (ctx) => ctx.dataIndex === trendActual.length - 1 ? 4 : 0,
+            pointBackgroundColor: inkColor,
+            tension: 0.25,
+            spanGaps: false
+          },
+          {
+            label: "預測",
+            data: predData,
+            borderColor: inkColor,
+            backgroundColor: "transparent",
+            borderWidth: 2,
+            borderDash: [6, 5],
+            pointRadius: 0,
+            tension: 0.25,
+            spanGaps: true
+          },
+          {
+            label: "目標 300",
+            data: new Array(allLabels.length).fill(300),
+            borderColor: accentColor,
+            borderWidth: 1,
+            pointRadius: 0,
+            borderDash: [2, 3]
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { maxTicksLimit: 8, color: mutedColor }, grid: { display: false } },
+          y: { ticks: { color: mutedColor }, grid: { color: ruleColor } }
+        }
+      },
+      plugins: [eventMarksPlugin]
+    });
+
+    /* ---- 示範貼文資料：20 篇假貼文 ---- */
+    const topics = ["示範主題 A", "示範主題 B", "示範主題 C"];
+    const hooks = ["提問式開頭", "故事式開頭", "反差式開頭", "清單式開頭"];
+    const posts = [];
+    for (let i = 1; i <= 20; i++) {
+      const d = new Date(startDate); d.setDate(d.getDate() + i * 2);
+      const like = +(2 + rand() * 6).toFixed(1);
+      const eng = +(like + rand() * 4).toFixed(1);
+      posts.push({
+        day: i,
+        date: (d.getMonth() + 1) + "/" + d.getDate(),
+        topic: topics[i % topics.length],
+        hook: hooks[i % hooks.length],
+        views: Math.round(800 + rand() * 6000),
+        like, eng
+      });
+    }
+    const likeMedian = posts.map(p => p.like).sort((a, b) => a - b)[Math.floor(posts.length / 2)];
+    const viewMedian = posts.map(p => p.views).sort((a, b) => a - b)[Math.floor(posts.length / 2)];
+
+    function scatter(canvasId, key, median) {
+      return new Chart(document.getElementById(canvasId), {
+        type: "line",
+        data: {
+          datasets: [{
+            data: posts.map(p => ({ x: p.day, y: p[key] })),
+            showLine: false,
+            pointRadius: 4.5,
+            pointBackgroundColor: posts.map(p => p[key] >= median ? accentColor : "transparent"),
+            pointBorderColor: posts.map(p => p[key] >= median ? accentColor : mutedColor),
+            pointBorderWidth: 1.5
+          }, {
+            label: "中位數",
+            data: posts.map(p => ({ x: p.day, y: median })),
+            showLine: true,
+            borderColor: ruleColor,
+            borderDash: [4, 4],
+            pointRadius: 0
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { type: "linear", min: 0, max: 21, title: { display: true, text: "Day", color: mutedColor }, ticks: { color: mutedColor }, grid: { display: false } },
+            y: { ticks: { color: mutedColor }, grid: { color: ruleColor } }
+          }
+        }
+      });
+    }
+    let likeChart, viewChart;
+    function ensurePerfCharts() {
+      if (likeChart) return;
+      likeChart = scatter("likeScatter", "like", likeMedian);
+      viewChart = scatter("viewScatter", "views", viewMedian);
+    }
+
+    /* ---- 可排序表格 ---- */
+    const tbody = document.getElementById("postBody");
+    const moreBtn = document.getElementById("moreBtn");
+    const SHOWN = 8;
+    function renderTable(rows) {
+      tbody.innerHTML = rows.map((p, i) => `
+        <tr class="${i >= SHOWN ? "is-hidden" : ""}">
+          <td class="th-day">${p.day}</td>
+          <td>${p.date}</td>
+          <td>${p.topic}</td>
+          <td>${p.hook}</td>
+          <td class="th-num">${p.views.toLocaleString()}</td>
+          <td class="th-num">${p.like}%</td>
+          <td class="th-num">${p.eng}%</td>
+        </tr>`).join("");
+      moreBtn.textContent = "展開其餘 " + Math.max(0, rows.length - SHOWN) + " 篇";
+      moreBtn.hidden = rows.length <= SHOWN;
+    }
+    renderTable(posts);
+
+    moreBtn.addEventListener("click", () => {
+      tbody.querySelectorAll("tr.is-hidden").forEach(tr => tr.classList.remove("is-hidden"));
+      moreBtn.hidden = true;
+    });
+
+    let sortDir = {};
+    document.querySelectorAll(".th-sort").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.key;
+        document.querySelectorAll(".th-sort").forEach(b => { if (b !== btn) b.removeAttribute("data-dir"); });
+        const dir = btn.dataset.dir === "asc" ? "desc" : "asc";
+        btn.dataset.dir = dir;
+        const sorted = posts.slice().sort((a, b) => {
+          const av = a[key], bv = b[key];
+          const cmp = typeof av === "number" ? av - bv : String(av).localeCompare(String(bv));
+          return dir === "asc" ? cmp : -cmp;
+        });
+        renderTable(sorted);
+      });
+    });
+
+    /* ---- 分頁切換 ----
+       隱藏分頁裡的 canvas 寬度量到 0，Chart.js 建圖時版面會算錯；
+       切回來要手動 resize() 一次，不然圖表擠成一團。 */
+    const tabs = document.querySelectorAll(".rp-tab");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.toggle("on", t === tab));
+        document.querySelectorAll(".th-pane").forEach(p => p.hidden = true);
+        document.getElementById("pane-" + tab.dataset.pane).hidden = false;
+        if (tab.dataset.pane === "perf") ensurePerfCharts();
+      });
+    });
+
+    /* ---- 假設卡片展開 ---- */
+    const detailContent = {
+      d1: { t: "反差式開頭 vs 清單式開頭", body: "示意統計：反差式開頭 8 篇，讚率中位 4.6%；清單式開頭 6 篇，讚率中位 3.3%。樣本仍偏少，先當作趨勢看待。" },
+      d2: { t: "晚間發文時段", body: "示意統計：18:45 前後發文 5 篇，互動率中位 6.1%；其他時段 15 篇，互動率中位 4.8%。" },
+      d3: { t: "系列文第 3～5 篇", body: "示意觀察：系列文前兩篇熟成天數中位 4 天，第 3～5 篇中位 2 天，之後回升。" },
+      d4: { t: "提問式開頭的留言率", body: "示意觀察：提問式開頭 5 篇，留言率略高於平均，樣本太少，先列為假設。" }
+    };
+    document.querySelectorAll(".th-pat-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest(".th-pat");
+        const isOn = card.classList.contains("on");
+        document.querySelectorAll(".th-pat").forEach(c => c.classList.remove("on"));
+        const box = document.getElementById("patDetail");
+        if (isOn) { box.innerHTML = ""; return; }
+        card.classList.add("on");
+        const d = detailContent[card.dataset.detail];
+        box.innerHTML = `<div class="th-pat-detail"><div class="th-pat-detail-h"><span class="th-pat-t" style="margin:0">${d.t}</span><button class="th-pat-close" type="button" onclick="document.querySelectorAll('.th-pat').forEach(c=>c.classList.remove('on'));this.closest('.th-pat-detail').remove()">收起</button></div><p style="font-size:var(--text-sm);color:var(--color-muted)">${d.body}</p></div>`;
+      });
+    });
+  </script>
+</body>
+</html>

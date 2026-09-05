@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-Hant" data-kind="lesson" data-topic="Singing" data-page="Singing/0004-slide-to-the-note">
+<head>
+<meta charset="utf-8">
+<title>第四課：用滑的找音</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="第三課要你一聽就唱中，那一步太大。這課換方法：從自己的舒服音出發，用滑的滑進目標。">
+<meta property="og:title" content="第四課：用滑的找音｜唱歌音準">
+<meta property="og:description" content="第三課要你一聽就唱中，那一步太大。這課換方法：從自己的舒服音出發，用滑的滑進目標。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://teach-tw.pages.dev/Singing/lessons/0004-slide-to-the-note.html">
+<meta property="og:image" content="https://teach-tw.pages.dev/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0d9488">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../../shared/site.css?v=57d4caed">
+</head>
+<body>
+
+<nav class="site-crumbs" aria-label="麵包屑"><a href="../../index.html">TEACH</a><span class="site-sep">/</span><a href="../../Singing/index.html">唱歌音準</a><span class="site-sep">/</span>第 4 課</nav>
+
+<h1>抓音準 第四課：用滑的找音</h1>
+<p class="lede">第三課要你一聽就唱中，那一步太大。這課換方法：從自己的舒服音出發，用滑的滑進目標。</p>
+<p class="site-needs"><strong>這一課需要麥克風和耳機。</strong>手機外放的話，麥克風會收到自己剛播的目標音，指針會亂跳。從 Threads、IG 這類 App 點進來的話，內建瀏覽器通常擋麥克風——請按右上角選單選「在瀏覽器開啟」。</p>
+
+<div class="nav-links">
+  <a href="0003-sing-it-out.html">回第三課</a>
+  <a href="../index.html">課程總覽</a>
+  <a href="../reference/pitch-glossary.html">音準詞彙卡</a>
+</div>
+
+<h2>先講個畫面</h2>
+<p>
+  第三課像蒙著眼投籃——聽一次目標音就要憑記憶唱中，那一步太大。
+  這課改成<strong>調水龍頭水溫</strong>：先隨便開一個溫度（你的舒服音），然後看著溫度計（指針）慢慢轉，
+  太燙就往冷轉、太冷就往熱轉，轉到剛好為止。你不需要「一開就中」，只需要「看著回饋慢慢調」——這件事你第三課第一題已經證明你會了。
+</p>
+
+<h2>警笛滑音：這課唯一要學的技巧</h2>
+<p>
+  唱一個「Ｕ——」或「啊——」，然後像救護車警笛一樣，讓聲音<strong>連續地</strong>往上滑或往下滑，中間不要斷、不要跳。
+  指針說你偏低，就邊唱邊往上滑；說偏高，就往下滑；滑進綠區就停在那裡撐住。
+  這是聲樂老師教初學者抓音的標準方法之一（英文叫 siren／pitch slide），因為它把「憑空找音」變成「有回饋的微調」。
+</p>
+
+<h2>練習</h2>
+<div class="card">
+  <p><strong>第一步：</strong>按下面的按鈕，用最舒服、不費力的音量隨便唱一聲「啊——」撐兩三秒。工具會抓到你的音，之後的目標音都從它附近出，保證在你的音域裡。</p>
+
+  <button id="start-btn">🎤 開始（先抓你的舒服音）</button>
+  <button id="replay-btn" style="display:none;">🔁 再聽一次目標音</button>
+  <button id="skip-btn" style="display:none;">跳過這題</button>
+  <button id="stop-btn" style="display:none;">■ 結束練習</button>
+
+  <p id="status" style="margin-top:1em;"></p>
+
+  <div class="pitch-meter" id="pitch-meter" style="display:none;">
+    <div class="pitch-meter-needle" id="pitch-needle"></div>
+  </div>
+  <div class="pitch-readout" id="pitch-readout"></div>
+
+  <div class="progress-track" id="progress-track" style="display:none;"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="callout" id="mic-error" style="display:none;"></div>
+<div class="callout" id="summary" style="display:none;"></div>
+
+<h2>三題的設計</h2>
+<p>
+  第一題的目標音就是<strong>你自己剛唱的音</strong>——唱回同一個音，練「穩住」。
+  第二題往上一個<a href="../reference/pitch-glossary.html">全音</a>、第三題往下一個全音——就是第一課在聽的那個距離，只是這次換你唱。
+  誤差 ±35 音分內算準（比第三課寬），指針停在綠區累積滿 1 秒就過關。目標音想聽幾次就按幾次「再聽一次」，不用背。
+</p>
+
+<p class="source">
+  這課的練法參考：<a href="https://sciencevocal.com/pitchfixing/" target="_blank" rel="noopener">SV科學歌唱——音準修正</a>（走音是「耳」與「聲帶協調」兩件事，滑音練的是後者）。
+</p>
+
+<script src="../assets/pitch-detect.js"></script>
+<script>
+(function () {
+  const TOLERANCE_CENTS = 35;
+  const HOLD_MS_NEEDED = 1000;
+  const CAPTURE_SAMPLES_NEEDED = 12;
+
+  // 三題：相對舒服音的半音偏移
+  const ROUNDS = [
+    { offset: 0,  label: '唱回你自己的音' },
+    { offset: 2,  label: '往上一個全音' },
+    { offset: -2, label: '往下一個全音' },
+  ];
+
+  let phase = 'idle'; // idle → capture → sing → done
+  let roundIdx = 0;
+  let baseFreq = null;
+  let targetFreq = null;
+  let captureBuf = [];
+  let holdMs = 0;
+  let roundDone = false;
+  let pauseUntil = 0; // 播目標音時暫停偵測，避免麥克風收到喇叭聲
+
+  let audioCtx = null, micStream = null, analyser = null, dataBuf = null, detectTimer = null;
+
+  const startBtn = document.getElementById('start-btn');
+  const replayBtn = document.getElementById('replay-btn');
+  const skipBtn = document.getElementById('skip-btn');
+  const stopBtn = document.getElementById('stop-btn');
+  const statusEl = document.getElementById('status');
+  const meterEl = document.getElementById('pitch-meter');
+  const needle = document.getElementById('pitch-needle');
+  const readout = document.getElementById('pitch-readout');
+  const trackEl = document.getElementById('progress-track');
+  const progressFill = document.getElementById('progress-fill');
+  const feedbackEl = document.getElementById('feedback');
+  const micErrorEl = document.getElementById('mic-error');
+  const summaryEl = document.getElementById('summary');
+
+  function ensureAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // iOS Safari 切到背景再回來會停在 suspended，播放不會有聲音也不報錯。
+    if (audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+    return audioCtx;
+  }
+
+  function micFail(msg) {
+    micErrorEl.style.display = 'block';
+    micErrorEl.innerHTML = msg + ' 也可以改用 ' +
+      '<a href="https://pitchdetector.com/ear-training/" target="_blank" rel="noopener">PitchDetector.com</a>' +
+      ' 的線上工具練同一件事，一樣是唱給它聽、給你音分回饋。';
+  }
+
+  // Threads、IG 這類 App 的內建瀏覽器常常直接擋掉麥克風，
+  // 而且是不跳權限視窗、直接失敗。先認出來才給得出有用的指示。
+  function inAppBrowser() {
+    var ua = navigator.userAgent || '';
+    return /Instagram|FBAN|FBAV|Threads|Line\//i.test(ua);
+  }
+
+  function playTone(freq) {
+    const ctx = ensureAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    const now = ctx.currentTime;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.3, now + 0.05);
+    gain.gain.setValueAtTime(0.3, now + 1.1);
+    gain.gain.linearRampToValueAtTime(0, now + 1.2);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 1.2);
+    pauseUntil = Date.now() + 1400;
+  }
+
+  function median(arr) {
+    const s = arr.slice().sort((a, b) => a - b);
+    return s[Math.floor(s.length / 2)];
+  }
+
+  function start() {
+    micErrorEl.style.display = 'none';
+    (function () {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        micFail(inAppBrowser()
+          ? '這個 App 的內建瀏覽器不給用麥克風。請按右上角選單，選「在瀏覽器開啟」。'
+          : '這個瀏覽器不支援麥克風錄音（或這個網址不是 https）。');
+        return Promise.reject(new Error('unsupported'));
+      }
+      return navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: false },
+        video: false
+      });
+    })()
+      .then((stream) => {
+        micStream = stream;
+        const ctx = ensureAudio();
+        const source = ctx.createMediaStreamSource(stream);
+        analyser = ctx.createAnalyser();
+        analyser.fftSize = 2048;
+        dataBuf = new Float32Array(analyser.fftSize);
+        source.connect(analyser);
+
+        phase = 'capture';
+        captureBuf = [];
+        startBtn.style.display = 'none';
+        stopBtn.style.display = '';
+        statusEl.textContent = '抓你的舒服音中——用不費力的音量唱「啊——」撐兩三秒';
+        readout.textContent = '';
+        detectTimer = setInterval(tick, 100);
+      })
+      .catch((err) => {
+        var name = (err && err.name) || '';
+        if (err && err.message === 'unsupported') return;
+        if (name === 'NotAllowedError' || name === 'SecurityError') {
+          micFail(inAppBrowser()
+            ? '麥克風被擋住了。這個 App 的內建瀏覽器通常不給用——請按右上角選單，選「在瀏覽器開啟」。'
+            : '你按了「不允許」。手機請點網址列左邊的圖示改成允許；電腦請點網址列左邊的鎖頭。');
+        } else if (name === 'NotFoundError' || name === 'OverconstrainedError') {
+          micFail('這台裝置上找不到麥克風。');
+        } else if (name === 'NotReadableError' || name === 'AbortError') {
+          micFail('麥克風正被別的程式佔用（視訊會議、錄音 App）。關掉它再回來。');
+        } else {
+          micFail('麥克風打不開。');
+        }
+      });
+  }
+
+  function stopAll() {
+    if (detectTimer) { clearInterval(detectTimer); detectTimer = null; }
+    if (micStream) { micStream.getTracks().forEach((t) => t.stop()); micStream = null; }
+  }
+
+  function beginRound(i) {
+    roundIdx = i;
+    const r = ROUNDS[i];
+    targetFreq = baseFreq * Math.pow(2, r.offset / 12);
+    holdMs = 0;
+    roundDone = false;
+    phase = 'sing';
+
+    statusEl.textContent = '第 ' + (i + 1) + ' / ' + ROUNDS.length + ' 題：' + r.label;
+    meterEl.style.display = '';
+    trackEl.style.display = '';
+    replayBtn.style.display = '';
+    skipBtn.style.display = '';
+    progressFill.style.width = '0%';
+    needle.style.left = '50%';
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    readout.textContent = '先聽目標音……';
+    playTone(targetFreq);
+  }
+
+  function tick() {
+    if (Date.now() < pauseUntil) return; // 目標音播放中，暫停偵測
+
+    analyser.getFloatTimeDomainData(dataBuf);
+    const freq = window.PitchDetect.autoCorrelate(dataBuf, audioCtx.sampleRate);
+
+    if (phase === 'capture') {
+      if (freq === -1) {
+        readout.textContent = '還沒聽到聲音，對著麥克風唱「啊——」';
+        return;
+      }
+      captureBuf.push(freq);
+      readout.textContent = '聽到了，繼續撐住……（' + captureBuf.length + ' / ' + CAPTURE_SAMPLES_NEEDED + '）';
+      if (captureBuf.length >= CAPTURE_SAMPLES_NEEDED) {
+        baseFreq = median(captureBuf);
+        feedbackEl.textContent = '抓到了！你的舒服音大約在 ' + Math.round(baseFreq) + ' Hz 附近（數字不用記）。';
+        feedbackEl.className = 'feedback correct';
+        setTimeout(() => beginRound(0), 1500);
+        phase = 'between';
+      }
+      return;
+    }
+
+    if (phase !== 'sing') return;
+
+    if (freq === -1) {
+      readout.textContent = '沒聽到聲音——唱「Ｕ——」然後開始滑';
+      needle.style.left = '50%';
+    } else {
+      const cents = window.PitchDetect.centsOffTarget(freq, targetFreq);
+      const clamped = Math.max(-50, Math.min(50, cents));
+      needle.style.left = (50 + (clamped / 50) * 50) + '%';
+
+      if (Math.abs(cents) <= TOLERANCE_CENTS) {
+        readout.textContent = '進綠區了，停在這裡撐住';
+        holdMs += 100;
+      } else if (cents > 0) {
+        readout.textContent = '偏高，往下滑～';
+        holdMs = Math.max(0, holdMs - 25);
+      } else {
+        readout.textContent = '偏低，往上滑～';
+        holdMs = Math.max(0, holdMs - 25);
+      }
+    }
+
+    progressFill.style.width = Math.min(100, (holdMs / HOLD_MS_NEEDED) * 100) + '%';
+
+    if (holdMs >= HOLD_MS_NEEDED && !roundDone) {
+      roundDone = true;
+      phase = 'between';
+      feedbackEl.textContent = '滑進去了！這題過關。';
+      feedbackEl.className = 'feedback correct';
+      advanceOrFinish();
+    }
+  }
+
+  function advanceOrFinish() {
+    if (roundIdx >= ROUNDS.length - 1) {
+      setTimeout(finishSession, 1200);
+    } else {
+      setTimeout(() => beginRound(roundIdx + 1), 1500);
+    }
+  }
+
+  function skipRound() {
+    feedbackEl.textContent = '這題跳過，沒關係。';
+    feedbackEl.className = 'feedback wrong';
+    roundDone = true;
+    phase = 'between';
+    advanceOrFinish();
+  }
+
+  function finishSession() {
+    stopAll();
+    statusEl.style.display = 'none';
+    meterEl.style.display = 'none';
+    trackEl.style.display = 'none';
+    readout.style.display = 'none';
+    replayBtn.style.display = 'none';
+    skipBtn.style.display = 'none';
+    stopBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+    summaryEl.style.display = 'block';
+    summaryEl.innerHTML = '練完了。回去告訴你的老師（agent）：哪題最快、哪題卡最久、'
+      + '往上滑好找還是往下滑好找——這決定下一課練什麼。想再練一輪，重新整理這頁。';
+  }
+
+  startBtn.addEventListener('click', start);
+  replayBtn.addEventListener('click', () => { readout.textContent = '再聽一次……'; playTone(targetFreq); });
+  skipBtn.addEventListener('click', skipRound);
+  stopBtn.addEventListener('click', () => { stopAll(); finishSession(); });
+  // 使用者切走或關掉分頁，麥克風要一起關。
+  window.addEventListener('pagehide', function () { stopAll(); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') stopAll();
+  });
+})();
+</script>
+
+
+<footer class="site-foot">
+  <p class="site-foot-lead">這一課是為一個具體的人設計的：先問他卡在哪，再決定教什麼、出什麼題。想要一份為你設計的？</p>
+  <p><button type="button" class="site-door"
+        aria-expanded="false" aria-controls="site-door-panel-Singing-0004-slide-to-the-note">我也想做自己的課</button></p>
+<div class="site-door-panel" id="site-door-panel-Singing-0004-slide-to-the-note" data-open="0">
+  <p>這個功能還在做。</p>
+  <p>現在是我一堂一堂手工設計的。如果有夠多人想要，我就把它做成任何人都能用的東西。</p>
+  <p><a class="site-door-go" href="/go-threads.html" target="_blank" rel="noopener">到 Threads 告訴我你想學什麼 →</a></p>
+</div>
+  <p class="site-foot-nav"><a href="../../index.html">全部主題</a><span class="site-sep">·</span><a href="../../Singing/index.html">唱歌音準</a><span class="site-sep">·</span><a href="../../Singing/resources.html">資料來源</a></p>
+</footer>
+
+<script src="../../shared/site.js?v=57d4caed"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a61fd171a409490fa7ea276d14835e35"}'></script></body>
+</html>
