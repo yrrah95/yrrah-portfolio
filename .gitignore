@@ -2,3 +2,6 @@
 .claude/
 .DS_Store
 Thumbs.db
+
+.hallmark/
+assets/work-src/

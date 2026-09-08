@@ -2,13 +2,15 @@
  * enrichment: none (typography-led; real screenshots pending)
  * nav: N9 Edge-aligned minimal · footer: Ft6 Letter close
  */
-@import url("tokens.css");
+/* tokens.css is loaded via its own <link> before this file — no @import (avoids a serial fetch) */
 
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
   overflow-x: clip;
-  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 
 body {
@@ -27,6 +29,20 @@ img { max-width: 100%; display: block; }
 a {
   color: inherit;
   text-decoration-color: var(--color-rule);
+}
+
+/* 螢幕報讀器可見、視覺隱藏（給缺視覺標題的頁面補 h1 用） */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .skip-link {
@@ -94,6 +110,22 @@ a {
 @keyframes reveal {
   to { opacity: 1; transform: none; }
 }
+
+/* ---------- rise (scroll-triggered reveal for case-study blocks) ----------
+   JS adds .armed (so JS-off keeps everything visible), then .in on view-enter. */
+
+.rise {
+  transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+}
+.rise.armed {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.rise.armed.in {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 150ms !important;
@@ -101,6 +133,9 @@ a {
     transition-duration: 150ms !important;
   }
   .reveal { animation-name: reveal; }
+  .rise.armed { opacity: 1; transform: none; }
+  .portfolio-card__link:hover .portfolio-card__thumb img,
+  .portfolio-card__link:focus-visible .portfolio-card__thumb img { transform: none; }
 }
 
 /* ---------- intro (Atelier: centred heading, single column, negative-space divider) ---------- */
@@ -182,6 +217,7 @@ a {
   background: var(--color-paper-2);
   border: 1px solid var(--color-rule);
   overflow: hidden;
+  transition: border-color var(--dur-short) var(--ease-out);
 }
 
 .portfolio-card__thumb img {
@@ -189,16 +225,16 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  transition: transform 600ms var(--ease-out);
 }
 
-.portfolio-card__thumb--empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--color-neutral);
-  font-size: var(--text-sm);
-  line-height: 1.5;
+.portfolio-card__link:hover .portfolio-card__thumb,
+.portfolio-card__link:focus-visible .portfolio-card__thumb {
+  border-color: var(--color-accent);
+}
+.portfolio-card__link:hover .portfolio-card__thumb img,
+.portfolio-card__link:focus-visible .portfolio-card__thumb img {
+  transform: scale(1.03);
 }
 
 .portfolio-card__body {
@@ -276,6 +312,7 @@ a {
 }
 
 .foot-letter__sign {
+  font-family: var(--font-outlier);
   font-style: normal;
   font-weight: 600;
 }
@@ -362,6 +399,7 @@ a {
 }
 .prose figure img {
   width: 100%;
+  height: auto; /* 有了 width/height 屬性後，這行讓瀏覽器照原比例算高、預留版位（防 CLS） */
   border: 1px solid var(--color-rule);
   border-radius: 4px;
 }
@@ -610,22 +648,6 @@ a {
   color: var(--color-muted);
   font-size: var(--text-sm);
   margin: var(--space-2xl) 0 var(--space-md);
-}
-
-.contact__email {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  color: var(--color-ink);
-  text-decoration: none;
-  border-bottom: 2px solid var(--color-rule);
-  padding-bottom: 2px;
-  overflow-wrap: anywhere;
-}
-.contact__email:hover {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
 }
 
 .contact__links {

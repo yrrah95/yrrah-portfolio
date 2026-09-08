@@ -5,10 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TEACH — Yrrah</title>
   <meta name="description" content="20堂互動課程的靜態教學網站，案例說明與設計決定。" />
+  <link rel="canonical" href="https://yrrah-5i5.pages.dev/work-teach.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Yrrah" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:url" content="https://yrrah-5i5.pages.dev/work-teach.html" />
+  <meta property="og:title" content="TEACH — Yrrah" />
+  <meta property="og:description" content="20堂互動課程的靜態教學網站，案例說明與設計決定。" />
+  <meta property="og:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yrrah 接案作品集" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TEACH — Yrrah" />
+  <meta name="twitter:description" content="20堂互動課程的靜態教學網站，案例說明與設計決定。" />
+  <meta name="twitter:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap&text=Yrrah%E2%80%94" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要內容</a>
@@ -33,35 +51,36 @@
         <span class="demo-cta__note">完整網站，可以直接玩幾堂課。</span>
       </div>
 
-      <h2>問題</h2>
+      <h2 class="rise">問題</h2>
       <p>線上課程常常是講完就結束，看完不代表學會。尤其是「臨場該怎麼回答」這種技能，光看影片練不出來，需要真的被問一次。</p>
 
-      <h2>怎麼做</h2>
+      <h2 class="rise">怎麼做</h2>
       <p>TEACH 是一個純靜態網站，20 堂課、三個主題——中文表達力、商業思維、唱歌音準，免費、不用註冊。每一課都用情境選擇題開場，答錯了不是扣分，畫面會告訴你「這是你的過程，不是結果」，逼你在看到正確答案之前先想一次，再往下讀。</p>
 
-      <figure>
-        <img src="assets/work/teach.jpg" alt="TEACH 教學網站首頁，顯示一堂互動選擇題與三個主題入口" loading="lazy" />
+      <figure class="rise">
+        <img fetchpriority="high" width="1568" height="744" src="assets/work/teach.jpg" alt="TEACH 教學網站首頁，顯示一堂互動選擇題與三個主題入口" />
         <figcaption>首頁畫面——選擇題開場，答案揭曉前先讓你自己想一次。</figcaption>
       </figure>
 
-      <h2>設計</h2>
+      <h2 class="rise">設計</h2>
       <p>整站是手刻的靜態頁面，自己定了一套設計規則、404 頁、社群分享圖，沒有套用任何課程平台的樣板。</p>
 
-      <h2>我的角色</h2>
+      <h2 class="rise">我的角色</h2>
       <p>內容規劃、介面設計、前端全部自己做。</p>
 
       <p>想做一個把「被動看」變成「主動答」的教學網站？<a href="contact.html">寫信聊聊 →</a></p>
     </article>
   </main>
 
-  <div class="case-nav">
+  <nav class="case-nav" aria-label="案例導覽">
     <a href="work-family.html">← 上一個案例：Family</a>
     <a href="work-insurance.html">下一個案例：保險客戶分堆工具 →</a>
-  </div>
+  </nav>
 
   <footer class="foot-letter">
-    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign" style="font-family:var(--font-outlier)">— Yrrah</span></p>
+    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign">— Yrrah</span></p>
     <p class="foot-letter__ps">P.S. — 案子想聊聊，填<a href="contact.html">聯絡頁</a>的表單，或在 <a href="https://www.threads.net/@yrrah9_" target="_blank" rel="noopener">Threads</a> 上找我。</p>
   </footer>
+  <script defer src="assets/js/motion.js"></script>
 </body>
 </html>

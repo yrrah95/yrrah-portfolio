@@ -5,10 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Family — Yrrah</title>
   <meta name="description" content="React、Vite、Firebase 打造的家庭感謝 PWA，案例說明與設計決定。" />
+  <link rel="canonical" href="https://yrrah-5i5.pages.dev/work-family.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Yrrah" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:url" content="https://yrrah-5i5.pages.dev/work-family.html" />
+  <meta property="og:title" content="Family — Yrrah" />
+  <meta property="og:description" content="React、Vite、Firebase 打造的家庭感謝 PWA，案例說明與設計決定。" />
+  <meta property="og:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yrrah 接案作品集" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Family — Yrrah" />
+  <meta name="twitter:description" content="React、Vite、Firebase 打造的家庭感謝 PWA，案例說明與設計決定。" />
+  <meta name="twitter:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap&text=Yrrah%E2%80%94" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要內容</a>
@@ -33,21 +51,21 @@
         <span class="demo-cta__note">純前端重製，沒有真的帳號系統，留言只存在你的瀏覽器裡。</span>
       </div>
 
-      <h2>問題</h2>
+      <h2 class="rise">問題</h2>
       <p>煮飯、接送、張羅這些事，家人不是不感謝，只是想不起來，也沒有一個地方可以隨手留一句。付出久了沒人回應，慢慢就不想再說了。</p>
 
-      <h2>怎麼做</h2>
+      <h2 class="rise">怎麼做</h2>
       <p>Family 是一個能加到手機主畫面的 PWA。輸入一句話，例如「煮飯」，選一個對象，對方會收到通知，牆上也會留下紀錄，其他家人也看得到。介面上用角色稱謂——媽媽、爸爸、兒子、妹妹，不用真名，因為這是要給任何一個家庭用的，不是只給我家用的。</p>
 
-      <figure class="figure--float">
-        <img src="assets/work/family.png" alt="Family App 首頁畫面，顯示「晚安，媽媽」與今日一句留言牆" loading="lazy" />
+      <figure class="figure--float rise">
+        <img fetchpriority="high" width="1242" height="2688" src="assets/work/family.webp" alt="Family App 首頁畫面，顯示「晚安，媽媽」與今日一句留言牆" />
         <figcaption>首頁畫面——今天家裡有幾份付出被看見，一眼看到。</figcaption>
       </figure>
 
-      <h2>技術</h2>
+      <h2 class="rise">技術</h2>
       <p>React 19、Vite、Firebase 打底，帳號與資料都在 Firebase 上。設計成 PWA，可以直接「加到主畫面」當一個真的 App 使用，也包了一層 Android TWA，離上架只差最後幾步。</p>
 
-      <h2>我的角色</h2>
+      <h2 class="rise">我的角色</h2>
       <p>一個人包了產品定義、介面設計、前後端開發。README 跟設計文件從第一版寫到現在——用角色稱謂取代真名，是設計過程裡的一個決定，不是後來才想到的補救。</p>
 
       <p class="note">案例畫面使用產品本身的上架素材，內容以角色稱謂呈現，未使用真實姓名。</p>
@@ -56,14 +74,15 @@
     </article>
   </main>
 
-  <div class="case-nav">
+  <nav class="case-nav" aria-label="案例導覽">
     <a href="index.html">← 回作品集</a>
     <a href="work-teach.html">下一個案例：TEACH →</a>
-  </div>
+  </nav>
 
   <footer class="foot-letter">
-    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign" style="font-family:var(--font-outlier)">— Yrrah</span></p>
+    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign">— Yrrah</span></p>
     <p class="foot-letter__ps">P.S. — 案子想聊聊，填<a href="contact.html">聯絡頁</a>的表單，或在 <a href="https://www.threads.net/@yrrah9_" target="_blank" rel="noopener">Threads</a> 上找我。</p>
   </footer>
+  <script defer src="assets/js/motion.js"></script>
 </body>
 </html>

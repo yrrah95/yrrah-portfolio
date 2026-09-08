@@ -5,10 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>聯絡 — Yrrah</title>
   <meta name="description" content="想找 Yrrah 聊案子？填表單，或在 Threads 上找我。" />
+  <link rel="canonical" href="https://yrrah-5i5.pages.dev/contact.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Yrrah" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:url" content="https://yrrah-5i5.pages.dev/contact.html" />
+  <meta property="og:title" content="聯絡 — Yrrah" />
+  <meta property="og:description" content="想找 Yrrah 聊案子？填表單，或在 Threads 上找我。" />
+  <meta property="og:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yrrah 接案作品集" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="聯絡 — Yrrah" />
+  <meta name="twitter:description" content="想找 Yrrah 聊案子？填表單，或在 Threads 上找我。" />
+  <meta name="twitter:image" content="https://yrrah-5i5.pages.dev/assets/og.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap&text=Yrrah%E2%80%94" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要內容</a>
@@ -26,7 +44,8 @@
       <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="c61263c4-36c2-4062-a952-fddbaaa58a81" />
         <input type="hidden" name="subject" value="作品集案子邀約" />
-        <input type="checkbox" name="botcheck" class="contact-form__hp" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="redirect" value="https://yrrah-5i5.pages.dev/contact.html?sent=1" />
+        <input type="checkbox" name="botcheck" class="contact-form__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <div class="contact-form__row">
           <div>
@@ -72,6 +91,10 @@
 
         <button class="contact-form__submit" type="submit">送出</button>
         <p class="contact-form__status" id="cfStatus" role="status"></p>
+        <noscript>
+          <p class="contact-form__status">這個表單需要開啟 JavaScript。麻煩直接在 <a href="https://www.threads.net/@yrrah9_" target="_blank" rel="noopener">Threads</a> 上找我。</p>
+        </noscript>
+        <p class="note" style="font-size:var(--text-xs);color:var(--color-muted);margin-top:var(--space-md)">送出的內容會透過第三方服務（Web3Forms）寄到我的信箱，只用來回覆你的來信。</p>
       </form>
 
       <p class="contact__or">或</p>
@@ -85,7 +108,7 @@
   </main>
 
   <footer class="foot-letter">
-    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign" style="font-family:var(--font-outlier)">— Yrrah</span></p>
+    <p class="foot-letter__close">敬上，<br /><span class="foot-letter__sign">— Yrrah</span></p>
     <p class="foot-letter__ps">P.S. — 沒有制式報價單，把想法填進上面的表單就好。</p>
   </footer>
   <script>

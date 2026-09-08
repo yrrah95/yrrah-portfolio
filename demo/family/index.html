@@ -107,9 +107,24 @@
       items.slice().reverse().forEach(item => {
         const div = document.createElement("div");
         div.className = "msg";
-        div.innerHTML =
-          '<div class="msg__meta"><span>' + item.from + ' 留給 ' + item.to + '</span><span>' + item.time + '</span></div>' +
-          '<div class="msg__text">' + item.text + ' <span class="msg__heart">♥</span></div>';
+
+        const meta = document.createElement("div");
+        meta.className = "msg__meta";
+        const who = document.createElement("span");
+        who.textContent = item.from + " 留給 " + item.to;
+        const when = document.createElement("span");
+        when.textContent = item.time;
+        meta.append(who, when);
+
+        const body = document.createElement("div");
+        body.className = "msg__text";
+        body.append(item.text + " ");
+        const heart = document.createElement("span");
+        heart.className = "msg__heart";
+        heart.textContent = "♥";
+        body.append(heart);
+
+        div.append(meta, body);
         wall.appendChild(div);
       });
     }

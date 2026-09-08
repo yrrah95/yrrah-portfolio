@@ -10,13 +10,10 @@
   window.__siteBooted = true;
 
   /* ---------- 匿名事件 ----------
-     用 Cloudflare Zaraz 的 zaraz.track()。Zaraz 沒載入時整組靜默失效，
-     不影響頁面。Cloudflare Web Analytics 沒有自訂事件 API，不能用。 */
+     這份是作品集裡的示範拷貝，不接任何分析服務。track() 只在
+     SITE_DEBUG 開著時印到 console，其餘情況是 no-op。 */
   function track(name, props) {
     try {
-      if (window.zaraz && typeof window.zaraz.track === 'function') {
-        window.zaraz.track(name, props || {});
-      }
       if (window.SITE_DEBUG) {
         console.log('[track]', name, props || {});
       }
