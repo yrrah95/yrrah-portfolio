@@ -187,25 +187,6 @@ a {
   .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-.portfolio-card--featured {
-  grid-column: 1 / -1;
-}
-.portfolio-card--featured .portfolio-card__link {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-}
-@media (min-width: 40rem) {
-  .portfolio-card--featured .portfolio-card__link {
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-    gap: var(--space-2xl);
-  }
-}
-.portfolio-card--featured .portfolio-card__thumb {
-  aspect-ratio: 16 / 10;
-}
-
 .portfolio-card__link {
   display: block;
   text-decoration: none;
