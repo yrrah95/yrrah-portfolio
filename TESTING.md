@@ -6,7 +6,7 @@
 
 **Node 內建 `node:test` + `node:assert/strict`，零依賴**。不裝 Jest、Vitest 或任何測試套件。
 
-需要 Node 20 以上（`node:test` 在 20 起穩定）。本機開發用的版本是 Node 24，CI 跑 Node 22。
+需要 Node 22 以上：`package.json` 的 `engines.node` 寫 `>=22`，`.nvmrc` 也釘 22。（`node:test` 本身從 Node 20 起穩定，這裡要求 22 是為了跟 CI 對齊。）本機開發用的版本是 Node 24，CI 跑 Node 22。
 
 ## 怎麼跑
 
