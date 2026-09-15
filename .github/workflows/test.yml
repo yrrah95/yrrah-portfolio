@@ -1,0 +1,30 @@
+# CI：每次 push 與 PR 都跑測試與建置，確保 prerender 不會靜靜壞掉（鐵律 3）
+name: test
+
+on:
+  push:
+  pull_request:
+
+# 這個 workflow 只讀 repo、不寫回任何東西，權限收到最小
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # 用 lockfile 安裝，版本跟本機一致
+      - run: npm ci
+
+      # Node 內建 node:test，零依賴
+      - run: npm test
+
+      # build 會跑 vite build + prerender + copy-legacy，任何一步掛掉就擋下
+      - run: npm run build

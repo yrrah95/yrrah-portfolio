@@ -1,0 +1,24 @@
+# 舊站的 .html 網址一律 301 轉到乾淨路徑（鐵律 5）
+# demo/ 底下不設規則，四個 demo 子站維持原生相對路徑
+/about.html            /about            301
+/contact.html          /contact          301
+/work-family.html      /work/family      301
+/work-teach.html       /work/teach       301
+/work-insurance.html   /work/insurance   301
+/work-dashboard.html   /work/dashboard   301
+/work-noevii.html      /work/noevii      301
+/work-atomspin.html    /work/atomspin    301
+
+# /index.html、/about.html、/contact.html 在 dist 有同名平檔，
+# Cloudflare Pages 自己的 .html 去除（308）會先於下面這條 301 生效。
+# 規則留著當保險（平檔哪天不再產出時仍有轉址），正式部署後用 curl -I 記錄實際狀態碼。
+/index.html            /                 301
+
+# 無 .html 版本：Cloudflare Pages 會先試 <path>.html 的平檔，試不到才進 _redirects。
+# 舊網址若被人手抄成不帶 .html 的樣子（/work-family），沒有這幾條就直接 404
+/work-family           /work/family      301
+/work-teach            /work/teach       301
+/work-insurance        /work/insurance   301
+/work-dashboard        /work/dashboard   301
+/work-noevii           /work/noevii      301
+/work-atomspin         /work/atomspin    301

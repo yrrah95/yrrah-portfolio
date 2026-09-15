@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--head-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <!-- three.js 舞台掛載點（Phase 2 任務 10） -->
+  <div id="stage" aria-hidden="true"></div>
+  <!-- 書殼：星星進度列與控制列。build 時由 prerender 填入，執行期由 main.js 同步 aria-current -->
+  <div id="chrome"><!--chrome--></div>
+  <!-- 語意層：build 時由 prerender 填入完整內容，執行期由 router 替換 -->
+  <div id="book"><!--book--></div>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

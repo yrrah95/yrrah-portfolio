@@ -1,0 +1,885 @@
+/* Phase 0 的語意層樣式：先讓 prerender 那份 HTML 自己就好讀。
+   任務 7a 已長出書殼（星星進度列＋控制列），7b 已長出對開版面（奶油文字卡浮左、相片台站右、中間摺線），
+   7c 已長出相片台（奶油白邊＋微傾＋兩層落影＋地面落影），
+   7d 書殼視覺完成（夜色漸層底、星星到訪狀態與柔光、圓角框翻頁鈕），
+   7e 目錄浮層完成（頂欄右上常駐鈕 → 奶油紙感浮層；頁尾目錄改掛書殼）；翻頁聲／靜音鈕留給 Phase 2。
+   翻頁動態留給 Phase 2。
+   design review 修正（2026-09-15）：正文字級補回 --text-base（longform note／圖說／控制列），
+   浮層與相片高度改吃 --chrome-top／--chrome-bottom 變數（手機不再被截掉），
+   星星觸控區以 ::after 擴到 44px、目錄星號加文字呈現選擇子、補 ::selection 主題色與奶油面 color-scheme，
+   並新增 contact 表單樣式。 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--c-night);
+  color: var(--c-on-night);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.75;
+  overflow-x: clip;
+}
+
+/* three.js 舞台：Phase 2 掛 canvas。語意層永遠在它之上，不被蓋掉 */
+#stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 書殼實際高度。底欄＝0.75rem×2 內距＋2.75rem 翻頁鈕＝4.25rem。
+   頂欄手機是兩行（0.75rem×2 內距＋2.75rem 目錄鈕＋0.25rem 行距＋2rem 星星＝6.5625rem），
+   桌機收回一行（0.75rem×2＋2.75rem＝4.25rem）——為什麼分兩行見下面 .chrome__top 的註解。
+   這兩顆變數同時給 #book 的 padding-block、撐滿一屏的 min-height、
+   以及手機版目錄浮層的 top 用，改一處就同步。
+   放 :root 而不是 #book：7e 的目錄浮層住在 #chrome（#book 的兄弟節點），掛在 #book 上它讀不到 */
+:root {
+  --chrome-top: 7rem;     /* 手機兩行：6.5625rem 欄高 ＋ 餘裕 */
+  --chrome-bottom: 6rem;  /* 4.25rem 欄高 ＋ 呼吸；底部要比頂部鬆，長文頁結尾才不貼著控制列 */
+}
+
+#book {
+  position: relative;
+  z-index: 1;
+  /* 上下讓出書殼的高度，內容不被固定的星星列與控制列蓋住 */
+  padding-block: var(--chrome-top) var(--chrome-bottom);
+}
+
+/* 書殼：用 fixed 而非 sticky——#chrome 自身沒有高度、又是 #book 的兄弟節點，
+   sticky 找不到可依附的捲動區塊；長文頁捲動時只有 fixed 能一直貼在視窗邊。
+   z-index 2：壓過 #stage(0) 與 #book(1)，但仍低於 .skip-link(10)。
+   內距只給 --space-sm：9 顆星在 390px 要一行放得下——9×2rem(288px) ＋ 8×--space-xs(64px) ＝ 352px，
+   若用 --page-gutter(該寬度取下限 1.25rem，左右共 40px) 只剩 350px 會溢出 2px；--space-sm 留 366px 剛好。
+   桌機在 64rem 的 media query 裡再放回 --page-gutter。
+   pointer-events: none 在欄本身——欄是滿寬的透明漸層，不該擋住底下卡片邊緣的點擊 */
+.chrome__top,
+.chrome__bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: var(--space-sm);
+  pointer-events: none;
+}
+
+/* 真正要點的三個節點自己把滑鼠事件收回來 */
+.stars,
+.controls,
+.toc-overlay {
+  pointer-events: auto;
+}
+
+/* 夜色漸層當底：內容捲到書殼底下時不與星星／翻頁鈕打架。
+   不用 backdrop-filter——Phase 2 的 three.js canvas 在底下，每幀模糊整條欄太貴。
+   55% 才開始淡出：欄的上半（星星／按鈕所在）是實心夜色，下半才化開，字不會落在半透明區 */
+/* 頂欄三欄格線：左欄先留白（Phase 2 的靜音鈕），星星落在正中間，目錄鈕靠最右。
+   用 grid 而不是 flex 的 space-between——左右兩顆 1fr 等寬，星星才不會被右邊的鈕推歪。
+   手機分兩行：390px 可用寬只有 366px，9 顆星就吃掉 352px（算式見上面 .chrome__top 的內距註解），
+   要讓星星維持置中，左右兩欄還得各留一顆鈕的寬（366 < 352 ＋ 60×2），一行怎麼排都擠爛。
+   所以手機讓目錄鈕自己一行（右上角），星星退到第二行整排置中；桌機在 64rem 的 media query 收回同一列。
+   選兩行而不是把星星縮小：2rem 點擊區已經低於 44px 下限，再砍是拿無障礙換版面 */
+.chrome__top {
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  row-gap: var(--space-2xs);
+  align-items: center;
+  background: linear-gradient(to bottom, var(--c-night) 55%, transparent);
+}
+
+.stars {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+/* 常駐目錄鈕與它的浮層；position: relative 是桌機浮層掛在鈕下方的定位基準 */
+.toc-overlay {
+  position: relative;
+  grid-row: 1;
+  grid-column: 3;
+  justify-self: end;
+}
+
+.chrome__bottom {
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to top, var(--c-night) 55%, transparent);
+  /* iPhone 底部手勢條：把安全區加進內距，控制列不被蓋住 */
+  padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom, 0px));
+}
+
+/* 星星列與控制列都是橫排；ol 順便去掉項目符號與預設縮排 */
+.stars__list,
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 手機把 9 顆星的間距收到 --space-xs（算式見上面 .chrome__top 的註解），桌機再放寬 */
+.stars__list {
+  gap: var(--space-xs);
+}
+
+/* 點擊區 2rem×2rem（padding 撐出來，SVG 本身維持 1.25rem），手機也一樣好按。
+   未到訪：--c-muted 描邊＋0.7 透明度；只有顏色／透明度在動，符合 7d 的動態限制 */
+.star {
+  position: relative; /* ::after 的觸控區定位基準 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.375rem;
+  color: var(--c-muted);
+  opacity: 0.7;
+  transition:
+    color var(--dur-short),
+    opacity var(--dur-short);
+}
+
+/* 觸控區補到 44px（2rem ＋ 上下左右各 6px），但不動 .star 本身的尺寸與 gap 算式——
+   用溢出的 ::after 擴命中範圍，版面寬度（9 顆星在 390px 一行）維持原樣 */
+.star::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+}
+
+.star:hover,
+.star:focus-visible {
+  color: var(--c-on-night);
+  opacity: 1;
+}
+
+/* 星形本體固定 1.25rem（＝點擊區 2rem 扣掉 0.375rem×2 內距）；未到訪只描邊、不填色 */
+.star__glyph {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+/* 目前這一頁：填滿暖橘再加一圈柔光。drop-shadow 只落在 9 個 1.25rem 的 SVG 上，成本可接受。
+   不靠顏色單一線索——aria-current 同時標出，鍵盤與螢幕報讀都讀得到 */
+.star[aria-current='page'] {
+  color: var(--c-glow);
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--c-glow-soft));
+}
+
+.star[aria-current='page'] .star__glyph {
+  fill: var(--c-glow);
+}
+
+.controls {
+  gap: var(--space-lg);
+}
+
+/* 翻頁鈕：無底色的圓角框，讓它一眼是「可以按的東西」而不是一串文字。
+   min-height 2.75rem＝44px，手指點擊區下限。
+   目錄鈕直接共用同一組規則，不另寫一份——兩者是同一族控制項，抄一份遲早走鐘 */
+.controls__prev,
+.controls__next,
+.toc-overlay__button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid oklch(90% 0.02 260 / 0.25);
+  border-radius: 999px;
+  color: var(--c-on-night);
+  /* 12.8px 的繁中標籤糊成一團；控制列是主要導覽，字級回到正文的 --text-base */
+  font-size: var(--text-base);
+  text-decoration: none;
+  transition:
+    color var(--dur-short),
+    border-color var(--dur-short);
+}
+
+.controls__prev:hover,
+.controls__next:hover,
+.toc-overlay__button:hover,
+.controls__prev:focus-visible,
+.controls__next:focus-visible,
+.toc-overlay__button:focus-visible {
+  color: var(--c-glow);
+  border-color: var(--c-glow);
+}
+
+.controls__count {
+  color: var(--c-muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 端點頁：那一側的 <a> 沒有 href，這裡再擋掉滑鼠並降對比，視覺與語意一致。
+   排在 :hover 之後才壓得過它（兩者特異度相同，後寫的贏）；邊框也一起淡掉 */
+.controls__prev[aria-disabled='true'],
+.controls__next[aria-disabled='true'] {
+  color: var(--c-muted);
+  border-color: oklch(90% 0.02 260 / 0.1);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* 沿用檔內 a:focus-visible 的寫法，讓鍵盤走到星星、翻頁鈕與目錄鈕時看得見 */
+.star:focus-visible,
+.controls__prev:focus-visible,
+.controls__next:focus-visible,
+.toc-overlay__button:focus-visible {
+  outline: 2px solid var(--c-glow);
+  outline-offset: 3px;
+}
+
+/* <summary> 專屬：拿掉預設三角（list-style 管 Firefox／新版 Chromium，::-webkit- 那條管舊 WebKit） */
+.toc-overlay__button {
+  cursor: pointer;
+  list-style: none;
+}
+
+.toc-overlay__button::-webkit-details-marker {
+  display: none;
+}
+
+/* 開著的時候鈕本身轉暖橘：不必另外畫箭頭指示器，顏色就是狀態（aria-expanded 由 <details> 自動提供） */
+.toc-overlay[open] > .toc-overlay__button {
+  color: var(--c-glow);
+  border-color: var(--c-glow);
+}
+
+/* 浮層本體：一張從頂欄垂下來的紙，奶油底與兩層落影跟文字卡同一套語言。
+   手機先寫滿寬 fixed（左右各留 --space-sm），桌機在 64rem 的 media query 裡改回掛在鈕下方 */
+.toc-overlay__panel {
+  position: fixed;
+  left: var(--space-sm);
+  right: var(--space-sm);
+  top: var(--chrome-top);
+  /* 高度上限要扣掉自己的 top 偏移，否則手機（--chrome-top 7rem）底部會溢出視窗、最後一項捲不到 */
+  max-height: calc(100svh - var(--chrome-top) - var(--space-lg));
+  overflow-y: auto;
+  /* 奶油紙面：UA 捲軸與表單控件跟著走亮色，不被 :root 的 color-scheme: dark 染成深色 */
+  color-scheme: light;
+  background: var(--c-card);
+  color: var(--c-ink);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  box-shadow:
+    0 2px 6px -1px var(--c-card-shadow),
+    0 22px 48px -16px var(--c-card-shadow);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: var(--space-md);
+  top: var(--space-md);
+  z-index: 10;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--c-card);
+  color: var(--c-ink);
+  border-radius: var(--radius-card);
+}
+
+/* 一個對開的外框。position: relative 是給 .page--spread::before 那條摺線當定位基準 */
+.page {
+  position: relative;
+  max-width: var(--spread-max);
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--page-gutter);
+}
+
+/* 文字卡：這裡第一次真的變成紙——奶油底、墨色字、兩層落影（貼近的短影＋遠一點的柔影） */
+.page__card {
+  position: relative;
+  z-index: 1;
+  /* 奶油紙面：UA 捲軸與表單控件跟著走亮色（contact 表單就住在這張卡裡） */
+  color-scheme: light;
+  background: var(--c-card);
+  color: var(--c-ink);
+  border-radius: var(--radius-card);
+  padding: var(--card-pad);
+  box-shadow:
+    0 2px 6px -1px var(--c-card-shadow),
+    0 22px 48px -16px var(--c-card-shadow);
+}
+
+/* 行長量測從 .page 搬進卡片內文；.page 本身放寬到整個對開 */
+.page__card > * {
+  max-width: var(--card-measure);
+}
+
+/* 卡片上的字一律走墨色，不吃夜色上的那套白字 */
+.page__card .page__title,
+.page__card .narration__line,
+.page__card p {
+  color: var(--c-ink);
+}
+
+/* 暖橘 --c-glow 在奶油底上只有 2.34:1，卡片內的強調與連結改用壓暗過的 --c-ink-accent（5.27:1） */
+.page__card .page__tags,
+.page__card .page__tagline,
+.page__card a {
+  color: var(--c-ink-accent);
+}
+
+/* 卡內的鍵盤焦點框也換色，白底上的暖橘外框看不清楚 */
+.page__card a:focus-visible,
+.page__card .page__title:focus-visible {
+  outline-color: var(--c-ink-accent);
+}
+
+/* 相片台：7b 做版位（置中的空間），7c 讓相片真的「貼進書裡」 */
+.page__stand {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+/* 相框＝奶油白邊的相紙。這裡的三個自訂屬性是整個相片台的旋鈕：
+   --photo-pad／--photo-pad-b 白邊寬（底邊多 0.15rem，模擬相紙下緣留白）、
+   --photo-tilt 微傾角度、--photo-ground-h 地面落影高度。
+   桌機值與 silhouette 升級版都只覆寫這幾顆，其餘規則不必重寫。
+   clamp 下限 0.5rem：手機 1vw 只有 0.24rem 左右，會自動取下限，不必另寫手機 padding */
+.page__stand .page__figure {
+  --photo-pad: clamp(0.5rem, 1vw, 0.85rem);
+  --photo-pad-b: calc(var(--photo-pad) + 0.15rem);
+  --photo-tilt: -0.75deg; /* 手機基準；桌機在 64rem 的 media query 裡加大 */
+  --photo-ground-h: 1rem;
+  position: relative;
+  margin: 0;
+  max-width: 100%;
+  padding: var(--photo-pad) var(--photo-pad) var(--photo-pad-b);
+  background: var(--c-card);
+  border-radius: 2px; /* 相紙幾乎不圓角，2px 只是去掉刀切感 */
+  rotate: var(--photo-tilt);
+  /* 兩層落影：貼近的短影定住相紙邊緣，遠一點的柔影把它從夜色裡撐起來 */
+  box-shadow:
+    0 1px 2px var(--c-card-shadow),
+    0 18px 40px -12px var(--c-card-shadow);
+}
+
+/* 地面落影：讓相片讀成「站在頁面上」而不是浮著（鐵律「站在摺線上，帶落影」的相片版）。
+   掛在 figure 而不是 .page__stand——相片台是 min-height:40vh 的格線盒，
+   它的下緣不等於相片下緣，落影會離相片老遠；掛在 figure 上才永遠貼著相紙底部。
+   rotate 反轉相框的傾角，落影維持水平（地面不會跟著歪） */
+.page__stand .page__figure::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 10%;
+  width: 80%;
+  height: var(--photo-ground-h);
+  rotate: calc(-1 * var(--photo-tilt));
+  background: radial-gradient(ellipse at 50% 0%, var(--c-night-deep) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 直式 1242×2688 那張不能撐爆一屏：改由高度封頂，寬度自己讓步。
+   height: auto 一定要留——沒有它，防 CLS 的 width/height 屬性會把圖撐變形。
+   max-height 扣掉上下白邊，加了相框之後「整個相紙」的總高才還是原本那個上限 */
+.page__stand .page__figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  /* 硬寫的 12rem 會跟書殼高度脫鉤；改吃同兩顆變數，頂欄／底欄一改相片上限就同步 */
+  max-height: calc(
+    100svh - var(--chrome-top) - var(--chrome-bottom) - var(--photo-pad) - var(--photo-pad-b)
+  );
+  border-radius: 0;
+}
+
+/* 升級鉤子：之後有去背 alpha PNG 時，在 pages.js 該作品的 image 加 silhouette: true 就切換成這一版。
+   白邊、傾斜、相紙落影全拿掉（去背圖自己就是剪影），只留地面落影撐住「站著」的讀法。
+   --photo-pad 歸零同時還原 img 的 max-height 上限，不必再算一次 */
+.page__stand .page__figure--silhouette {
+  --photo-pad: 0rem;
+  --photo-pad-b: 0rem;
+  --photo-tilt: 0deg;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  rotate: 0deg;
+}
+
+/* 封面與 about／contact 沒有相片台：卡片單欄置中 */
+.page--cover .page__card,
+.page:not(.page--spread) .page__card {
+  max-width: var(--card-measure);
+  margin-inline: auto;
+}
+
+/* 封面撐滿一屏、內容垂直置中（扣掉 #book 上下的書殼 padding） */
+.page--cover {
+  display: grid;
+  align-content: center;
+  min-height: calc(100svh - var(--chrome-top) - var(--chrome-bottom));
+}
+
+.page__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-2xl);
+  line-height: 1.25;
+  margin: 0 0 var(--space-md);
+  overflow-wrap: anywhere;
+}
+
+.page__title:focus-visible {
+  outline: 2px solid var(--c-glow);
+  outline-offset: 4px;
+}
+
+.page--cover .page__title {
+  font-size: var(--text-title);
+}
+
+.page__tagline {
+  color: var(--c-glow);
+  font-size: var(--text-md);
+  margin: 0 0 var(--space-lg);
+}
+
+/* 送出確認頁的回頭連結：那一頁只有這一個出口，所以用強調色標出來 */
+.page__back {
+  margin-top: var(--space-lg);
+  font-size: var(--text-base);
+}
+
+.page__back a {
+  color: var(--c-ink-accent);
+}
+
+.page__tags {
+  color: var(--c-glow);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--space-xs);
+}
+
+.page__figure,
+.longform__figure {
+  margin: var(--space-xl) 0;
+}
+
+/* width/height 屬性是防 CLS 用的，沒有這條 height:auto 圖會被屬性撐變形 */
+.page__figure img,
+.longform__figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+/* 圖說是要讀的內容，不是標籤；字級走正文的 --text-base，只靠 --c-muted 降階 */
+.longform__figure figcaption {
+  color: var(--c-muted);
+  font-size: var(--text-base);
+  margin-top: var(--space-xs);
+}
+
+/* 旁白：一句一行，Phase 2 的逐字反黃接管 .narration__line */
+.page__narration {
+  margin-block: var(--space-lg);
+}
+
+.narration__line {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-md);
+  line-height: 1.9;
+}
+
+/* 讀更多：<details> 是無 JS 也能展開的底，Phase 2 的同頁覆蓋動畫疊在它之上 */
+.page__longform {
+  margin-block: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--c-glow-soft);
+}
+
+.longform__toggle {
+  cursor: pointer;
+  color: var(--c-glow);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  transition: color var(--dur-short); /* 只轉顏色，符合本檔的動態限制 */
+}
+
+/* 原本滑過完全沒回饋，讀不出這行是可以按的；補底線與 focus 同組 */
+.longform__toggle:hover,
+.longform__toggle:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.longform__toggle:focus-visible {
+  outline: 2px solid var(--c-glow);
+  outline-offset: 3px;
+}
+
+.longform__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  margin: var(--space-xl) 0 var(--space-xs);
+}
+
+/* .longform__note 是段落正文（只是語氣次要），12.8px 讀不動；拆出來走 --text-base */
+.longform__note {
+  color: var(--c-muted);
+  font-size: var(--text-base);
+}
+
+/* .longform__demo-note 是 demo 連結旁的行內附註（標籤性質），維持 --text-sm */
+.longform__demo-note {
+  color: var(--c-muted);
+  font-size: var(--text-sm);
+}
+
+.longform__demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-sm);
+  margin-block: var(--space-lg);
+}
+
+.longform__demo-link {
+  font-weight: 700;
+}
+
+.longform__cta {
+  margin-top: var(--space-xl);
+}
+
+a {
+  color: var(--c-glow);
+  text-underline-offset: 3px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--c-glow);
+  outline-offset: 3px;
+}
+
+/* 封面卡片裡的作品清單。7e 前與 .toc__list 共用規則，目錄搬進浮層後拆開——
+   兩份清單現在住在完全不同的底色上，綁在一起改一邊就會誤傷另一邊 */
+.cover__works {
+  padding-left: 1.4em;
+}
+
+.cover__works li {
+  margin-block: var(--space-xs);
+}
+
+/* 以下是浮層內的目錄。.toc 本身不必畫框——外層 .toc-overlay__panel 已經是那張紙了 */
+.toc__title {
+  margin: 0 0 var(--space-sm);
+  color: var(--c-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+/* 留原生 <ol> 編號、只留縮排：目錄的「第幾頁」本來就是資訊，
+   自訂 counter 只是把瀏覽器已經做好的事重做一次，還多一份要維護的東西 */
+.toc__list {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.toc__list li {
+  margin-block: var(--space-xs);
+}
+
+/* 奶油底上的連結走壓暗過的 --c-ink-accent（對比同文字卡）；平時不畫底線，滑過／對焦才出現 */
+.toc__list a {
+  color: var(--c-ink-accent);
+  text-decoration: none;
+}
+
+.toc__list a:hover,
+.toc__list a:focus-visible {
+  text-decoration: underline;
+}
+
+.toc__list a:focus-visible {
+  outline-color: var(--c-ink-accent);
+}
+
+/* 目前這一頁：前面點一顆小星呼應頂欄的星星列（粗體由下面的全域 [aria-current] 給，不是唯一線索） */
+.toc__list a[aria-current='page']::before {
+  /* U+2605 後接 U+FE0E 文字呈現選擇子：Windows／Android 才不會換成彩色 emoji 星（那會讓 color 失效） */
+  content: '\2605\FE0E';
+  margin-right: var(--space-2xs);
+  color: var(--c-glow);
+}
+
+[aria-current='page'] {
+  font-weight: 700;
+}
+
+/* 選取反白也走主題色：預設的系統藍撞進暖橘／奶油配色很突兀。
+   夜色上用暖橘柔光底＋夜色上的白字 */
+::selection {
+  background: var(--c-glow-soft);
+  color: var(--c-on-night);
+}
+
+/* 奶油面（文字卡、目錄浮層）上改配墨色字，同一片柔光底在亮紙上仍讀得清楚 */
+.page__card ::selection,
+.toc-overlay__panel ::selection {
+  background: var(--c-glow-soft);
+  color: var(--c-ink);
+}
+
+/* ── contact 表單（住在 contact 頁的 .page__card 內、narration 之後）──
+   走 Web3Forms ＋ 蜜罐 botcheck ＋ AJAX（鐵律「技術棧」節）。
+   整組樣式都假設底是奶油紙，不是夜色 */
+.contact-form {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* 一個欄位＝label 在上、input 在下，標籤永遠貼著自己那格 */
+.contact-form__field {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.contact-form__label {
+  color: var(--c-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+/* 欄位底用比卡片再亮一階的 --c-field，輸入區才從紙面上讀出來（對比計算見 tokens.css） */
+.contact-form__input {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--c-field);
+  border: 1px solid var(--c-field-edge);
+  border-radius: var(--radius-card);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: var(--text-base);
+  transition:
+    border-color var(--dur-short),
+    background-color var(--dur-short);
+}
+
+/* 對焦時邊框轉強調色，再加一圈外框——只靠邊框變色對低視力使用者太細 */
+.contact-form__input:focus-visible {
+  border-color: var(--c-ink-accent);
+  outline: 2px solid var(--c-ink-accent);
+  outline-offset: 2px;
+}
+
+/* 下拉選單：沿用 input 的框與底色，只把原生高度補齊、游標換成可點 */
+.contact-form__input--select {
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+/* 留言欄：起始高度夠寫幾行，只准直向拉（橫向拉會撐爆卡片版面） */
+.contact-form__input--area {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+/* 蜜罐：刻意不用 display:none——有些 bot 會跳過被隱藏的欄位，移出畫面才騙得到 */
+.contact-form__botcheck {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* 主按鈕：整頁唯一的實心色塊，讀成「這是要按的那一顆」。min-height 2.75rem＝44px 觸控下限 */
+.contact-form__submit {
+  justify-self: start;
+  min-height: 2.75rem;
+  padding: var(--space-xs) var(--space-lg);
+  background: var(--c-ink-accent);
+  color: var(--c-card);
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-short),
+    opacity var(--dur-short);
+}
+
+/* 滑過壓暗一階（同色相同彩度，只降 L），不換色 */
+.contact-form__submit:hover {
+  background: oklch(44% 0.14 55);
+}
+
+.contact-form__submit:focus-visible {
+  outline: 2px solid var(--c-ink-accent);
+  outline-offset: 3px;
+}
+
+/* 送出中／已送出：淡化＋游標轉 progress。用 aria-disabled 不用 disabled——
+   disabled 會把焦點丟回 body，鍵盤使用者會不知道自己在哪（擋重複送出由 contactForm.js 負責） */
+.contact-form__submit[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* 送出結果訊息。先佔一行高，訊息出現時按鈕不會被往下推。
+   空的時候不能 display:none——live region 在內容變更當下必須是可見的，
+   否則螢幕報讀軟體不會朗讀那句話；min-height 佔位就夠了 */
+.contact-form__status {
+  color: var(--c-ink-soft);
+  font-size: var(--text-sm);
+  min-height: 1.5em;
+}
+
+/* 不想填表單的人走這條：它是正文不是附註，字級跟內文同一階 */
+.contact-form__alt {
+  margin-top: var(--space-sm);
+  color: var(--c-ink-soft);
+  font-size: var(--text-base);
+}
+
+.contact-form__alt a {
+  color: var(--c-ink-accent);
+}
+
+/* 實際 markup 給 <noscript> 掛了 class，元素選擇器與 class 都寫上，兩種寫法都吃得到。
+   這兩段是使用者要讀的正文（怎麼送出、資料去哪），不是註腳，用內文字級 */
+.contact-form noscript,
+.contact-form__noscript,
+.contact-form__privacy {
+  color: var(--c-ink-soft);
+  font-size: var(--text-base);
+}
+
+/* 對開只在桌機成立；窄螢幕自然落回單欄（卡片→相片台→長文的 DOM 順序），
+   摺線與撐滿一屏的 min-height 都只寫在這個 media query 裡，手機不必再關一次 */
+@media (min-width: 64rem) {
+  /* 桌機寬度夠，書殼內距放回頁面 gutter，星星與翻頁鈕才和內容切齊 */
+  .chrome__top,
+  .chrome__bottom {
+    padding-inline: var(--page-gutter);
+  }
+
+  /* 桌機不必擠，星距放寬一階 */
+  .stars__list {
+    gap: var(--space-sm);
+  }
+
+  /* 桌機寬度夠，星星與目錄鈕收回同一列，頂欄回到一行高 */
+  :root {
+    --chrome-top: 4.75rem; /* 4.25rem 一行欄高 ＋ 0.5rem 餘裕 */
+  }
+
+  .stars {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  /* 桌機浮層改成從目錄鈕正下方垂下來、靠右對齊（手機版是滿寬 fixed）。
+     20rem 封頂讓它讀成一張卡片而不是一整面牆；calc 那半邊只在極窄桌機視窗才生效 */
+  .toc-overlay__panel {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: calc(100% + var(--space-xs));
+    width: min(20rem, calc(100vw - 2 * var(--space-sm)));
+  }
+
+  .page--spread {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-2xl);
+    align-items: center;
+    /* 扣掉 #book 上下的書殼 padding，一個對開剛好撐滿一屏 */
+    min-height: calc(100svh - var(--chrome-top) - var(--chrome-bottom));
+  }
+
+  /* 長文橫跨兩欄，接在對開下方（目錄 7e 起已搬到書殼，不再參與這個格線） */
+  .page--spread .page__longform {
+    grid-column: 1 / -1;
+  }
+
+  /* 摺線：兩欄正中的一條細線，上下漸淡；box-shadow 的大暈開當兩側往中間彎的內陰影。
+     7b 的版本在 1440 寬肉眼看不到——線本體只有 --c-night-deep(16%)，比夜底(22%) 暗一點點，
+     opacity 0.55 再砍一半就沒了。這裡線身（20%–80%）換成 oklch(35% 0.04 260)：比夜底亮，
+     讀成「書脊吃到光」，opacity 提到 0.9 讓線真的出現；只有頭尾兩端才退回 --c-night-deep 再淡出，
+     長頁短頁的可見長度才一致（只把亮點放在 50% 的話，長文頁會只剩中間那一小段看得到）。
+     兩側暈影同步壓淡（alpha 0.45→0.25），0.9×0.25 ≈ 舊的 0.55×0.45，暈影維持原亮度不蓋過線 */
+  .page--spread::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: var(--space-2xl);
+    bottom: var(--space-2xl);
+    z-index: 0;
+    width: 1px;
+    transform: translateX(-0.5px);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--c-night-deep) 6%,
+      oklch(35% 0.04 260) 20%,
+      oklch(35% 0.04 260) 80%,
+      var(--c-night-deep) 94%,
+      transparent
+    );
+    box-shadow: 0 0 2.25rem 0.6rem oklch(16% 0.04 262 / 0.25);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .page--spread .page__stand {
+    min-height: 40vh;
+  }
+
+  /* 桌機把傾角與地面落影放大：手機那組是縮小版，桌機相片大、傾斜才看得出是「貼上去的」。
+     :not(--silhouette) 是必要的——這幾條寫在檔案後面，沒有它會把 silhouette 的 0deg 蓋回去 */
+  .page__stand .page__figure {
+    --photo-ground-h: 1.5rem;
+  }
+
+  .page__stand .page__figure:not(.page__figure--silhouette) {
+    --photo-tilt: -1.5deg;
+  }
+
+  /* 橫式圖左右長，同樣角度看起來歪得多，收到 -1deg */
+  .page__stand .page__figure--landscape:not(.page__figure--silhouette) {
+    --photo-tilt: -1deg;
+  }
+}
+
+/* 尊重使用者的減少動態設定（鐵律 3、4） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

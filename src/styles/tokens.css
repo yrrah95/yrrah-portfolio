@@ -1,0 +1,60 @@
+/* 立體書設計 token —— 深夜藍＋燈火暖橘（配色甲）。
+   注意：舊的 css/tokens.css 仍被 demo/dashboard 與 demo/family 依賴，不可動它。 */
+:root {
+  color-scheme: dark;
+
+  /* 色彩 */
+  --c-night: oklch(22% 0.04 260);        /* 夜色底 */
+  --c-night-deep: oklch(16% 0.04 262);   /* 更深的夜，用於頁面外緣與陰影 */
+  --c-card: oklch(94% 0.03 85);          /* 奶油色文字卡 */
+  --c-card-edge: oklch(86% 0.04 82);     /* 文字卡邊緣／分隔線 */
+  --c-ink: oklch(28% 0.02 70);           /* 文字卡上的墨色 */
+  --c-ink-soft: oklch(45% 0.02 70);      /* 次要文字 */
+  --c-glow: oklch(70% 0.15 55);          /* 燈火暖橘：光暈、強調、逐字反黃 */
+  /* 奶油卡上的強調文字／連結：--c-glow 對 --c-card 只有 2.34:1 不能當文字，壓暗到 5.27:1 過 AA */
+  --c-ink-accent: oklch(50% 0.14 55);    /* #9d4700，對 --c-card(#f4ead5) 實測 5.27:1 */
+  --c-glow-soft: oklch(70% 0.15 55 / 0.22);
+  /* 奶油卡上的輸入欄底：比 --c-card(#f4ead5) 再亮一階，欄位才從紙面上讀出來。
+     #fff8ea，--c-ink(#2f271e) 對它 13.81:1、--c-ink-soft 對它 7.05:1，都遠高於 AA 4.5 */
+  --c-field: oklch(98% 0.02 85);
+  --c-field-edge: oklch(60% 0.04 82);    /* 表單欄位邊框：對 --c-field 3.73:1、對 --c-card 3.32:1，過 WCAG 1.4.11 的 3:1（--c-card-edge 只有 1.45） */
+  --c-on-night: oklch(90% 0.02 260);     /* 直接畫在夜色上的文字 */
+  --c-muted: oklch(72% 0.02 260);        /* 夜色上的次要文字（圖說、附註）*/
+  --c-card-shadow: oklch(16% 0.04 262 / 0.45); /* 文字卡落影／摺線暈影，帶夜色的偏藍陰影 */
+
+  /* 字體 */
+  --font-display: "Noto Serif TC", Georgia, serif;
+  --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+
+  /* 字級：1.25 大三度音階 */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-title: clamp(2rem, 4vw + 1rem, 4rem);
+
+  /* 間距：4pt 制 */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* 版面 */
+  --page-gutter: clamp(1.25rem, 4vw, 3rem);
+  --card-measure: 46ch;
+  --spread-max: min(100%, 88rem);        /* 一個對開（左右兩頁）的最大寬 */
+  --card-pad: clamp(1.25rem, 3vw, 2.5rem); /* 文字卡內距 */
+
+  /* 動態 */
+  --ease-page: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 220ms;
+  --dur-page: 620ms;
+
+  --radius-card: 6px;
+}

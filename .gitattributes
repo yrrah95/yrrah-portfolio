@@ -1,0 +1,22 @@
+# 換行一律 LF：本機 wrangler 直接從工作目錄部署，CRLF 會原樣送上線。
+# _redirects／_headers 的 CRLF 會被 Cloudflare Pages 當成規則的一部分而整條失效。
+* text=auto
+
+_redirects text eol=lf
+_headers text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.svg text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+
+# 二進位資產：關掉文字處理，避免 CRLF 正規化把檔案改壞
+*.png -text
+*.jpg -text
+*.webp -text
+*.woff2 -text
