@@ -5,3 +5,7 @@ Thumbs.db
 
 .hallmark/
 assets/work-src/
+
+# Vite 建置產物與相依
+node_modules/
+dist/
