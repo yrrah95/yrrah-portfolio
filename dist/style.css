@@ -30,7 +30,7 @@ a{color:inherit}
 .chev{color:var(--mute);transition:transform .15s}
 .ddb[aria-expanded=true] .chev{transform:rotate(180deg)}
 .arr{transition:transform .2s}
-.dirb.asc .arr{transform:rotate(180deg)}
+.dirb.asc .arr{transform:scaleY(-1)}
 .ddm{position:absolute;top:calc(100% + 8px);left:-1px;min-width:calc(100% + 2px);margin:0;padding:6px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:20}
 .ddm[hidden]{display:none}
 .ddm li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
