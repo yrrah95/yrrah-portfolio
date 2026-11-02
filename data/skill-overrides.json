@@ -1,0 +1,18 @@
+{
+  "_說明": "公開版文字改寫：原稿是工作站自用寫法，含「這台」「工作檯」「我」等個人用語。只列有改的欄位，其餘照原資料。",
+  "autoplan": { "何時用": "計畫寫好了，想一次審完再動手。" },
+  "caveman": { "何時用": "想省輸出字數時開著。關掉說「stop caveman」或「normal mode」。" },
+  "context-restore": { "何時用": "新開一個 session，要接著上次做。" },
+  "design-shotgun": { "何時用": "不知道要哪個方向，想先看幾個再選。" },
+  "emil-prototype": { "說明": "同一個介面做好幾個真的不一樣的版本，擺在一個可以左右翻的選擇器裡，讓你現場比、挑一個扶正。跟內建的 /prototype 是不同的東西。" },
+  "grill-me": { "何時用": "手上已經有一個方案或設計、想被逼問到更扎實再往下做時用；跟通用的 grilling（任何決定、想法都能逼）不同，這支只鎖在方案／設計本身，也不像 grill-with-docs 會邊逼邊寫 ADR 跟 glossary。" },
+  "code-review": { "何時用": "想對一個分支、一個 PR 或還沒收尾的工作同時檢查規範跟需求吻合度時用；跟 gstack 上線前整體把關的 /review 是不同層次的檢查。" },
+  "mattpocock-retro": { "何時用": "剛寫完一段程式、想針對這一次 coding session 做檢討時用；跟 gstack 的 /retro（週回顧，抓一整週跨專案的節奏與決策）不同，這支只看單一次 session。" },
+  "setup-gbrain": { "說明": "幫電腦裝 gbrain：CLI、本機資料庫、MCP 註冊" },
+  "wait-what": { "何時用": "Claude 講太快或太術語，你想要換個說法。" },
+  "emil-design-eng": { "何時用": "不用自己叫。Claude 在決定動畫或元件細節時會自己去翻。" },
+  "frontend-design": { "何時用": "要動手刻畫面之前。" },
+  "review": { "何時用": "功能寫完、要合併之前。" },
+  "office-hours": { "何時用": "有點子但不確定值不值得做。" },
+  "caveman-discover": { "說明": "掃過 repo 裡每一處呼叫 LLM 的地方，標成獨立的 workflow，讓 Caveman Cloud（另一個用量監控服務，跟講話用的 caveman 模式是兩回事）照 workflow 拆花費，不再全部混成一筆。" }
+}

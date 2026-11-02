@@ -1,0 +1,35 @@
+// 從工作站的 skill 清單產生公開版 data/skills.json（對來源唯讀）
+// 用法：node tools/sync-skills.mjs [--src <skills.json>]
+// 規則：不放自製 skill、不放沒有中文說明的；個人用語靠 data/skill-overrides.json 改寫；只輸出公開需要的欄位
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const here = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const i = process.argv.indexOf('--src');
+const SRC = i > -1 ? process.argv[i + 1] : 'C:/Github/mine/yrrah95/data/skills.json';
+const src = JSON.parse(fs.readFileSync(SRC, 'utf8'));
+const over = JSON.parse(fs.readFileSync(path.join(here, 'data', 'skill-overrides.json'), 'utf8'));
+
+// 分組顯示順序（由「想事情」到「做事」到「收尾」）
+const GROUPS = ['想清楚要做什麼', '寫程式', '檢查與出貨', '視覺與設計', '動畫與介面手感', '寫東西給人看', '行銷與成長', '找資料與看影片', '記憶、交接與學習', '做檔案', '輸出風格', '安全與環境設定', 'iOS 專用', '自動觸發（不用自己叫）'];
+const skipped = { 自製: 0, 無說明: 0 };
+const out = [];
+for (const s of src.skills) {
+  if (s.來源 === '自製') { skipped.自製++; continue; }
+  const o = over[s.name] || {};
+  const say = o.說明 ?? s.說明;
+  if (!say) { skipped.無說明++; continue; }
+  out.push({
+    name: s.name,
+    src: s.來源,
+    group: GROUPS.includes(s.組) ? s.組 : '其他',
+    say,
+    when: o.何時用 ?? s.何時用 ?? '',
+    used: s.把握 === '用過',
+  });
+}
+const rank = (g) => (GROUPS.includes(g) ? GROUPS.indexOf(g) : 99);
+out.sort((a, b) => rank(a.group) - rank(b.group) || a.name.localeCompare(b.name));
+fs.writeFileSync(path.join(here, 'data', 'skills.json'), JSON.stringify({ scanned: src.掃描日, groups: [...GROUPS, '其他'], skills: out }, null, 1) + '\n');
+console.log(`輸出 ${out.length} 個（略過：自製 ${skipped.自製}、無說明 ${skipped.無說明}），來源掃描日 ${src.掃描日}`);
