@@ -127,6 +127,34 @@ cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.
 </script>`,
 });
 
+// 輪播圖：CSS scroll-snap 橫向滑動；多張才有箭頭、圓點與張數，沒有 JS 也能手滑
+function carousel(p) {
+  if (!p.images.length) return '';
+  const n = p.images.length;
+  const slides = p.images.map((u, i) => `<img src="${u}" alt="Day ${p.day} 第 ${i + 1} 張" ${i ? 'loading="lazy"' : ''}>`).join('');
+  if (n === 1) return `<div class="car one"><div class="track">${slides}</div></div>`;
+  const dots = p.images.map((_, i) => `<button type="button" aria-label="第 ${i + 1} 張"${i ? '' : ' class="on"'}></button>`).join('');
+  return `<div class="car" data-n="${n}" tabindex="0" aria-roledescription="carousel" aria-label="Day ${p.day} 圖卡">
+  <div class="track">${slides}</div>
+  <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
+  <button type="button" class="nav next" aria-label="下一張">›</button>
+  <div class="bar"><span class="count">1 / ${n}</span><span class="dots">${dots}</span></div>
+</div>
+<script>
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),ds=c.querySelectorAll('.dots button'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=ds.length;
+var want=null;
+function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
+function base(){return want===null?cur():want}
+function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ds.forEach(function(d,k){d.classList.toggle('on',k===i)});ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
+pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
+ds.forEach(function(d,k){d.onclick=function(){go(k)}});
+c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
+})();
+</script>`;
+}
+
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), index);
@@ -143,7 +171,7 @@ posts.forEach((p, i) => {
   <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
   <time>${p.date}</time>
   <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
-  <div class="imgs">${p.images.map((u, n) => `<img src="${u}" alt="Day ${p.day} 第 ${n + 1} 張" loading="lazy">`).join('')}</div>
+  ${carousel(p)}
   ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
   <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
   <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>

@@ -14,7 +14,25 @@
   <h1><span class="day">Day 61</span>你裝的 skill 到底有沒有被叫過，Claude Code 自己也答不出來</h1>
   <time>2026-09-15</time>
   <div class="text"></div>
-  <div class="imgs"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/01-cover.png" alt="Day 61 第 1 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/02-doc.png" alt="Day 61 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/03-steps.png" alt="Day 61 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/04-list.png" alt="Day 61 第 4 張" loading="lazy"></div>
+  <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 61 圖卡">
+  <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/01-cover.png" alt="Day 61 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/02-doc.png" alt="Day 61 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/03-steps.png" alt="Day 61 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/04-list.png" alt="Day 61 第 4 張" loading="lazy"></div>
+  <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
+  <button type="button" class="nav next" aria-label="下一張">›</button>
+  <div class="bar"><span class="count">1 / 4</span><span class="dots"><button type="button" aria-label="第 1 張" class="on"></button><button type="button" aria-label="第 2 張"></button><button type="button" aria-label="第 3 張"></button><button type="button" aria-label="第 4 張"></button></span></div>
+</div>
+<script>
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),ds=c.querySelectorAll('.dots button'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=ds.length;
+var want=null;
+function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
+function base(){return want===null?cur():want}
+function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ds.forEach(function(d,k){d.classList.toggle('on',k===i)});ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
+pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
+ds.forEach(function(d,k){d.onclick=function(){go(k)}});
+c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
+})();
+</script>
   <pre class="cta">加進 settings.json:
 {&quot;hooks&quot;:{&quot;PreToolUse&quot;:[{&quot;matcher&quot;:&quot;skill 名稱&quot;,&quot;hooks&quot;:[{&quot;type&quot;:&quot;command&quot;,&quot;command&quot;:&quot;echo 呼叫 &gt;&gt; skill.log&quot;}]}]}}
 

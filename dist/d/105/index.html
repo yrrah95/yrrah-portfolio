@@ -15,7 +15,25 @@
   <time>2026-10-29</time>
   <div class="text">叫 Claude 把每次讀進來的 CLAUDE.md 和規則檔記下來
 交給你的是 哪個檔 還有 5 種讀進來的原因是哪一種</div>
-  <div class="imgs"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/01-cover.png" alt="Day 105 第 1 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/02-steps.png" alt="Day 105 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/03-list.png" alt="Day 105 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/04-terminal.png" alt="Day 105 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/05-terminal.png" alt="Day 105 第 5 張" loading="lazy"></div>
+  <div class="car" data-n="5" tabindex="0" aria-roledescription="carousel" aria-label="Day 105 圖卡">
+  <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/01-cover.png" alt="Day 105 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/02-steps.png" alt="Day 105 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/03-list.png" alt="Day 105 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/04-terminal.png" alt="Day 105 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/05-terminal.png" alt="Day 105 第 5 張" loading="lazy"></div>
+  <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
+  <button type="button" class="nav next" aria-label="下一張">›</button>
+  <div class="bar"><span class="count">1 / 5</span><span class="dots"><button type="button" aria-label="第 1 張" class="on"></button><button type="button" aria-label="第 2 張"></button><button type="button" aria-label="第 3 張"></button><button type="button" aria-label="第 4 張"></button><button type="button" aria-label="第 5 張"></button></span></div>
+</div>
+<script>
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),ds=c.querySelectorAll('.dots button'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=ds.length;
+var want=null;
+function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
+function base(){return want===null?cur():want}
+function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ds.forEach(function(d,k){d.classList.toggle('on',k===i)});ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
+pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
+ds.forEach(function(d,k){d.onclick=function(){go(k)}});
+c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
+})();
+</script>
   <pre class="cta">在專案的 .claude/settings.json 加上（指令是 bash 的 grep）:
 {
   &quot;hooks&quot;: {
