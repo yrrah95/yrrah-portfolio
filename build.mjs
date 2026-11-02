@@ -263,9 +263,8 @@ if (skillData) {
   const groups = skillData.groups.filter((g) => gc[g]);
   const authors = Object.keys(ac).sort((x, y) => ac[y] - ac[x] || x.localeCompare(y));
   const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-a="' + esc(s.src) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
-    + '<div class="skh"><code class="skn">' + (s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">/' + esc(s.name) + '</a>' : '/' + esc(s.name)) + '</code>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
+    + '<div class="skh"><code class="skn"><a href="' + esc(s.src) + '/' + esc(s.name) + '/">/' + esc(s.name) + '</a></code>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
     + '<p class="sksay"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>'
-    + (s.when ? '<p class="skwhen">' + esc(s.when) + '</p>' : '')
     + '</li>').join('\n');
   const opts = (all, list, cnt) => '<li role="option" data-v="" aria-selected="true">' + all + '<small>' + sk.length + '</small></li>'
     + list.map((v) => '<li role="option" data-v="' + esc(v) + '" aria-selected="false">' + esc(v) + '<small>' + cnt[v] + '</small></li>').join('');
@@ -315,6 +314,37 @@ if (skillData) {
   });
   fs.mkdirSync(path.join(OUT, 'skill'), { recursive: true });
   fs.writeFileSync(path.join(OUT, 'skill', 'index.html'), skillPage);
+  // 詳細頁：完整中文說明、什麼時候用、原文、貼文裡提到過的 Day、來源連結
+  const BACK_SKILL = "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/'||r.pathname==='/skill')){history.back();return false}}catch(e){}";
+  const reFor = (n) => { const e = n.replace(/[.*+?^$()|[\]\\{}-]/g, '\\$&'); return n.includes('-') ? new RegExp('(?<![A-Za-z0-9-])' + e + '(?![A-Za-z0-9-])', 'i') : new RegExp('(/|`)' + e + '(?![A-Za-z0-9-])'); };
+  const relPosts = (s) => { const re = reFor(s.name); return posts.filter((p) => re.test((p.body || '') + '\n' + (p.cta || ''))); };
+  let detailN = 0, relN = 0;
+  for (const s of sk) {
+    const rel = relPosts(s);
+    if (rel.length) relN++;
+    const origLang = /[\u4e00-\u9fff]/.test(s.orig || '') ? '' : ' lang="en"';
+    const html = page({
+      title: '/' + s.name + '｜Skill｜Claude Code Everyday',
+      desc: s.say.slice(0, 110),
+      depth: '../../../',
+      active: 'skill',
+      body: '<header class="top slim skdh"><a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a></header>\n'
+        + '<article class="skd">\n'
+        + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
+        + '<div class="tags"><span class="tg">' + esc(s.group) + '</span><span class="tg">' + esc(s.src) + '</span>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
+        + '<p class="lede"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>\n'
+        + (s.when ? '<section><h2>什麼時候用</h2><p>' + esc(s.when) + '</p></section>\n' : '')
+        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
+        + (rel.length ? '<section><h2>相關貼文</h2><ul class="rel">' + rel.map((p) => '<li><a href="../../../d/' + p.day + '/"><span class="day">Day ' + p.day + '</span>' + esc(p.title) + '</a></li>').join('') + '</ul></section>\n' : '')
+        + (s.url ? '<p class="go"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a></p>\n' : '')
+        + '</article>',
+    });
+    const dir = path.join(OUT, 'skill', s.src, s.name);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    detailN++;
+  }
+  console.log('Skill 詳細頁 ' + detailN + ' 頁（其中 ' + relN + ' 個有相關貼文）');
   console.log('Skill ' + sk.length + ' 個，功能 ' + groups.length + ' 組，作者 ' + authors.length + ' 位');
 } else {
   warns.push('沒有 data/skills.json，Skill 分頁略過（node tools/sync-skills.mjs 產生）');

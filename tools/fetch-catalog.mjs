@@ -32,7 +32,8 @@ for (const s of cfg.sources) {
   for (const p of paths) {
     const name = p.split('/').slice(-2)[0];
     const md = await (await get(`https://raw.githubusercontent.com/${s.repo}/${s.branch}/${p}`)).text();
-    out.push({ author: s.author, name, desc: cut(descOf(md), 260), url: `https://github.com/${s.repo}/blob/${s.branch}/${p}` });
+    const full = descOf(md);
+    out.push({ author: s.author, name, desc: cut(full, 260), orig: full, url: `https://github.com/${s.repo}/blob/${s.branch}/${p}` });
   }
   console.log(s.author, paths.length);
 }

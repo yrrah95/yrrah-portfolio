@@ -27,6 +27,7 @@ for (const s of src.skills) {
     say,
     when: o.何時用 ?? s.何時用 ?? '',
     used: s.把握 === '用過',
+    orig: String(s.原文 ?? '').replace(/^>s*/, '').trim(),
   });
 }
 // 併入「沒裝、只收進網站」的目錄（data/catalog.json，由 fetch-catalog 產生）；同作者同名的已裝 skill 不重複收
@@ -39,7 +40,7 @@ if (fs.existsSync(catFile)) {
   for (const c of JSON.parse(fs.readFileSync(catFile, 'utf8')).skills) {
     if (have.has(c.author + '/' + c.name)) continue;
     const zh = catZh[c.author + '/' + c.name];
-    out.push({ name: c.name, src: c.author, group: catGroups[c.author + '/' + c.name] || '其他', say: zh ? zh.say : c.desc, when: zh ? zh.when : '', used: false, url: c.url, en: !zh });
+    out.push({ name: c.name, src: c.author, group: catGroups[c.author + '/' + c.name] || '其他', say: zh ? zh.say : c.desc, when: zh ? zh.when : '', used: false, url: c.url, orig: c.orig || c.desc, en: !zh });
     added++;
   }
 }
