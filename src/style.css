@@ -42,9 +42,12 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
 @media (min-width:860px){
 .top.slim{max-width:1000px}
 .post{max-width:1000px;display:grid;grid-template-columns:var(--cw) minmax(0,1fr);column-gap:40px;align-items:start}
-.post>*{grid-column:2}
-.post>.car{grid-column:1;grid-row:1/span 20;margin:0;position:sticky;top:16px}
-.post>.pn{grid-column:1/-1}
+.post{grid-template-areas:"car head" "car act" "ex ex" "pn pn"}
+.post>.car{grid-area:car;margin:0}
+.post>.head{grid-area:head}
+.post>.act{grid-area:act}
+.post>.explain{grid-area:ex}
+.post>.pn{grid-area:pn}
 }
 .car .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:12px;border:1px solid var(--line);background:var(--card)}
 .car .track::-webkit-scrollbar{display:none}
@@ -57,8 +60,10 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
 .car .dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
 .car .dots button.on{background:var(--accent)}
 .car:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:12px}
-.explain{margin:8px 0 4px}
-.explain h2{margin:22px 0 8px;font-size:16px;color:var(--accent)}
+.explain{margin:28px 0 24px;display:grid;grid-template-columns:1fr;gap:16px;align-items:stretch}
+@media (min-width:860px){.explain{grid-template-columns:1fr 1fr}}
+.explain .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 18px 14px}
+.explain h2{margin:12px 0 8px;font-size:16px;color:var(--accent)}
 .explain p{margin:6px 0}
 .explain ul,.explain ol{margin:6px 0;padding-left:1.4em}
 .explain li{margin:4px 0}

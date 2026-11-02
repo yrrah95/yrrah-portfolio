@@ -11,10 +11,12 @@
 <body>
 <header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day 94</span>Claude Code 有個 --append-system-prompt 旗標</h1>
-  <time>2026-10-18</time>
-  <div class="text">想要它回短一點 每開一次就要講一次？
+  <div class="head">
+    <h1><span class="day">Day 94</span>Claude Code 有個 --append-system-prompt 旗標</h1>
+    <time>2026-10-18</time>
+    <div class="text">想要它回短一點 每開一次就要講一次？
 打開時接一條規則 同一題從 77 行變 3 行</div>
+  </div>
   <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 94 圖卡">
   <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/01-cover.png" alt="Day 94 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/02-list.png" alt="Day 94 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/03-terminal.png" alt="Day 94 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/04-terminal.png" alt="Day 94 第 4 張" loading="lazy"></div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -34,12 +36,14 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
-  
-  <pre class="cta">臨時加一條規則（只管這次打開）:
+  <div class="act">
+    <pre class="cta">臨時加一條規則（只管這次打開）:
 claude -p &quot;git rebase 跟 git merge 差在哪？&quot; --append-system-prompt &quot;回答一律三行以內，每行不超過 20 個字&quot;
 
 問題和規則換成你自己的</pre>
-  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/Deoe9_RCUqp" rel="noopener">在 Threads 看原文</a></p>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_/post/Deoe9_RCUqp" rel="noopener">在 Threads 看原文</a></p>
+  </div>
+  
   <nav class="pn"><a href="../93/">← Day 93</a><a href="../95/">Day 95 →</a></nav>
 </article>
 </body>

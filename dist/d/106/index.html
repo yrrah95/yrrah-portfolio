@@ -11,10 +11,12 @@
 <body>
 <header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day 106</span>Claude Code 有個設定叫 blockWritesOutsideWorkingDirectories</h1>
-  <time>2026-10-30</time>
-  <div class="text">叫 Claude 只准改你打開的資料夾裡的檔案
+  <div class="head">
+    <h1><span class="day">Day 106</span>Claude Code 有個設定叫 blockWritesOutsideWorkingDirectories</h1>
+    <time>2026-10-30</time>
+    <div class="text">叫 Claude 只准改你打開的資料夾裡的檔案
 它想改資料夾外面的檔案 會被直接擋下 連不用問你的全部放行模式也一樣</div>
+  </div>
   <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 106 圖卡">
   <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D106/01-cover.png" alt="Day 106 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D106/02-steps.png" alt="Day 106 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D106/03-terminal.png" alt="Day 106 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D106/04-terminal.png" alt="Day 106 第 4 張" loading="lazy"></div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -34,8 +36,8 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
-  
-  <pre class="cta">在專案的 .claude/settings.json 加上:
+  <div class="act">
+    <pre class="cta">在專案的 .claude/settings.json 加上:
 {
   &quot;permissions&quot;: {
     &quot;blockWritesOutsideWorkingDirectories&quot;: true
@@ -44,7 +46,9 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 
 加好之後 跟 Claude 說:
 用 Write 工具建立檔案 ../outside.txt，內容寫 hello。然後用 ls .. 列出上一層。回覆格式：先把 ls 的結果原樣貼出，最後一行寫 成功 或 失敗加原因。不要寫別的。</pre>
-  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DfHYarYCQ5n" rel="noopener">在 Threads 看原文</a></p>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DfHYarYCQ5n" rel="noopener">在 Threads 看原文</a></p>
+  </div>
+  
   <nav class="pn"><a href="../105/">← Day 105</a><a href="../107/">Day 107 →</a></nav>
 </article>
 </body>

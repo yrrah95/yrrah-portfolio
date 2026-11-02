@@ -11,11 +11,13 @@
 <body>
 <header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day 71</span>終端機拉到全螢幕</h1>
-  <time>2026-09-25</time>
-  <div class="text">Claude 回的字一行拉到最右邊 看完一行要找半天下一行在哪？
+  <div class="head">
+    <h1><span class="day">Day 71</span>終端機拉到全螢幕</h1>
+    <time>2026-09-25</time>
+    <div class="text">Claude 回的字一行拉到最右邊 看完一行要找半天下一行在哪？
 
 2.1.282 加了一個設定 段落收窄 表格跟程式碼照樣全寬</div>
+  </div>
   <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 71 圖卡">
   <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D71/01-cover.png" alt="Day 71 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D71/02-list.png" alt="Day 71 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D71/03-list.png" alt="Day 71 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D71/04-steps.png" alt="Day 71 第 4 張" loading="lazy"></div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -35,13 +37,15 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
-  
-  <pre class="cta">先更新到 2.1.282 以上:
+  <div class="act">
+    <pre class="cta">先更新到 2.1.282 以上:
 claude update
 
 再到 ~/.claude/settings.json 的大括號裡加一行（100 可以換成你要的欄數 最少 40）:
 &quot;maxProseWidth&quot;: 100</pre>
-  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  </div>
+  
   <nav class="pn"><a href="../70/">← Day 70</a><a href="../72/">Day 72 →</a></nav>
 </article>
 </body>

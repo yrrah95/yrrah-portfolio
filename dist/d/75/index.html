@@ -11,9 +11,11 @@
 <body>
 <header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day 75</span>Claude Code 的權限模式有 6 種</h1>
-  <time>2026-09-29</time>
-  <div class="text">現在沒特別設定的話 一打開就是 auto mode</div>
+  <div class="head">
+    <h1><span class="day">Day 75</span>Claude Code 的權限模式有 6 種</h1>
+    <time>2026-09-29</time>
+    <div class="text">現在沒特別設定的話 一打開就是 auto mode</div>
+  </div>
   <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 75 圖卡">
   <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D75/01-cover.png" alt="Day 75 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D75/02-list.png" alt="Day 75 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D75/03-doc.png" alt="Day 75 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D75/04-steps.png" alt="Day 75 第 4 張" loading="lazy"></div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -33,14 +35,16 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
-  
-  <pre class="cta">想改回每一步都先問你:
+  <div class="act">
+    <pre class="cta">想改回每一步都先問你:
 ~/.claude/settings.json 的 permissions 裡加一行
 &quot;defaultMode&quot;: &quot;default&quot;
 
 只想這次就好:
 claude --permission-mode manual</pre>
-  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  </div>
+  
   <nav class="pn"><a href="../74/">← Day 74</a><a href="../76/">Day 76 →</a></nav>
 </article>
 </body>

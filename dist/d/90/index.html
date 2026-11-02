@@ -11,10 +11,12 @@
 <body>
 <header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day 90</span>Claude Code 有個 --add-dir 旗標</h1>
-  <time>2026-10-14</time>
-  <div class="text">專案外面的共用文件 預設不讓它讀 加法有三種
+  <div class="head">
+    <h1><span class="day">Day 90</span>Claude Code 有個 --add-dir 旗標</h1>
+    <time>2026-10-14</time>
+    <div class="text">專案外面的共用文件 預設不讓它讀 加法有三種
 加上之後 它就讀得到 內容照樣列給你</div>
+  </div>
   <div class="car" data-n="5" tabindex="0" aria-roledescription="carousel" aria-label="Day 90 圖卡">
   <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/01-cover.png" alt="Day 90 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/02-steps.png" alt="Day 90 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/03-list.png" alt="Day 90 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/04-terminal.png" alt="Day 90 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/05-terminal.png" alt="Day 90 第 5 張" loading="lazy"></div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -34,8 +36,8 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
-  
-  <pre class="cta">啟動時加（../kb 換成你的資料夾）:
+  <div class="act">
+    <pre class="cta">啟動時加（../kb 換成你的資料夾）:
 claude --add-dir ../kb
 
 對話中途加:
@@ -43,7 +45,9 @@ claude --add-dir ../kb
 
 加好之後 跟 Claude 說:
 讀 ../kb/r.md</pre>
-  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DeeMAzOiXj3" rel="noopener">在 Threads 看原文</a></p>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DeeMAzOiXj3" rel="noopener">在 Threads 看原文</a></p>
+  </div>
+  
   <nav class="pn"><a href="../89/">← Day 89</a><a href="../91/">Day 91 →</a></nav>
 </article>
 </body>

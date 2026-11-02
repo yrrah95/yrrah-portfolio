@@ -140,12 +140,13 @@ function explainHtml(day) {
     const line = raw.trim();
     let m;
     if (!line) { flushP(); flushL(); }
-    else if ((m = line.match(/^##\s+(.+)/))) { flushP(); flushL(); out.push(`<h2>${inline(m[1])}</h2>`); }
+    else if ((m = line.match(/^##\s+(.+)/))) { flushP(); flushL(); if (out.length) out.push('</div>'); out.push(`<div class="ex"><h2>${inline(m[1])}</h2>`); }
     else if ((m = line.match(/^[-*]\s+(.+)/))) { flushP(); if (!list || list.t !== 'ul') { flushL(); list = { t: 'ul', items: [] }; } list.items.push(m[1]); }
     else if ((m = line.match(/^\d+[.)]\s+(.+)/))) { flushP(); if (!list || list.t !== 'ol') { flushL(); list = { t: 'ol', items: [] }; } list.items.push(m[1]); }
     else { flushL(); para.push(line); }
   }
   flushP(); flushL();
+  if (out.length) out.push('</div>');
   return `<section class="explain">${out.join('')}</section>`;
 }
 
@@ -190,13 +191,17 @@ posts.forEach((p, i) => {
     depth: '../../',
     body: `<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
 <article class="post">
-  <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
-  <time>${p.date}</time>
-  <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
+  <div class="head">
+    <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
+    <time>${p.date}</time>
+    <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
+  </div>
   ${carousel(p)}
+  <div class="act">
+    ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
+    <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
+  </div>
   ${explainHtml(p.day)}
-  ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
-  <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
   <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
 </article>`,
   });
