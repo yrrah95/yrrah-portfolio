@@ -43,7 +43,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 .claude/skills/verify/SKILL.md</pre>
     <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
   </div>
-  
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>verify</code> 是一個 skill 的名字。<br>貼文說有這個 skill，Claude 動手 commit 前就會被提醒去跑它。<br>你不用每次叮嚀「commit 前先驗證」。</p></div><div class="ex"><h2>它做什麼</h2><ul><li>把 app 跑起來，看改動有沒有效。</li><li>不拿測試或型別檢查交差。</li><li>跑通的做法記進 <code>SKILL.md</code>。</li><li>下次直接照做，不重新摸索。</li></ul></div><div class="ex"><h2>怎麼建立</h2><ul><li>名字：skill 名字要剛好叫 <code>verify</code>。</li><li>最省事：在專案裡打 <code>/verify</code>。跑通後它自己存好。</li><li>自己寫：建 <code>.claude/skills/verify/SKILL.md</code>。</li><li>個人用：放 <code>~/.claude/skills/verify/</code>。每個專案都套用。</li></ul></div><div class="ex"><h2>什麼時候提醒</h2><ul><li>commit 之前：Claude 會被提醒先跑它。</li><li>只改文件：不提醒。</li><li>只改測試：不提醒。</li><li>沒有 <code>verify</code>：不會有這個提醒。</li><li>版本要 2.1.286 以上。</li></ul></div></section>
   <nav class="pn"><a href="../76/">← Day 76</a><a href="../78/">Day 78 →</a></nav>
 </article>
 </body>

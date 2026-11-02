@@ -28,7 +28,7 @@
     
     <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
   </div>
-  
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p>貼文說：作者以前改完 code，想等一下再跑測試，然後就忘了。<br>後來作者設了一個 hook。<br>它在改完檔案後自動跑測試。測試壞了，當場跳出紅字。<br>貼文說：重點是它不靠 Claude 記得。這是你寫死的規則，每次都會跑。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>打開 <code>.claude/settings.json</code>。</li><li>設一個 <code>PostToolUse</code> hook。</li><li>設成每次 <code>Edit</code> 或 <code>Write</code> 完檔案，就自動跑你的測試指令。</li></ol><p>同一招還能做這些事：</p><ul><li>偵測到 <code>rm -rf</code> 就攔下。</li><li>commit 前自動檢查。</li><li>動到 <code>.env</code> 就跳警告。</li></ul></div></section>
   <nav class="pn"><a href="../4/">← Day 4</a><a href="../6/">Day 6 →</a></nav>
 </article>
 </body>

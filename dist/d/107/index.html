@@ -49,7 +49,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 列出你現在看得到的 skill 名稱，只列 weekly-report、deploy-prod 這類專案自己放的，一行一個。沒有就寫「沒有」。</pre>
     <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DfJ9OUhiXdS" rel="noopener">在 Threads 看原文</a></p>
   </div>
-  
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>skillOverrides</code> 是 Claude Code 的設定。<br>它叫 Claude 當作沒有你指定的那個 skill。<br>那個 skill 還留在電腦裡，只是 Claude 的清單裡看不到它。</p></div><div class="ex"><h2>怎麼設</h2><ol><li>打開專案裡的 <code>.claude/settings.json</code>。</li><li>加上鍵 <code>skillOverrides</code>。</li><li>每個 skill 寫一行，例如 <code>&quot;deploy-prod&quot;: &quot;off&quot;</code>。</li><li>把 <code>deploy-prod</code> 換成你要藏的 skill 名字。</li></ol></div><div class="ex"><h2>四種設法</h2><ul><li>預設：<code>on</code>，名字和說明都給 Claude 看。</li><li>只給名字：<code>name-only</code>，說明收起來，只剩名字。</li><li>只留給你：<code>user-invocable-only</code>，只有你打 /名字能用。</li><li>全藏起來：<code>off</code>，Claude 看不到，你也用不了。</li></ul></div><div class="ex"><h2>怎麼測</h2><ol><li>加好設定。</li><li>請 Claude 列出它現在看得到的專案 skill，一行一個。</li></ol><p>作者的結果：</p><ul><li>沒設：看得到四個 skill：<code>deploy-prod</code>、<code>meeting-notes</code>、<code>translate-doc</code>、<code>weekly-report</code>。</li><li>設了之後：<code>deploy-prod</code> 不見了。</li></ul></div></section>
   <nav class="pn"><a href="../106/">← Day 106</a><a href="../108/">Day 108 →</a></nav>
 </article>
 </body>

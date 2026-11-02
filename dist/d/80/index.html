@@ -40,7 +40,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 /code-review --max-findings all</pre>
     <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
   </div>
-  
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>/code-review</code> 預設有回報上限。<br>貼文說加一個參數，才會全部列出來。<br>加 <code>--max-findings all</code> 就不設上限。<br>這個參數要 2.1.288 以上。</p></div><div class="ex"><h2>怎麼加</h2><ol><li>打 <code>/code-review</code>，照常審一次。看它報幾個。</li><li>後面加 <code>--max-findings all</code>。</li><li>同一份改動再審一次。這次每個發現都會報。</li></ol></div><div class="ex"><h2>加了之後</h2><ul><li>只看前幾個：把 <code>all</code> 換成數字，例如 3。</li><li>之後的審查都沿用這個值。</li><li>要改回來：把 <code>all</code> 換成 <code>default</code>。</li><li>後面照樣可以接 PR 號碼、分支、路徑。</li></ul></div></section>
   <nav class="pn"><a href="../79/">← Day 79</a><a href="../81/">Day 81 →</a></nav>
 </article>
 </body>
