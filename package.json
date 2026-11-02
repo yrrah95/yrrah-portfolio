@@ -1,0 +1,8 @@
+{
+  "name": "yrrah-cc",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "echo dist 已預先產好，不需在 Cloudflare 建置"
+  }
+}
