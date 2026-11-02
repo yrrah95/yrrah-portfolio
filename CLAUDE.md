@@ -14,6 +14,7 @@ Claude Code Everyday（Threads @yrrah9_）貼文存檔網站。零依賴靜態�
 ## 指令
 
 - 產生網站：`node build.mjs`（`--out <資料夾>` 輸出到別處、`--pending <json>` 帶一筆還沒進 posts.jsonl 的貼文）
+- 解釋文案：`explain/D<N>.md`（STE 寫法，一篇一檔；沒有檔的頁面不顯示解釋區），由 `site-publish.mjs --explain` 放進來
 - 圖片例外：`image-overrides.json`
 - 量測碼：`site.config.json`（Cloudflare Web Analytics，公開代碼）
 
