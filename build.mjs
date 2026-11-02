@@ -160,11 +160,12 @@ function explainHtml(day) {
 
 // 輪播圖：CSS scroll-snap 橫向滑動；多張才有箭頭、圓點與張數，沒有 JS 也能手滑
 function carousel(p) {
-  if (!p.images.length) return '';
-  const n = p.images.length;
-  const slides = p.images.map((u, i) => `<img src="${u}" alt="Day ${p.day} 第 ${i + 1} 張" ${i ? 'loading="lazy"' : ''}>`).join('');
+  const imgs = p.images.length ? p.images : (p.cover ? [p.cover] : []); // 沒有圖卡的舊文用站內封面圖
+  if (!imgs.length) return '';
+  const n = imgs.length;
+  const slides = imgs.map((u, i) => `<img src="${u}" alt="Day ${p.day} 第 ${i + 1} 張" ${i ? 'loading="lazy"' : ''}>`).join('');
   if (n === 1) return `<div class="car one"><div class="track">${slides}</div></div>`;
-  const dots = p.images.map((_, i) => `<button type="button" aria-label="第 ${i + 1} 張"${i ? '' : ' class="on"'}></button>`).join('');
+  const dots = imgs.map((_, i) => `<button type="button" aria-label="第 ${i + 1} 張"${i ? '' : ' class="on"'}></button>`).join('');
   return `<div class="car" data-n="${n}" tabindex="0" aria-roledescription="carousel" aria-label="Day ${p.day} 圖卡">
   <div class="track">${slides}</div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
@@ -198,7 +199,7 @@ posts.forEach((p, i) => {
     desc: p.title,
     depth: '../../',
     body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
-<article class="post${p.images.length ? "" : " nocar"}">
+<article class="post${p.images.length || p.cover ? "" : " nocar"}">
   <div class="head">
     <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
     <time>${p.date}</time>
