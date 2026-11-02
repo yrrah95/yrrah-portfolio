@@ -232,3 +232,6 @@ a.tg:hover{border-color:var(--mute);color:var(--fg)}
 .crow .d{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .g{font-size:12px;color:var(--mute);white-space:nowrap}
 @media (max-width:760px){.crow{grid-template-columns:1fr;gap:2px}.crow .d{white-space:normal}.crow .g{display:none}}
+.crow{grid-template-columns:minmax(0,230px) minmax(0,1fr) auto 52px}
+.crow .in{font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+@media (max-width:760px){.crow{grid-template-columns:1fr}.crow .in{text-align:left}}

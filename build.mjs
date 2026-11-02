@@ -250,9 +250,16 @@ if (skillData) {
   const slug = (n) => String(n).replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'skill';
   const UNSORTED = '未分類';
   const newSk = [];
-  packs.forEach((p) => (p.skills || []).forEach((x) => newSk.push({ name: slug(x.name), src: p.src, group: UNSORTED, say: x.desc || '（原文沒有說明）', when: '', orig: x.orig || '', used: false, ai: false, en: !/[\u4e00-\u9fff]/.test(x.desc || ''), url: x.url })));
+  packs.forEach((p) => (p.skills || []).forEach((x) => newSk.push({ name: slug(x.name), src: p.src, group: UNSORTED, say: x.desc || '（原文沒有說明）', when: '', orig: x.orig || '', used: false, ai: false, en: !/[\u4e00-\u9fff]/.test(x.desc || ''), url: x.url, dir: (x.path || '').split('/').slice(-2, -1)[0] || '' })));
   const sk = skillData.skills.filter((s) => srcPack[s.src]).concat(newSk);
-  sk.sort((x, y) => srcPack[y.src].stars - srcPack[x.src].stars || x.name.localeCompare(y.name));
+  const INST_FILE = path.join(here, 'data', 'installs.json');
+  const instData = fs.existsSync(INST_FILE) ? JSON.parse(fs.readFileSync(INST_FILE, 'utf8')) : { fetched: '', installs: {} };
+  const ALIAS = { 'mattpocock-retro': 'retro', 'emil-prototype': 'prototype' }; // 我們為了避免撞名改過的名字，對回原名
+  const instOf = (s) => { const m = instData.installs[srcPack[s.src].repo] || {}; for (const k of [ALIAS[s.name], s.name, s.dir]) { if (k && m[k.toLowerCase()] != null) return m[k.toLowerCase()]; } return 0; };
+  const fmtN = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : n ? String(n) : '');
+  sk.forEach((s) => { s.inst = instOf(s); });
+  sk.sort((x, y) => y.inst - x.inst || srcPack[y.src].stars - srcPack[x.src].stars || x.name.localeCompare(y.name));
+  console.log('有安裝次數的 skill：' + sk.filter((s) => s.inst).length + ' / ' + sk.length);
   const droppedSk = skillData.skills.filter((s) => !srcPack[s.src]);
   if (droppedSk.length) console.log('略過 ' + droppedSk.length + ' 個不在來源包內的 skill：' + droppedSk.map((s) => s.src + '/' + s.name).join('、'));
   const gc = {}, ac = {};
@@ -275,7 +282,7 @@ if (skillData) {
       + '<span class="pkd"' + (isZh(p) ? '' : ' lang="en"') + '>' + esc(zhOf(p)) + '</span><span class="heat" aria-hidden="true"><i style="width:' + Math.max(2, Math.round(p.stars / maxStars * 100)) + '%"></i></span></span>'
       + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + nOf(p) + '</span> 個 skill' + (ext ? ' ' + ARROW : '') + '</span></span></a></li>';
   }).join('\n');
-  const skData = JSON.stringify(sk.map((s) => [s.name, s.src, s.say, s.en ? 1 : 0, srcPack[s.src].name, s.group === UNSORTED ? '' : s.group])).replace(/</g, '\\u003c');
+  const skData = JSON.stringify(sk.map((s) => [s.name, s.src, s.say, s.en ? 1 : 0, srcPack[s.src].name, s.group === UNSORTED ? '' : s.group, s.inst])).replace(/</g, '\\u003c');
   const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
   const rail = '<aside class="rail"><section><h2>類別</h2>' + railBtn('data-ty', 'skill', 'Skill', sk.length) + railBtn('data-ty', 'plugin', 'Plugin', pluginPacks.length) + '</section>'
     + '<section><h2>功能</h2>' + groups.map((g) => railBtn('data-g', g, g, gc[g])).join('') + '</section></aside>';
@@ -289,17 +296,18 @@ if (skillData) {
       + '<div id="sv"><div class="crows" id="sl"></div><nav class="pager" id="pg" aria-label="分頁" hidden></nav></div>\n'
       + '<div id="pv" hidden><ol class="pklist" id="grid">' + rows + '</ol></div>\n'
       + '<p class="empty" id="empty" hidden>沒有符合的項目</p>\n'
-      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 代表專案內有 plugin 檔案，我只檢查檔案是否存在，沒有逐一審查內容，安裝方式請看各專案說明。功能分類目前只有部分 skill 有，其餘標為未分類。</p></div></div>\n'
+      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 代表專案內有 plugin 檔案，我只檢查檔案是否存在，沒有逐一審查內容，安裝方式請看各專案說明。Skill 依 skills.sh 的安裝次數排序（右側數字，抓取於 ' + esc(instData.fetched) + '），沒有數字的排在後面。安裝次數是匿名的安裝統計，只代表被安裝過，不代表有人在用，也可能被灌高。功能分類目前只有部分 skill 有。</p></div></div>\n'
       + '<script type="application/json" id="sk-data">' + skData + '</script>\n'
       + '<script>\n'
       + "const $=i=>document.getElementById(i),q=$('q'),sl=$('sl'),pg=$('pg'),sv=$('sv'),pv=$('pv'),em=$('empty'),ps=[...document.querySelectorAll('.pk')];\n"
-      + "const D=JSON.parse($('sk-data').textContent).map(a=>({n:a[0],s:a[1],d:a[2],en:a[3],p:a[4],g:a[5],t:(a[0]+' '+a[2]+' '+a[4]+' '+a[5]).toLowerCase()}));\n"
+      + "const D=JSON.parse($('sk-data').textContent).map(a=>({n:a[0],s:a[1],d:a[2],en:a[3],p:a[4],g:a[5],i:a[6],t:(a[0]+' '+a[2]+' '+a[4]+' '+a[5]).toLowerCase()}));\n"
       + "const PER=50,K={ty:'sk-ty',g:'sk-g',q:'sk-q',p:'sk-p'};let ty='skill',g='',page=1;\n"
       + "const E=s=>String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));\n"
       + "const CL='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 18l-6-6 6-6\"/></svg>';\n"
       + "const CR='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg>';\n"
       + "function pageList(n,c){const s=new Set([1,n,c-1,c,c+1]);if(c<=3){s.add(2);s.add(3);s.add(4)}if(c>=n-2){s.add(n-1);s.add(n-2);s.add(n-3)}const a=[...s].filter(x=>x>=1&&x<=n).sort((x,y)=>x-y),o=[];a.forEach((x,i)=>{if(i&&x-a[i-1]>1)o.push(0);o.push(x)});return o}\n"
       + "const kw=()=>q.value.trim().toLowerCase();\n"
+      + "const fmt=n=>n>=1e6?(n/1e6).toFixed(1).replace(/\\.0$/,'')+'M':n>=1e3?Math.round(n/1e3)+'K':n?String(n):'';\n"
       + "const sHit=(x,sg)=>(sg||!g||x.g===g)&&(!kw()||x.t.indexOf(kw())>=0);\n"
       + "const pHit=(p,sg)=>(sg||!g||p.dataset.g.split('|').indexOf(g)>=0)&&(!kw()||p.dataset.t.indexOf(kw())>=0);\n"
       + "function save(){try{sessionStorage.setItem(K.ty,ty);sessionStorage.setItem(K.g,g);sessionStorage.setItem(K.q,q.value);sessionStorage.setItem(K.p,String(page))}catch(_){}}\n"
@@ -307,7 +315,7 @@ if (skillData) {
       + "const sAll=D.filter(x=>sHit(x)),pAll=ps.filter(p=>pHit(p));let any;\n"
       + "sv.hidden=ty!=='skill';pv.hidden=ty==='skill';\n"
       + "if(ty==='skill'){const n=Math.max(1,Math.ceil(sAll.length/PER));if(page>n)page=n;if(page<1)page=1;any=sAll.length>0;\n"
-      + "sl.innerHTML=sAll.slice((page-1)*PER,page*PER).map(x=>'<a class=\"crow\" href=\"'+E(x.s)+'/'+E(x.n)+'/\"><code>/'+E(x.n)+'</code><span class=\"d\"'+(x.en?' lang=\"en\"':'')+'>'+E(x.d)+'</span><span class=\"g\">'+E(x.p)+'</span></a>').join('');\n"
+      + "sl.innerHTML=sAll.slice((page-1)*PER,page*PER).map(x=>'<a class=\"crow\" href=\"'+E(x.s)+'/'+E(x.n)+'/\"><code>/'+E(x.n)+'</code><span class=\"d\"'+(x.en?' lang=\"en\"':'')+'>'+E(x.d)+'</span><span class=\"g\">'+E(x.p)+'</span><span class=\"in\">'+fmt(x.i)+'</span></a>').join('');\n"
       + "if(n<=1){pg.hidden=true;pg.innerHTML=''}else{pg.hidden=false;let h='<button type=\"button\" data-p=\"'+(page-1)+'\" aria-label=\"上一頁\"'+(page===1?' disabled':'')+'>'+CL+'</button>';\n"
       + "pageList(n,page).forEach(x=>{h+=x?'<button type=\"button\" data-p=\"'+x+'\" aria-label=\"第 '+x+' 頁\"'+(x===page?' aria-current=\"page\"':'')+'>'+x+'</button>':'<span class=\"gap\">…</span>'});\n"
       + "h+='<button type=\"button\" data-p=\"'+(page+1)+'\" aria-label=\"下一頁\"'+(page===n?' disabled':'')+'>'+CR+'</button>';pg.innerHTML=h}}\n"
@@ -345,7 +353,7 @@ if (skillData) {
         + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
         + '<a class="gh" href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a>\n'
         + '<div class="pkt pq"><input id="q" type="search" placeholder="搜尋這個包的 skill" autocomplete="off"></div>\n'
-        + '<div class="crows">' + secs.map((x) => x.items.map((s) => '<a class="crow" data-t="' + esc((s.name + ' ' + s.say + ' ' + x.g).toLowerCase()) + '" href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span class="d"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span><span class="g">' + (x.g === UNSORTED ? '' : esc(x.g)) + '</span></a>').join('')).join('') + '</div>'
+        + '<div class="crows">' + list.map((s) => '<a class="crow" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.group).toLowerCase()) + '" href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span class="d"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span><span class="g">' + (s.group === UNSORTED ? '' : esc(s.group)) + '</span><span class="in">' + fmtN(s.inst) + '</span></a>').join('') + '</div>'
         + '\n<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n</article>\n'
         + '<script>\n'
         + "const q=document.getElementById('q'),em=document.getElementById('empty');\n"
