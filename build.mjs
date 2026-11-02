@@ -24,6 +24,13 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 
 // 只取公開需要的欄位：不帶成效數據、features 內部筆記、note
 const rows = [...readJsonl(path.join(DATA, 'archive.jsonl')), ...readJsonl(path.join(DATA, 'posts.jsonl'))];
+// --pending <json>：發文前先產頁用，帶一筆還沒寫進 posts.jsonl 的貼文（格式同 posts.jsonl 一行）
+const pendingFile = arg('pending', '');
+if (pendingFile) {
+  const pend = JSON.parse(fs.readFileSync(pendingFile, 'utf8'));
+  const dayOf = (r) => (r.content.match(/Day\s*(\d+)/) || [])[1];
+  if (!rows.some((r) => r.id === pend.id || dayOf(r) === dayOf(pend))) rows.push(pend);
+}
 const warns = [];
 const posts = rows.map((r) => {
   const m = r.content.match(/Day\s*(\d+)/);
