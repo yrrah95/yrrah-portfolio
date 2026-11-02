@@ -200,7 +200,7 @@ posts.forEach((p, i) => {
     title: `Day ${p.day}｜${p.title}`,
     desc: p.title,
     depth: '../../',
-    body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+    body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
 <article class="post${p.images.length || p.cover ? "" : " nocar"}">
   <div class="head">
     <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
