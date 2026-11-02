@@ -37,7 +37,15 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
 .src{margin:24px 0}
 .pn{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:16px}
 .pn a{text-decoration:none;color:var(--accent)}
-.car{position:relative;margin:16px 0}
+:root{--cw:min(440px,calc((100vh - 130px) * .8))}
+.car{position:relative;margin:16px auto;width:min(100%,var(--cw))}
+@media (min-width:860px){
+.top.slim{max-width:1000px}
+.post{max-width:1000px;display:grid;grid-template-columns:var(--cw) minmax(0,1fr);column-gap:40px;align-items:start}
+.post>*{grid-column:2}
+.post>.car{grid-column:1;grid-row:1/span 20;margin:0;position:sticky;top:16px}
+.post>.pn{grid-column:1/-1}
+}
 .car .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:12px;border:1px solid var(--line);background:var(--card)}
 .car .track::-webkit-scrollbar{display:none}
 .car .track img{flex:0 0 100%;width:100%;height:auto;scroll-snap-align:center;display:block}
