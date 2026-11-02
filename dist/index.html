@@ -1245,13 +1245,15 @@ win+shift+s 截圖 → 回終端機 alt+v，圖就進去了。
 <footer><a href="https://www.threads.com/@yrrah9_" rel="noopener">@yrrah9_</a></footer>
 <script>
 const q=document.getElementById('q'),grid=document.getElementById('grid'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty'),tabs=document.getElementById('tabs');
-tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;
-tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+const SK='yc-sort',QK='yc-q';
+function sortBy(k){tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.s===k));
 [...cs].sort((a,c)=>+c.dataset[k]-+a.dataset[k]||c.dataset.d-a.dataset.d).forEach(c=>grid.appendChild(c));
 cs.forEach(c=>{const m=c.querySelector('.meta'),v=+c.dataset[k];
-m.textContent=k==='d'||v<0?'':'#'+c.dataset['r'+k]+' · '+v.toLocaleString('zh-TW')+(k==='v'?' 瀏覽':' 讚')})});
-q.addEventListener('input',()=>{const k=q.value.trim().toLowerCase();let n=0;
-cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.hidden=n>0});
+m.textContent=k==='d'||v<0?'':'#'+c.dataset['r'+k]+' · '+v.toLocaleString('zh-TW')+(k==='v'?' 瀏覽':' 讚')})}
+function filt(){const k=q.value.trim().toLowerCase();let n=0;cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.hidden=n>0}
+tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;sortBy(k);try{sessionStorage.setItem(SK,k)}catch(_){}});
+q.addEventListener('input',()=>{filt();try{sessionStorage.setItem(QK,q.value)}catch(_){}});
+try{const k0=sessionStorage.getItem(SK);if(k0&&k0!=='d')sortBy(k0);const q0=sessionStorage.getItem(QK);if(q0){q.value=q0;filt()}}catch(_){}
 </script>
 </body>
 </html>
