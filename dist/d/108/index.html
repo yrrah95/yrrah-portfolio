@@ -34,6 +34,7 @@ ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>
+  <section class="explain"><h2>這是什麼</h2><p><code>autoMemoryEnabled</code> 是 Claude Code 的一個設定。<br>它控制 Claude 會不會自己寫筆記。<br>預設是開。<br>開著時，Claude 會把你的習慣寫進筆記。<br>新對話會讀這些筆記。</p><h2>Claude 寫哪四種筆記</h2><ul><li>你是誰：你的身分和做事習慣。</li><li>你的糾正：你糾正過、同意過的做法。</li><li>進行中的事：進度、期限、做過的決定。</li><li>去哪找資料：專案外的資料放在哪裡。</li></ul><p>程式裡查得到的內容，Claude 不寫進筆記。</p><h2>怎麼關掉</h2><ol><li>打開專案裡的 <code>.claude/settings.json</code>。</li><li>加上 <code>&quot;autoMemoryEnabled&quot;: false</code>。</li><li>要開回來，刪掉這一行，或改成 <code>true</code>。</li></ol><p>你也可以在對話裡打 <code>/memory</code> 來切換。</p><h2>怎麼測</h2><ol><li>告訴 Claude：「請記住：我的咖啡固定點無糖燕麥拿鐵」。</li><li>開一個新對話，問：「我平常咖啡怎麼點？」</li><li>設定開著：Claude 回答「無糖燕麥拿鐵」。設定關掉：Claude 回答「不知道」。</li></ol></section>
   <pre class="cta">在專案的 .claude/settings.json 加上:
 {
   &quot;autoMemoryEnabled&quot;: false

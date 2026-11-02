@@ -127,6 +127,28 @@ cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.
 </script>`,
 });
 
+// 解釋文案：explain/D<N>.md，一個小型標記：## 標題、- 清單、1. 步驟、空行分段、`行內程式碼`
+function inline(s) { return esc(s).replace(/`([^`]+)`/g, '<code>$1</code>'); }
+function explainHtml(day) {
+  const f = path.join(here, 'explain', `D${day}.md`);
+  if (!fs.existsSync(f)) return '';
+  const out = [];
+  let list = null, para = [];
+  const flushP = () => { if (para.length) out.push(`<p>${para.map(inline).join('<br>')}</p>`); para = []; };
+  const flushL = () => { if (list) out.push(`<${list.t}>${list.items.map((x) => `<li>${inline(x)}</li>`).join('')}</${list.t}>`); list = null; };
+  for (const raw of fs.readFileSync(f, 'utf8').split(/\r?\n/)) {
+    const line = raw.trim();
+    let m;
+    if (!line) { flushP(); flushL(); }
+    else if ((m = line.match(/^##\s+(.+)/))) { flushP(); flushL(); out.push(`<h2>${inline(m[1])}</h2>`); }
+    else if ((m = line.match(/^[-*]\s+(.+)/))) { flushP(); if (!list || list.t !== 'ul') { flushL(); list = { t: 'ul', items: [] }; } list.items.push(m[1]); }
+    else if ((m = line.match(/^\d+[.)]\s+(.+)/))) { flushP(); if (!list || list.t !== 'ol') { flushL(); list = { t: 'ol', items: [] }; } list.items.push(m[1]); }
+    else { flushL(); para.push(line); }
+  }
+  flushP(); flushL();
+  return `<section class="explain">${out.join('')}</section>`;
+}
+
 // 輪播圖：CSS scroll-snap 橫向滑動；多張才有箭頭、圓點與張數，沒有 JS 也能手滑
 function carousel(p) {
   if (!p.images.length) return '';
@@ -172,6 +194,7 @@ posts.forEach((p, i) => {
   <time>${p.date}</time>
   <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
   ${carousel(p)}
+  ${explainHtml(p.day)}
   ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
   <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
   <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
