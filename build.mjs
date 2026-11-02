@@ -10,6 +10,7 @@ const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > -1 
 const DATA = arg('data', process.env.YRRAH_DATA || 'C:/Users/user/.claude/skills/threads/data/yrrah_9/tips');
 const CARDS = arg('cards', process.env.YRRAH_CARDS || 'C:/Github/mine/Thread/yrrah_9/cards/tips');
 const OUT = path.resolve(here, arg('out', 'dist'));
+const COVER_BASE = "https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/site-cover/";
 const RAW = 'https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/';
 const PROFILE_URL = 'https://www.threads.com/@yrrah9_';
 const BEACON = process.env.CF_BEACON_TOKEN || '';
@@ -39,6 +40,8 @@ const posts = rows.map((r) => {
     cta: r.cta_reply && r.cta_reply.text ? r.cta_reply.text : '',
     permalink: r.permalink || '',
     images: imagesFor(day, r),
+    // 純文字舊文沒有原圖，站內用另做的封面當縮圖（只用在首頁，不放進貼文頁）
+    cover: (r.features && r.features.image_count) ? null : COVER_BASE + "D" + day + ".png",
   };
 }).filter(Boolean).sort((a, b) => b.day - a.day);
 
@@ -86,8 +89,8 @@ const rankBy = (key) => {
 const rankV = rankBy('views'), rankL = rankBy('likes');
 
 const list = (days) => days.map((p) => `
-<a class="card${p.images[0] ? "" : " txt"}" href="d/${p.day}/" data-d="${p.day}" data-v="${p.views ?? -1}" data-l="${p.likes ?? -1}" data-rv="${rankV.get(p.day)}" data-rl="${rankL.get(p.day)}" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
-  ${p.images[0] ? `<img src="${p.images[0]}" alt="" loading="lazy">` : `<div class="noimg"><b>${esc(p.title)}</b></div>`}
+<a class="card${p.images[0] || p.cover ? "" : " txt"}" href="d/${p.day}/" data-d="${p.day}" data-v="${p.views ?? -1}" data-l="${p.likes ?? -1}" data-rv="${rankV.get(p.day)}" data-rl="${rankL.get(p.day)}" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
+  ${p.images[0] || p.cover ? `<img src="${p.images[0] || p.cover}" alt="" loading="lazy">` : `<div class="noimg"><b>${esc(p.title)}</b></div>`}
   <span class="day">Day ${p.day}</span>
   <span class="meta"></span>
   <span class="ttl">${esc(p.title)}</span>
