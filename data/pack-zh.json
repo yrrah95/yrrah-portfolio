@@ -1,0 +1,21 @@
+{
+  "_說明": "來源包的中文簡介（AI 翻譯，只翻 GitHub 專案說明裡寫到的事，不補原文沒有的內容）。寫法照 STE 精神：一句一件事、主動句、同一個詞固定用法。key 是 GitHub repo。",
+  "obra/superpowers": "一套開發流程。涵蓋計畫、測試、除錯、審查。",
+  "mattpocock/skills": "給工程師用的 skill。作者從自己的設定資料夾直接公開。",
+  "anthropics/skills": "Anthropic 公開的 Agent Skills 專案。",
+  "nextlevelbuilder/ui-ux-pro-max-skill": "提供介面與使用者體驗的設計規則。支援多個平台。",
+  "garrytan/gstack": "Garry Tan 的 Claude Code 設定。把執行長、設計師、工程主管等角色做成工具。",
+  "JuliusBrussee/caveman": "讓輸出變短，省 token。作者宣稱可省 65%。",
+  "addyosmani/agent-skills": "給程式 agent 用的工程 skill。品質目標是正式環境。",
+  "pbakaus/impeccable": "給 agent 的設計用語。用 polish、bolder 調整，用 critique、audit 審查。",
+  "mvanhorn/last30days-skill": "查任何主題近 30 天的討論。來源含 Reddit、X、YouTube、HN、Polymarket 與網頁。",
+  "cathrynlavery/diagram-design": "畫編輯風格的圖表。支援多種 agent 工具。",
+  "blader/humanizer": "去掉文字裡的 AI 痕跡。",
+  "ayghri/i-have-adhd": "讓 agent 先給答案。輸出適合有 ADHD 的人閱讀。",
+  "coreyhaines31/marketingskills": "行銷 skill。涵蓋轉換率、文案、SEO、分析與成長。",
+  "emilkowalski/skills": "給設計師與工程師的 skill。",
+  "Nutlope/hallmark": "避開 AI 模板外觀的設計 skill。",
+  "vercel-labs/skills": "開放的 agent skill 工具。指令是 npx skills。",
+  "op7418/humanizer-zh": "Humanizer 的中文版。去掉文字裡的 AI 痕跡。",
+  "garrytan/gbrain": "給 agent 的記憶庫。Garry Tan 的個人做法。"
+}

@@ -1,0 +1,23 @@
+{
+  "_說明": "排行榜的一列＝一個來源包。src 對應 data/skills.json 的作者徽章，repo 是 GitHub 專案。收錄條件：星數 ≥10000、近 12 個月有更新。sources 沒列到的 src 不進排行榜。",
+  "packs": [
+    { "src": "obra", "repo": "obra/superpowers", "name": "superpowers" },
+    { "src": "mattpocock", "repo": "mattpocock/skills", "name": "mattpocock/skills" },
+    { "src": "anthropic-agent-skills", "repo": "anthropics/skills", "name": "anthropics/skills", "merge": ["anthropics"] },
+    { "src": "nextlevelbuilder", "repo": "nextlevelbuilder/ui-ux-pro-max-skill", "name": "ui-ux-pro-max" },
+    { "src": "gstack", "repo": "garrytan/gstack", "name": "gstack" },
+    { "src": "caveman", "repo": "JuliusBrussee/caveman", "name": "caveman" },
+    { "src": "addyosmani", "repo": "addyosmani/agent-skills", "name": "agent-skills" },
+    { "src": "pbakaus", "repo": "pbakaus/impeccable", "name": "impeccable" },
+    { "src": "mvanhorn", "repo": "mvanhorn/last30days-skill", "name": "last30days" },
+    { "src": "cathrynlavery", "repo": "cathrynlavery/diagram-design", "name": "diagram-design" },
+    { "src": "blader", "repo": "blader/humanizer", "name": "humanizer" },
+    { "src": "i-have-adhd", "repo": "ayghri/i-have-adhd", "name": "i-have-adhd" },
+    { "src": "marketingskills", "repo": "coreyhaines31/marketingskills", "name": "marketingskills" },
+    { "src": "emil", "repo": "emilkowalski/skills", "name": "emil/skills" },
+    { "src": "nutlope", "repo": "Nutlope/hallmark", "name": "hallmark" },
+    { "src": "vercel-labs", "repo": "vercel-labs/skills", "name": "find-skills" },
+    { "src": "op7418", "repo": "op7418/humanizer-zh", "name": "humanizer-zh" },
+    { "src": "garrytan", "repo": "garrytan/gbrain", "name": "gbrain" }
+  ]
+}

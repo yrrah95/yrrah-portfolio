@@ -1,0 +1,8 @@
+{
+  "_說明": "沒裝在 Claude 裡、只收進網站的 skill。每個作者列出 repo 與 skill 所在資料夾；fetch-catalog 只抓公開頁面的 SKILL.md 說明。",
+  "sources": [
+    { "author": "addyosmani", "repo": "addyosmani/agent-skills", "branch": "main", "prefix": "skills/" },
+    { "author": "obra", "repo": "obra/superpowers", "branch": "main", "prefix": "skills/" },
+    { "author": "nextlevelbuilder", "repo": "nextlevelbuilder/ui-ux-pro-max-skill", "branch": "main", "prefix": ".claude/skills/" }
+  ]
+}

@@ -76,9 +76,9 @@ const beacon = BEACON
   : '';
 const BUILT = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10); // 網站建置日（台灣時間）
 const ARROW = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
-const navHtml = (depth) => `<nav class="nav"><div class="in"><a class="brand" href="${depth || './'}" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="${depth}logo-dark.png"><img src="${depth}logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="${depth || './'}">全部貼文</a><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads ${ARROW}</a></div></div></nav>`;
+const navHtml = (depth, active) => `<nav class="nav"><div class="in"><a class="brand" href="${depth || './'}" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="${depth}logo-dark.png"><img src="${depth}logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="${depth || './'}"${active === 'posts' ? ' aria-current="page"' : ''}>Tips</a><a href="${depth}skill/"${active === 'skill' ? ' aria-current="page"' : ''}>Skill</a><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads ${ARROW}</a></div></div></nav>`;
 const footHtml = `<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads @yrrah9_ ${ARROW}</a><span>網站更新於 ${BUILT}</span></span></div></footer>`;
-const page = ({ title, desc, body, depth }) => `<!doctype html>
+const page = ({ title, desc, body, depth, active = 'posts' }) => `<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
@@ -89,7 +89,7 @@ const page = ({ title, desc, body, depth }) => `<!doctype html>
 ${beacon}
 </head>
 <body>
-${navHtml(depth)}
+${navHtml(depth, active)}
 ${body}
 ${footHtml}
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
@@ -223,6 +223,149 @@ fs.writeFileSync(path.join(OUT, 'index.html'), index);
 fs.copyFileSync(path.join(here, 'src', 'style.css'), path.join(OUT, 'style.css'));
 for (const f of ['logo-light.png', 'logo-dark.png']) fs.copyFileSync(path.join(here, 'src', f), path.join(OUT, f));
 
+const skillsByDay = {}; // 貼文天數 → 該篇提到的 skill（由 Skill 區塊填入）
+
+// ---- Skill 分頁：資料是 data/skills.json（由 tools/sync-skills.mjs 從工作站清單唯讀產生，已濾掉自製與個人用語）
+const SKILL_FILE = path.join(here, 'data', 'skills.json');
+const skillData = fs.existsSync(SKILL_FILE) ? JSON.parse(fs.readFileSync(SKILL_FILE, 'utf8')) : null;
+const CHEV = '<svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+const XICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+if (skillData) {
+  // 來源包：收錄條件＝星數 ≥10000、近 12 個月有更新、未封存；不符合的包與包內 skill 不進網站
+  const PACK_FILE = path.join(here, 'data', 'packs.json');
+  const packData = fs.existsSync(PACK_FILE) ? JSON.parse(fs.readFileSync(PACK_FILE, 'utf8')) : { fetched: '', packs: [] };
+  const packZh = JSON.parse(fs.readFileSync(path.join(here, 'data', 'pack-zh.json'), 'utf8'));
+  const ageDays = (d) => (Date.parse(packData.fetched) - Date.parse(d)) / 86400000;
+  const packs = packData.packs.filter((p) => {
+    const ok = p.stars >= 10000 && ageDays(p.pushed) <= 365 && !p.archived && packZh[p.repo];
+    if (!ok) warns.push('來源包 ' + p.repo + ' 不符收錄條件或缺中文簡介，已略過');
+    return ok;
+  }).sort((x, y) => y.stars - x.stars);
+  const srcPack = {};
+  packs.forEach((p) => { srcPack[p.src] = p; p.merge.forEach((m) => { srcPack[m] = p; }); });
+  const sk = skillData.skills.filter((s) => srcPack[s.src]);
+  const droppedSk = skillData.skills.filter((s) => !srcPack[s.src]);
+  if (droppedSk.length) console.log('略過 ' + droppedSk.length + ' 個不在來源包內的 skill：' + droppedSk.map((s) => s.src + '/' + s.name).join('、'));
+  const gc = {}, ac = {};
+  sk.forEach((s) => { gc[s.group] = (gc[s.group] || 0) + 1; ac[s.src] = (ac[s.src] || 0) + 1; });
+  const groups = skillData.groups.filter((g) => gc[g]);
+  const authors = Object.keys(ac);
+  const wan = (n) => (n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 萬' : String(n));
+  const packSkills = (p) => sk.filter((s) => srcPack[s.src] === p);
+  const maxStars = packs.length ? packs[0].stars : 1;
+  const rows = packs.map((p) => {
+    const list = packSkills(p);
+    const kinds = p.plugin ? 'plugin' : 'skill';
+    const gs = [...new Set(list.map((s) => s.group))];
+    const pt = (p.name + ' ' + packZh[p.repo] + ' ' + p.repo).toLowerCase();
+    const link = list.length > 1 ? esc(p.src) + '/' : esc(list[0].src) + '/' + esc(list[0].name) + '/';
+    const items = list.map((s) => '<li data-g="' + esc(s.group) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.group).toLowerCase()) + '"><a href="' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span></a></li>').join('');
+    return '<li class="pk" data-k="' + kinds.trim() + '" data-g="' + esc(gs.join('|')) + '" data-pt="' + esc(pt) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name + ' ' + s.say).join(' ').toLowerCase()) + '"><a class="pkl" href="' + link + '"><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code>' + (p.plugin ? '<span class="kd">Plugin</span>' : '') + '<span class="ska">AI翻譯</span></span>'
+      + '<span class="pkd">' + esc(packZh[p.repo]) + '</span><span class="heat" aria-hidden="true"><i style="width:' + Math.max(2, Math.round(p.stars / maxStars * 100)) + '%"></i></span></span>'
+      + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + list.length + '</span> 個 skill</span></span></a></li>';
+  }).join('\n');
+  const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
+  const nPlugin = packs.filter((p) => p.plugin).length;
+  const rail = '<aside class="rail"><section><h2>類別</h2>' + railBtn('data-ty', 'skill', 'Skill', packs.length - nPlugin) + railBtn('data-ty', 'plugin', 'Plugin', nPlugin) + '</section>'
+    + '<section><h2>功能</h2>' + groups.map((g) => railBtn('data-g', g, g, packs.filter((p) => packSkills(p).some((s) => s.group === g)).length)).join('') + '</section></aside>';
+  const skillPage = page({
+    title: 'Skill｜Claude Code Everyday',
+    desc: packs.length + ' 個熱門來源包、' + sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯）。',
+    depth: '../',
+    active: 'skill',
+    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">只收熱門的來源包，依 GitHub 星數排名。中文說明都是 AI 翻譯，以原文為準。不保證安全，安裝前請自己看過內容。</p></header>\n'
+      + '<div class="cw">' + rail + '<div class="cmain"><div class="pkt"><input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
+      + '<ol class="pklist" id="grid">' + rows + '</ol>\n'
+      + '<p class="empty" id="empty" hidden>沒有符合的項目</p>\n'
+      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 代表專案內有 plugin 檔案，Skill 代表沒偵測到。我只檢查檔案是否存在，沒有逐一審查內容，安裝方式請看各專案說明。</p></div></div>\n'
+      + '<script>\n'
+      + "const q=document.getElementById('q'),ps=[...document.querySelectorAll('.pk')],em=document.getElementById('empty'),K={ty:'sk-ty',g:'sk-g',q:'sk-q'};let ty='',g='';\n"
+      + "function hit(p,st,sg){const kw=q.value.trim().toLowerCase();if(!st&&ty&&p.dataset.k.split(' ').indexOf(ty)<0)return false;if(!sg&&g&&p.dataset.g.split('|').indexOf(g)<0)return false;return!kw||p.dataset.t.indexOf(kw)>=0}\n"
+      + "function save(){try{sessionStorage.setItem(K.ty,ty);sessionStorage.setItem(K.g,g);sessionStorage.setItem(K.q,q.value)}catch(_){}}\n"
+      + "function render(){const kw=q.value.trim().toLowerCase();let n=0;\n"
+      + "ps.forEach(p=>{const on=hit(p);p.hidden=!on;if(!on)return;n++;const r=p.querySelector('.rk');r.textContent=n;r.classList.toggle('top',n<=3)\n"
+      + "});\n"
+      + "em.hidden=n>0;\n"
+      + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=ps.filter(p=>hit(p,true)&&(v===''||p.dataset.k.split(' ').indexOf(v)>=0)).length});\n"
+      + "document.querySelectorAll('.rail [data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=ps.filter(p=>hit(p,false,true)&&p.dataset.g.split('|').indexOf(v)>=0).length})}\n"
+      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;if(b.dataset.ty!==undefined)ty=(ty===b.dataset.ty)?'':b.dataset.ty;if(b.dataset.g!==undefined)g=(g===b.dataset.g)?'':b.dataset.g;render();save()});\n"
+      + "q.addEventListener('input',()=>{render();save()});\n"
+      + "try{ty=sessionStorage.getItem(K.ty)||'';g=sessionStorage.getItem(K.g)||'';q.value=sessionStorage.getItem(K.q)||''}catch(_){}\n"
+      + "render();\n"
+      + '</script>',
+  });
+  fs.mkdirSync(path.join(OUT, 'skill'), { recursive: true });
+  fs.writeFileSync(path.join(OUT, 'skill', 'index.html'), skillPage);
+  // 詳細頁：完整中文說明、什麼時候用、原文、貼文裡提到過的 Day、來源連結
+  const backJs = (a, b) => "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='" + a + "'||r.pathname==='" + b + "')){history.back();return false}}catch(e){}";
+  let packPageN = 0;
+  const packHasPage = (p) => packSkills(p).length > 1;
+  for (const p of packs) {
+    if (!packHasPage(p)) continue;
+    const list = packSkills(p);
+    const secs = groups.map((g) => ({ g, items: list.filter((s) => s.group === g) })).filter((x) => x.items.length);
+    const html = page({
+      title: p.name + '｜Skill｜Claude Code Everyday',
+      desc: packZh[p.repo],
+      depth: '../../',
+      active: 'skill',
+      body: '<header class="top slim skdh"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
+        + '<article class="skd">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
+        + '<div class="tags">' + (p.plugin ? '<span class="tg">Plugin</span>' : '') + '<span class="ska">AI翻譯</span></div>\n'
+        + '<p class="lede">' + esc(packZh[p.repo]) + '</p>\n'
+        + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
+        + '<a class="gh" href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a>\n'
+        + '<div class="pkt pq"><input id="q" type="search" placeholder="搜尋這個包的 skill" autocomplete="off"></div>\n'
+        + '<div class="crows">' + secs.map((x) => x.items.map((s) => '<a class="crow" data-t="' + esc((s.name + ' ' + s.say + ' ' + x.g).toLowerCase()) + '" href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span class="d"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span><span class="g">' + esc(x.g) + '</span></a>').join('')).join('') + '</div>'
+        + '\n<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n</article>\n'
+        + '<script>\n'
+        + "const q=document.getElementById('q'),em=document.getElementById('empty');\n"
+        + "q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.crow').forEach(r=>{const v=!kw||r.dataset.t.indexOf(kw)>=0;r.hidden=!v;if(v)n++});em.hidden=n>0})\n"
+        + '</script>',
+    });
+    const dir = path.join(OUT, 'skill', p.src);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    packPageN++;
+  }
+  console.log('來源包專屬頁 ' + packPageN + ' 頁');
+  const BACK_SKILL = "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/'||r.pathname==='/skill')){history.back();return false}}catch(e){}";
+  const reFor = (n) => { const e = n.replace(/[.*+?^$()|[\]\\{}-]/g, '\\$&'); return n.includes('-') ? new RegExp('(?<![A-Za-z0-9-])' + e + '(?![A-Za-z0-9-])', 'i') : new RegExp('(/|`)' + e + '(?![A-Za-z0-9-])'); };
+  const relPosts = (s) => { const re = reFor(s.name); return posts.filter((p) => re.test((p.body || '') + '\n' + (p.cta || ''))); };
+  let detailN = 0, relN = 0;
+  const pkOf = (s) => srcPack[s.src];
+  for (const s of sk) {
+    const rel = relPosts(s);
+    if (rel.length) relN++;
+    rel.forEach((p) => { (skillsByDay[p.day] = skillsByDay[p.day] || []).push(s); });
+    const origLang = /[\u4e00-\u9fff]/.test(s.orig || '') ? '' : ' lang="en"';
+    const html = page({
+      title: '/' + s.name + '｜Skill｜Claude Code Everyday',
+      desc: s.say.slice(0, 110),
+      depth: '../../../',
+      active: 'skill',
+      body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
+        + '<article class="skd">\n'
+        + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
+        + '<div class="tags"><span class="tg">' + esc(s.group) + '</span>' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + '' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
+        + '<p class="lede"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>\n'
+        + (s.when ? '<section><h2>什麼時候用</h2><p>' + esc(s.when) + '</p></section>\n' : '')
+        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
+        + (rel.length ? '<section><h2>相關貼文</h2><ul class="rel">' + rel.map((p) => '<li><a href="../../../d/' + p.day + '/"><span class="day">Day ' + p.day + '</span>' + esc(p.title) + '</a></li>').join('') + '</ul></section>\n' : '')
+        + (s.url ? '<p class="go"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a></p>\n' : '')
+        + '</article>',
+    });
+    const dir = path.join(OUT, 'skill', s.src, s.name);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    detailN++;
+  }
+  console.log('Skill 詳細頁 ' + detailN + ' 頁（其中 ' + relN + ' 個有相關貼文）');
+  console.log('Skill ' + sk.length + ' 個，功能 ' + groups.length + ' 組，作者 ' + authors.length + ' 位');
+} else {
+  warns.push('沒有 data/skills.json，Skill 分頁略過（node tools/sync-skills.mjs 產生）');
+}
+
 posts.forEach((p, i) => {
   const newer = posts[i - 1], older = posts[i + 1];
   const html = page({
@@ -242,6 +385,7 @@ posts.forEach((p, i) => {
     <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
   </div>
   ${explainHtml(p.day)}
+  ${(skillsByDay[p.day] || []).length ? `<section class="rs"><h2>相關 Skill</h2><ul class="rel">${skillsByDay[p.day].map((s) => `<li><a href="../../skill/${esc(s.src)}/${esc(s.name)}/"><span class="day mono">/${esc(s.name)}</span>${esc(s.say)}</a></li>`).join('')}</ul></section>` : ''}
   <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
 </article>`,
   });
@@ -249,6 +393,7 @@ posts.forEach((p, i) => {
   fs.mkdirSync(d, { recursive: true });
   fs.writeFileSync(path.join(d, 'index.html'), html);
 });
+
 
 console.log(`貼文 ${posts.length} 篇，輸出 ${OUT}`);
 console.log(`有圖 ${posts.filter((p) => p.images.length).length} 篇，量測碼 ${BEACON ? '有' : '無'}`);
