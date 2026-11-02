@@ -43,5 +43,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>You should know 是 Claude Code 的內建外掛。<br>Claude 做長任務時，旁邊多一個 agent 盯著。<br>它發現你漏看的事，會在輸入框上面提醒你。<br>它是內建外掛，不用另外安裝。</p></div><div class="ex"><h2>提醒分兩種</h2><ul><li>You should know：某個東西怎麼運作，跟你有關。</li><li>Heads up：這次工作裡要小心的事。</li><li>Heads up 包括 Claude 做的決定，和結果有誤的情況。</li></ul></div><div class="ex"><h2>怎麼打開</h2><ol><li>外掛預設是關的。要自己打開。</li><li>在 Claude Code 裡打 <code>/plugin enable cc-plugin-you-should-know@builtin</code>。</li><li>找不到時，到 <code>/plugin</code> 的 Installed 頁。</li><li>在那一頁選 Show disabled。</li></ol></div><div class="ex"><h2>打開之前</h2><ul><li>版本要 2.1.287 以上。</li><li>條件是 first-party 且遙測開著。</li><li>組織沒開放就看不到。</li><li>要關掉，在 <code>/plugin</code> 裡 disable 它。</li></ul></div></section>
   <nav class="pn"><a href="../77/">← Day 77</a><a href="../79/">Day 79 →</a></nav>
 </article>
+<button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>
 </html>

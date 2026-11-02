@@ -48,5 +48,7 @@ claude update
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>叫 Claude Code 幫你 commit。<br>每一筆最後都會自動多一行 Co-Authored-By 署名。<br>新版有一行設定，把 commit 和 PR 的署名一起關掉。</p></div><div class="ex"><h2>它預設會加什麼</h2><ul><li>commit：最後一行 Co-Authored-By。</li><li>署名寫誰：你當下在用的那個模型。</li><li>PR 說明：最後一行寫是 Claude Code 產的。</li><li>雲端與遠端控制：commit 還附對話連結。</li></ul><p>出處是官方設定文件的 attribution 節。</p></div><div class="ex"><h2>以前和現在</h2><ul><li>以前：<code>commit</code> 設空字串，<code>pr</code> 設空字串，<code>sessionUrl</code> 關掉。</li><li>2.1.281 起：一行設成 <code>false</code>。三個一次關掉。效果完全一樣。</li></ul></div><div class="ex"><h2>怎麼關掉</h2><ol><li>打 <code>claude update</code>，更新到 2.1.281 以上。舊版會跳過整份設定。</li><li>打開 <code>~/.claude/settings.json</code>。</li><li>在大括號裡加 <code>&quot;attribution&quot;: false</code>。</li><li>叫它 commit 一次，確認最後那行署名不見了。</li></ol></div></section>
   <nav class="pn"><a href="../69/">← Day 69</a><a href="../71/">Day 71 →</a></nav>
 </article>
+<button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>
 </html>
