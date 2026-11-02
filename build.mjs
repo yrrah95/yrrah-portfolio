@@ -223,33 +223,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), index);
 fs.copyFileSync(path.join(here, 'src', 'style.css'), path.join(OUT, 'style.css'));
 for (const f of ['logo-light.png', 'logo-dark.png']) fs.copyFileSync(path.join(here, 'src', f), path.join(OUT, f));
 
-posts.forEach((p, i) => {
-  const newer = posts[i - 1], older = posts[i + 1];
-  const html = page({
-    title: `Day ${p.day}｜${p.title}`,
-    desc: p.title,
-    depth: '../../',
-    body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post${p.images.length || p.cover ? "" : " nocar"}">
-  <div class="head">
-    <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
-    <time>${p.date}</time>
-    <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
-  </div>
-  ${carousel(p)}
-  <div class="act">
-    ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
-    <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
-  </div>
-  ${explainHtml(p.day)}
-  <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
-</article>`,
-  });
-  const d = path.join(OUT, 'd', String(p.day));
-  fs.mkdirSync(d, { recursive: true });
-  fs.writeFileSync(path.join(d, 'index.html'), html);
-});
-
+const skillsByDay = {}; // 貼文天數 → 該篇提到的 skill（由 Skill 區塊填入）
 
 // ---- Skill 分頁：資料是 data/skills.json（由 tools/sync-skills.mjs 從工作站清單唯讀產生，已濾掉自製與個人用語）
 const SKILL_FILE = path.join(here, 'data', 'skills.json');
@@ -257,58 +231,66 @@ const skillData = fs.existsSync(SKILL_FILE) ? JSON.parse(fs.readFileSync(SKILL_F
 const CHEV = '<svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 const XICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 if (skillData) {
-  const sk = skillData.skills;
+  // 來源包：收錄條件＝星數 ≥10000、近 12 個月有更新、未封存；不符合的包與包內 skill 不進網站
+  const PACK_FILE = path.join(here, 'data', 'packs.json');
+  const packData = fs.existsSync(PACK_FILE) ? JSON.parse(fs.readFileSync(PACK_FILE, 'utf8')) : { fetched: '', packs: [] };
+  const packZh = JSON.parse(fs.readFileSync(path.join(here, 'data', 'pack-zh.json'), 'utf8'));
+  const ageDays = (d) => (Date.parse(packData.fetched) - Date.parse(d)) / 86400000;
+  const packs = packData.packs.filter((p) => {
+    const ok = p.stars >= 10000 && ageDays(p.pushed) <= 365 && !p.archived && packZh[p.repo];
+    if (!ok) warns.push('來源包 ' + p.repo + ' 不符收錄條件或缺中文簡介，已略過');
+    return ok;
+  }).sort((x, y) => y.stars - x.stars);
+  const srcPack = {};
+  packs.forEach((p) => { srcPack[p.src] = p; p.merge.forEach((m) => { srcPack[m] = p; }); });
+  const sk = skillData.skills.filter((s) => srcPack[s.src]);
+  const droppedSk = skillData.skills.filter((s) => !srcPack[s.src]);
+  if (droppedSk.length) console.log('略過 ' + droppedSk.length + ' 個不在來源包內的 skill：' + droppedSk.map((s) => s.src + '/' + s.name).join('、'));
   const gc = {}, ac = {};
   sk.forEach((s) => { gc[s.group] = (gc[s.group] || 0) + 1; ac[s.src] = (ac[s.src] || 0) + 1; });
   const groups = skillData.groups.filter((g) => gc[g]);
-  const authors = Object.keys(ac).sort((x, y) => ac[y] - ac[x] || x.localeCompare(y));
-  const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-a="' + esc(s.src) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
-    + '<div class="skh"><code class="skn"><a href="' + esc(s.src) + '/' + esc(s.name) + '/">/' + esc(s.name) + '</a></code>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
-    + '<p class="sksay"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>'
-    + '</li>').join('\n');
-  const opts = (all, list, cnt) => '<li role="option" data-v="" aria-selected="true">' + all + '<small>' + sk.length + '</small></li>'
-    + list.map((v) => '<li role="option" data-v="' + esc(v) + '" aria-selected="false">' + esc(v) + '<small>' + cnt[v] + '</small></li>').join('');
-  const dd = (k, label, menu) => '<div class="sortbar solo" id="' + k + 'bar"><div class="dd"><button type="button" class="ddb" id="' + k + 'k" aria-haspopup="listbox" aria-expanded="false"><span id="' + k + 'l">' + label + '</span>' + CHEV + '</button><ul class="ddm long" id="' + k + 'm" role="listbox" hidden>' + menu + '</ul></div></div>';
+  const authors = Object.keys(ac);
+  const wan = (n) => (n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 萬' : String(n));
+  const packSkills = (p) => sk.filter((s) => srcPack[s.src] === p);
+  const maxStars = packs.length ? packs[0].stars : 1;
+  const rows = packs.map((p) => {
+    const list = packSkills(p);
+    const kinds = (p.plugin ? 'plugin ' : '') + (p.hook ? 'hook' : '');
+    const gs = [...new Set(list.map((s) => s.group))];
+    const pt = (p.name + ' ' + packZh[p.repo] + ' ' + p.repo).toLowerCase();
+    const items = list.map((s) => '<li data-g="' + esc(s.group) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.group).toLowerCase()) + '"><a href="' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span></a></li>').join('');
+    return '<li class="pk" data-k="' + kinds.trim() + '" data-g="' + esc(gs.join('|')) + '" data-pt="' + esc(pt) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name + ' ' + s.say).join(' ').toLowerCase()) + '"><details>'
+      + '<summary><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code>' + (p.plugin ? '<span class="kd">Plugin</span>' : '') + (p.hook ? '<span class="kd">Hook</span>' : '') + '<span class="ska">AI翻譯</span></span>'
+      + '<span class="pkd">' + esc(packZh[p.repo]) + '</span><span class="heat" aria-hidden="true"><i style="width:' + Math.max(2, Math.round(p.stars / maxStars * 100)) + '%"></i></span></span>'
+      + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + list.length + '</span> 個 skill</span></span></summary>'
+      + '<div class="pkx"><ul class="pks">' + items + '</ul><p class="pkf"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p></div></details></li>';
+  }).join('\n');
+  const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
+  const rail = '<aside class="rail"><section><h2>類型</h2>' + railBtn('data-ty', '', '全部', packs.length) + railBtn('data-ty', 'plugin', 'Plugin', packs.filter((p) => p.plugin).length) + railBtn('data-ty', 'hook', 'Hook', packs.filter((p) => p.hook).length) + '</section>'
+    + '<section><h2>功能</h2>' + railBtn('data-g', '', '全部', packs.length) + groups.map((g) => railBtn('data-g', g, g, packs.filter((p) => packSkills(p).some((s) => s.group === g)).length)).join('') + '</section></aside>';
   const skillPage = page({
     title: 'Skill｜Claude Code Everyday',
-    desc: sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯），附上什麼時候用。',
+    desc: packs.length + ' 個熱門來源包、' + sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯）。',
     depth: '../',
     active: 'skill',
-    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。中文都是 AI 翻譯，以原文為準。整理自各作者的公開頁面，不代表我用過或保證安全，安裝前請自己看過內容。</p></header>\n'
-      + '<div class="bar">' + dd('g', '全部功能', opts('全部功能', groups, gc)) + dd('a', '全部作者', opts('全部作者', authors, ac))
-      + '<button type="button" class="clr" id="clr" hidden>' + XICON + '清除</button>'
-      + '<input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
-      + '<ul class="skgrid" id="grid">' + cards + '</ul>\n'
-      + '<nav class="pager" id="pg" aria-label="分頁" hidden></nav>\n'
-      + '<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n'
+    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">只收熱門的來源包，依 GitHub 星數排名。中文說明都是 AI 翻譯，以原文為準。不保證安全，安裝前請自己看過內容。</p></header>\n'
+      + '<div class="cw">' + rail + '<div class="cmain"><div class="pkt"><input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
+      + '<ol class="pklist" id="grid">' + rows + '</ol>\n'
+      + '<p class="empty" id="empty" hidden>沒有符合的項目</p>\n'
+      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 與 Hook 標示代表專案內有對應檔案，我只檢查檔案是否存在，沒有逐一審查內容。</p></div></div>\n'
       + '<script>\n'
-      + "const q=document.getElementById('q'),cs=[...document.querySelectorAll('.sk')],em=document.getElementById('empty'),pg=document.getElementById('pg'),clr=document.getElementById('clr');\n"
-      + "const PER=12,K={g:'sk-g',a:'sk-a',q:'sk-q',p:'sk-p'},ALL={g:'全部功能',a:'全部作者'};let sel={g:'',a:''},page=1;\n"
-      + "const D={};['g','a'].forEach(k=>{D[k]={btn:document.getElementById(k+'k'),lbl:document.getElementById(k+'l'),menu:document.getElementById(k+'m'),bar:document.getElementById(k+'bar')}});\n"
-      + "const CL='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 18l-6-6 6-6\"/></svg>';\n"
-      + "const CR='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg>';\n"
-      + "function pageList(n,c){const s=new Set([1,n,c-1,c,c+1]);if(c<=3){s.add(2);s.add(3);s.add(4)}if(c>=n-2){s.add(n-1);s.add(n-2);s.add(n-3)}const a=[...s].filter(x=>x>=1&&x<=n).sort((x,y)=>x-y),o=[];a.forEach((x,i)=>{if(i&&x-a[i-1]>1)o.push(0);o.push(x)});return o}\n"
-      + "function save(){try{sessionStorage.setItem(K.g,sel.g);sessionStorage.setItem(K.a,sel.a);sessionStorage.setItem(K.q,q.value);sessionStorage.setItem(K.p,String(page))}catch(_){}}\n"
-      + "function ok(c,skip){const kw=q.value.trim().toLowerCase();return(skip==='g'||!sel.g||c.dataset.g===sel.g)&&(skip==='a'||!sel.a||c.dataset.a===sel.a)&&(!kw||c.dataset.t.includes(kw))}\n"
-      + "function render(){const all=cs.filter(c=>ok(c)),n=Math.max(1,Math.ceil(all.length/PER));if(page>n)page=n;if(page<1)page=1;cs.forEach(c=>{c.hidden=true});all.slice((page-1)*PER,page*PER).forEach(c=>{c.hidden=false});em.hidden=all.length>0;\n"
-      + "['g','a'].forEach(k=>{const base=cs.filter(c=>ok(c,k)),cnt={};base.forEach(c=>{const v=c.dataset[k];cnt[v]=(cnt[v]||0)+1});\n"
-      + "D[k].menu.querySelectorAll('li').forEach(li=>{const v=li.dataset.v,m=v===''?base.length:(cnt[v]||0);li.querySelector('small').textContent=m;li.classList.toggle('zero',m===0&&v!==sel[k]);li.setAttribute('aria-selected',String(v===sel[k]))});\n"
-      + "D[k].lbl.textContent=sel[k]||ALL[k];D[k].bar.classList.toggle('on',!!sel[k])});\n"
-      + "clr.hidden=!(sel.g||sel.a||q.value.trim());\n"
-      + "if(n<=1){pg.hidden=true;pg.innerHTML='';return}pg.hidden=false;\n"
-      + "let h='<button type=\"button\" data-p=\"'+(page-1)+'\" aria-label=\"上一頁\"'+(page===1?' disabled':'')+'>'+CL+'</button>';\n"
-      + "pageList(n,page).forEach(x=>{h+=x?'<button type=\"button\" data-p=\"'+x+'\" aria-label=\"第 '+x+' 頁\"'+(x===page?' aria-current=\"page\"':'')+'>'+x+'</button>':'<span class=\"gap\">…</span>'});\n"
-      + "h+='<button type=\"button\" data-p=\"'+(page+1)+'\" aria-label=\"下一頁\"'+(page===n?' disabled':'')+'>'+CR+'</button>';pg.innerHTML=h}\n"
-      + "function closeAll(except){['g','a'].forEach(k=>{if(k!==except){D[k].menu.hidden=true;D[k].btn.setAttribute('aria-expanded','false')}})}\n"
-      + "['g','a'].forEach(k=>{const d=D[k];\n"
-      + "d.btn.addEventListener('click',e=>{e.stopPropagation();closeAll(k);d.menu.hidden=!d.menu.hidden;d.btn.setAttribute('aria-expanded',String(!d.menu.hidden))});\n"
-      + "d.menu.addEventListener('click',e=>{const li=e.target.closest('li');if(!li||li.classList.contains('zero'))return;sel[k]=li.dataset.v;page=1;render();save();closeAll();d.btn.focus()});\n"
-      + "d.btn.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()})});\n"
-      + "document.addEventListener('click',()=>closeAll());\n"
-      + "q.addEventListener('input',()=>{page=1;render();save()});\n"
-      + "clr.addEventListener('click',()=>{sel={g:'',a:''};q.value='';page=1;render();save()});\n"
-      + "pg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;page=+b.dataset.p;render();save();document.querySelector('.bar').scrollIntoView({behavior:'smooth',block:'start'})});\n"
-      + "try{sel.g=sessionStorage.getItem(K.g)||'';sel.a=sessionStorage.getItem(K.a)||'';q.value=sessionStorage.getItem(K.q)||'';page=+sessionStorage.getItem(K.p)||1}catch(_){}\n"
+      + "const q=document.getElementById('q'),ps=[...document.querySelectorAll('.pk')],em=document.getElementById('empty'),K={ty:'sk-ty',g:'sk-g',q:'sk-q'};let ty='',g='';\n"
+      + "function hit(p,st,sg){const kw=q.value.trim().toLowerCase();if(!st&&ty&&p.dataset.k.split(' ').indexOf(ty)<0)return false;if(!sg&&g&&p.dataset.g.split('|').indexOf(g)<0)return false;return!kw||p.dataset.t.indexOf(kw)>=0}\n"
+      + "function save(){try{sessionStorage.setItem(K.ty,ty);sessionStorage.setItem(K.g,g);sessionStorage.setItem(K.q,q.value)}catch(_){}}\n"
+      + "function render(){const kw=q.value.trim().toLowerCase();let n=0;\n"
+      + "ps.forEach(p=>{const on=hit(p);p.hidden=!on;if(!on)return;n++;const r=p.querySelector('.rk');r.textContent=n;r.classList.toggle('top',n<=3);\n"
+      + "const all=kw&&p.dataset.pt.indexOf(kw)>=0;let c=0;p.querySelectorAll('.pks li').forEach(li=>{const v=(!g||li.dataset.g===g)&&(!kw||all||li.dataset.t.indexOf(kw)>=0);li.hidden=!v;if(v)c++});p.querySelector('.pkc .n').textContent=c});\n"
+      + "em.hidden=n>0;\n"
+      + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=ps.filter(p=>hit(p,true)&&(v===''||p.dataset.k.split(' ').indexOf(v)>=0)).length});\n"
+      + "document.querySelectorAll('[data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=ps.filter(p=>hit(p,false,true)&&(v===''||p.dataset.g.split('|').indexOf(v)>=0)).length})}\n"
+      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;if(b.dataset.ty!==undefined)ty=b.dataset.ty;if(b.dataset.g!==undefined)g=b.dataset.g;render();save()});\n"
+      + "q.addEventListener('input',()=>{render();save()});\n"
+      + "try{ty=sessionStorage.getItem(K.ty)||'';g=sessionStorage.getItem(K.g)||'';q.value=sessionStorage.getItem(K.q)||''}catch(_){}\n"
       + "render();\n"
       + '</script>',
   });
@@ -322,6 +304,7 @@ if (skillData) {
   for (const s of sk) {
     const rel = relPosts(s);
     if (rel.length) relN++;
+    rel.forEach((p) => { (skillsByDay[p.day] = skillsByDay[p.day] || []).push(s); });
     const origLang = /[\u4e00-\u9fff]/.test(s.orig || '') ? '' : ' lang="en"';
     const html = page({
       title: '/' + s.name + '｜Skill｜Claude Code Everyday',
@@ -349,6 +332,35 @@ if (skillData) {
 } else {
   warns.push('沒有 data/skills.json，Skill 分頁略過（node tools/sync-skills.mjs 產生）');
 }
+
+posts.forEach((p, i) => {
+  const newer = posts[i - 1], older = posts[i + 1];
+  const html = page({
+    title: `Day ${p.day}｜${p.title}`,
+    desc: p.title,
+    depth: '../../',
+    body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
+<article class="post${p.images.length || p.cover ? "" : " nocar"}">
+  <div class="head">
+    <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
+    <time>${p.date}</time>
+    <div class="text">${esc(p.body.split('\n').slice(p.body.split('\n').indexOf(p.title) + 1).join('\n').trim())}</div>
+  </div>
+  ${carousel(p)}
+  <div class="act">
+    ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
+    <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
+  </div>
+  ${explainHtml(p.day)}
+  ${(skillsByDay[p.day] || []).length ? `<section class="rs"><h2>相關 Skill</h2><ul class="rel">${skillsByDay[p.day].map((s) => `<li><a href="../../skill/${esc(s.src)}/${esc(s.name)}/"><span class="day mono">/${esc(s.name)}</span>${esc(s.say)}</a></li>`).join('')}</ul></section>` : ''}
+  <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
+</article>`,
+  });
+  const d = path.join(OUT, 'd', String(p.day));
+  fs.mkdirSync(d, { recursive: true });
+  fs.writeFileSync(path.join(d, 'index.html'), html);
+});
+
 
 console.log(`貼文 ${posts.length} 篇，輸出 ${OUT}`);
 console.log(`有圖 ${posts.filter((p) => p.images.length).length} 篇，量測碼 ${BEACON ? '有' : '無'}`);

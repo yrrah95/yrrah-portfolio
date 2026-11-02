@@ -47,6 +47,7 @@ claude update
     <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>終端機拉到全螢幕時，Claude 回的字一行拉到最右邊。<br>貼文說，看完一行要找半天下一行在哪。<br>2.1.282 加了設定 <code>maxProseWidth</code>。<br>它讓段落收窄。表格和程式碼照樣全寬。</p></div><div class="ex"><h2>誰收窄，誰照舊</h2><ul><li>段落：照你設的欄數換行。</li><li>標題、清單：一樣收窄。</li><li>引用區塊：一樣收窄。</li><li>表格、程式碼：照樣吃滿整個終端機寬度。</li></ul></div><div class="ex"><h2>設定前先知道</h2><ul><li>單位：終端機的欄數。</li><li>最小值：40。低於 40 當作沒設。</li><li>不設：預設用整個終端機寬度。</li><li>複製出來：只是顯示換行，原文不多換行。</li></ul></div><div class="ex"><h2>怎麼做</h2><ol><li>打 <code>claude update</code>，更新到 2.1.282 以上。</li><li>打開 <code>~/.claude/settings.json</code>。</li><li>在大括號裡加 <code>&quot;maxProseWidth&quot;: 100</code>。100 換成你要的欄數，最少 40。</li><li>重開後，叫它講一段長的。確認段落收窄了。</li></ol></div></section>
+  
   <nav class="pn"><a href="../70/">← Day 70</a><a href="../72/">Day 72 →</a></nav>
 </article>
 <footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
