@@ -13,7 +13,9 @@ const OUT = path.resolve(here, arg('out', 'dist'));
 const COVER_BASE = "https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/site-cover/";
 const RAW = 'https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/';
 const PROFILE_URL = 'https://www.threads.com/@yrrah9_';
-const BEACON = process.env.CF_BEACON_TOKEN || '';
+// 量測代碼（Cloudflare Web Analytics 的公開網站代碼，非機密）：環境變數優先，其次 site.config.json
+const CONFIG = fs.existsSync(path.join(here, 'site.config.json')) ? JSON.parse(fs.readFileSync(path.join(here, 'site.config.json'), 'utf8')) : {};
+const BEACON = process.env.CF_BEACON_TOKEN || CONFIG.beaconToken || '';
 
 const readJsonl = (f) => fs.existsSync(f)
   ? fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : [];
