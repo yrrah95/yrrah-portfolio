@@ -190,7 +190,7 @@ posts.forEach((p, i) => {
     desc: p.title,
     depth: '../../',
     body: `<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
-<article class="post">
+<article class="post${p.images.length ? "" : " nocar"}">
   <div class="head">
     <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
     <time>${p.date}</time>

@@ -68,3 +68,4 @@ footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
 .explain ul,.explain ol{margin:6px 0;padding-left:1.4em}
 .explain li{margin:4px 0}
 .explain code{font:14px ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+@media (min-width:860px){.post.nocar{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "act" "ex" "pn"}.post.nocar .head,.post.nocar .act{max-width:640px}}
