@@ -126,6 +126,12 @@ function filt(){const k=q.value.trim().toLowerCase();let n=0;cs.forEach(c=>{cons
 tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;sortBy(k);try{sessionStorage.setItem(SK,k)}catch(_){}});
 q.addEventListener('input',()=>{filt();try{sessionStorage.setItem(QK,q.value)}catch(_){}});
 try{const k0=sessionStorage.getItem(SK);if(k0&&k0!=='d')sortBy(k0);const q0=sessionStorage.getItem(QK);if(q0){q.value=q0;filt()}}catch(_){}
+history.scrollRestoration='manual';
+const nv=performance.getEntriesByType('navigation')[0];
+function saveY(){try{sessionStorage.setItem('yc-y',String(window.scrollY))}catch(_){}}
+function restoreY(){try{const y=+sessionStorage.getItem('yc-y');if(y)window.scrollTo(0,y)}catch(_){}}
+addEventListener('pagehide',saveY);grid.addEventListener('click',saveY);
+if(nv&&nv.type==='back_forward'){restoreY();requestAnimationFrame(restoreY);addEventListener('load',restoreY)}
 </script>`,
 });
 
@@ -191,7 +197,7 @@ posts.forEach((p, i) => {
     title: `Day ${p.day}｜${p.title}`,
     desc: p.title,
     depth: '../../',
-    body: `<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+    body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
 <article class="post${p.images.length ? "" : " nocar"}">
   <div class="head">
     <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
