@@ -86,8 +86,8 @@ const rankBy = (key) => {
 const rankV = rankBy('views'), rankL = rankBy('likes');
 
 const list = (days) => days.map((p) => `
-<a class="card" href="d/${p.day}/" data-d="${p.day}" data-v="${p.views ?? -1}" data-l="${p.likes ?? -1}" data-rv="${rankV.get(p.day)}" data-rl="${rankL.get(p.day)}" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
-  ${p.images[0] ? `<img src="${p.images[0]}" alt="" loading="lazy">` : '<div class="noimg"></div>'}
+<a class="card${p.images[0] ? "" : " txt"}" href="d/${p.day}/" data-d="${p.day}" data-v="${p.views ?? -1}" data-l="${p.likes ?? -1}" data-rv="${rankV.get(p.day)}" data-rl="${rankL.get(p.day)}" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
+  ${p.images[0] ? `<img src="${p.images[0]}" alt="" loading="lazy">` : `<div class="noimg"><b>${esc(p.title)}</b></div>`}
   <span class="day">Day ${p.day}</span>
   <span class="meta"></span>
   <span class="ttl">${esc(p.title)}</span>

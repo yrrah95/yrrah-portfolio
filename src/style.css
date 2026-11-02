@@ -12,6 +12,11 @@ a{color:inherit}
 .card{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding-bottom:14px}
 .card[hidden]{display:none}
 .card img,.noimg{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--line)}
+/* 沒有圖卡的貼文：用標題文字做封面，配色對齊真實圖卡的米色底；下方標題隱藏避免重複 */
+.card.txt .ttl{display:none}
+.card.txt .day{padding-bottom:6px}
+.noimg{display:flex;flex-direction:column;justify-content:center;gap:14px;padding:22px 20px;background:#f3ecdc;color:#201f1a;border-bottom:1px solid var(--line)}
+.noimg b{font-size:19px;line-height:1.5;font-weight:800;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .day{font-size:13px;font-weight:700;color:var(--accent);padding:0 14px}
 .ttl{padding:0 14px;font-weight:600;line-height:1.5}
 .tabs{max-width:1080px;margin:0 auto;padding:0 16px 8px;display:flex;gap:8px}
