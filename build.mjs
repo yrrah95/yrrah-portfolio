@@ -29,8 +29,13 @@ const posts = rows.map((r) => {
   const lines = r.content.split('\n');
   const body = lines.slice(1).join('\n').trim();
   const title = body.split('\n').find((l) => l.trim()) || '';
+  // 排行榜用：取最後一筆數據快照（發文超過 14 天的舊文數據已定型）
+  const snaps = (r.stats || []).slice().sort((a, b) => String(a.recorded_at).localeCompare(String(b.recorded_at)));
+  const st = snaps.length ? snaps[snaps.length - 1] : null;
   return {
     day, id: r.id, date: r.posted_at.slice(0, 10), title, body,
+    views: st && Number.isFinite(st.views) ? st.views : null,
+    likes: st && Number.isFinite(st.likes) ? st.likes : null,
     cta: r.cta_reply && r.cta_reply.text ? r.cta_reply.text : '',
     permalink: r.permalink || '',
     images: imagesFor(day, r),
@@ -73,10 +78,18 @@ ${body}
 </html>
 `;
 
+// 名次：數字大的在前，沒有數據的排最後；同分照 Day 新到舊
+const rankBy = (key) => {
+  const order = [...posts].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1) || b.day - a.day);
+  return new Map(order.map((p, i) => [p.day, i + 1]));
+};
+const rankV = rankBy('views'), rankL = rankBy('likes');
+
 const list = (days) => days.map((p) => `
-<a class="card" href="d/${p.day}/" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
+<a class="card" href="d/${p.day}/" data-d="${p.day}" data-v="${p.views ?? -1}" data-l="${p.likes ?? -1}" data-rv="${rankV.get(p.day)}" data-rl="${rankL.get(p.day)}" data-t="${esc((p.title + ' ' + p.body).toLowerCase())}">
   ${p.images[0] ? `<img src="${p.images[0]}" alt="" loading="lazy">` : '<div class="noimg"></div>'}
   <span class="day">Day ${p.day}</span>
+  <span class="meta"></span>
   <span class="ttl">${esc(p.title)}</span>
 </a>`).join('');
 
@@ -86,11 +99,17 @@ const index = page({
   depth: '',
   body: `<header class="top"><h1>Claude Code Everyday</h1>
 <input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></header>
+<nav class="tabs" id="tabs"><button class="on" data-s="d">最新</button><button data-s="v">瀏覽量</button><button data-s="l">按讚量</button></nav>
 <main class="grid" id="grid">${list(posts)}</main>
 <p class="empty" id="empty" hidden>沒有符合的貼文</p>
 <footer><a href="${PROFILE_URL}" rel="noopener">@yrrah9_</a></footer>
 <script>
-const q=document.getElementById('q'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty');
+const q=document.getElementById('q'),grid=document.getElementById('grid'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty'),tabs=document.getElementById('tabs');
+tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;
+tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+[...cs].sort((a,c)=>+c.dataset[k]-+a.dataset[k]||c.dataset.d-a.dataset.d).forEach(c=>grid.appendChild(c));
+cs.forEach(c=>{const m=c.querySelector('.meta'),v=+c.dataset[k];
+m.textContent=k==='d'||v<0?'':'#'+c.dataset['r'+k]+' · '+v.toLocaleString('zh-TW')+(k==='v'?' 瀏覽':' 讚')})});
 q.addEventListener('input',()=>{const k=q.value.trim().toLowerCase();let n=0;
 cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.hidden=n>0});
 </script>`,

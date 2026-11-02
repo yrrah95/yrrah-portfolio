@@ -14,6 +14,11 @@ a{color:inherit}
 .card img,.noimg{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--line)}
 .day{font-size:13px;font-weight:700;color:var(--accent);padding:0 14px}
 .ttl{padding:0 14px;font-weight:600;line-height:1.5}
+.tabs{max-width:1080px;margin:0 auto;padding:0 16px 8px;display:flex;gap:8px}
+.tabs button{font:inherit;padding:6px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--mute);cursor:pointer}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.meta{padding:0 14px;font-size:13px;color:var(--mute);min-height:1.7em}
+.meta:empty{display:none}
 .empty{text-align:center;color:var(--mute)}
 footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
 .post{max-width:640px;margin:0 auto;padding:24px 16px 56px}
