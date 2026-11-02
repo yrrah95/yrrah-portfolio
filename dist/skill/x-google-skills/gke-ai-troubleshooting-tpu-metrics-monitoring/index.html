@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>/gke-ai-troubleshooting-tpu-metrics-monitoring｜Skill｜Claude Code Everyday</title>
-<meta name="description" content="Monitors and troubleshoots GKE TPU workloads, nodes, and node pools using GKE system metrics and PromQL. Use w">
+<meta name="description" content="用 GKE 系統指標與 PromQL，監控並排查 GKE TPU 工作負載、節點與節點集區，涵蓋 TensorCore 使用率、TPU 記憶體、節點就緒與維護或搶佔中斷。">
 <link rel="stylesheet" href="../../../style.css">
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
 <nav class="nav"><div class="in"><a class="brand" href="../../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../../logo-dark.png"><img src="../../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../../">Tips</a><a href="../../../skill/" aria-current="page">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
-<header class="top slim skdh"><a class="back" href="../../x-google-skills/" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/x-google-skills/'||r.pathname==='/skill/x-google-skills')){history.back();return false}}catch(e){}">← google/skills</a></header>
+<header class="top slim skdh"><a class="back" href="../../x-google-skills/" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/x-google-skills/'||r.pathname==='/skill/x-google-skills')){history.back();return false}}catch(e){}">← google/skills</a><script>(function(){try{var r=new URL(document.referrer);if(r.origin===location.origin&&(r.pathname==="/skill/"||r.pathname==="/skill")){var a=document.querySelector(".skdh .back");a.textContent="← Skill";a.setAttribute("href","../../");a.setAttribute("onclick","history.back();return false")}}catch(e){}})()</script></header>
 <article class="skd">
 <h1><code>/gke-ai-troubleshooting-tpu-metrics-monitoring</code></h1>
-<div class="tags"><a class="tg" href="../../x-google-skills/">google/skills</a></div>
-<p class="lede" lang="en">Monitors and troubleshoots GKE TPU workloads, nodes, and node pools using GKE system metrics and PromQL. Use when monitoring TensorCore duty cycle, TPU memory, node readiness, multi-host TPU node pool availability, host maintenance or preemption interruptions, and calculating MTTR or MTBI metrics…</p>
+<div class="tags"><a class="tg" href="../../x-google-skills/">google/skills</a><span class="ska">AI翻譯</span></div>
+<p class="lede">用 GKE 系統指標與 PromQL，監控並排查 GKE TPU 工作負載、節點與節點集區，涵蓋 TensorCore 使用率、TPU 記憶體、節點就緒與維護或搶佔中斷。</p>
 <dl class="facts"><div><dt>安裝次數</dt><dd class="hot">4100</dd></div><div><dt>所屬包星數</dt><dd>2.2 萬 <small>★</small></dd></div><div><dt>授權</dt><dd>Apache-2.0</dd></div><div><dt>包最近更新</dt><dd>2026-11-02</dd></div></dl>
 <section><h2>怎麼裝</h2><div class="cmd"><code class="mono">npx skills add https://github.com/google/skills --skill gke-ai-troubleshooting-tpu-metrics-monitoring</code><button type="button" data-copy>複製</button></div><p class="note">裝進你的 Claude Code。這個網站不保證安全，裝之前先看過原文。</p></section>
 <section><h2>原文</h2><p class="orig" lang="en">Monitors and troubleshoots GKE TPU workloads, nodes, and node pools using GKE system metrics and PromQL. Use when monitoring TensorCore duty cycle, TPU memory, node readiness, multi-host TPU node pool availability, host maintenance or preemption interruptions, and calculating MTTR or MTBI metrics for GKE TPUs. Don't use for general non-TPU GKE workload monitoring or non-metric TPU debugging.</p><p class="orig-note">原作者的說明，以原文為準。</p></section>

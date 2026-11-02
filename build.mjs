@@ -2,6 +2,7 @@
 // 用法：node build.mjs [--data <tips 資料夾>] [--cards <圖卡資料夾>] [--out dist]
 // 環境變數 CF_BEACON_TOKEN 有值時，頁面會加上 Cloudflare Web Analytics 量測碼
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -252,6 +253,13 @@ if (skillData) {
   const newSk = [];
   packs.forEach((p) => (p.skills || []).forEach((x) => newSk.push({ name: slug(x.name), src: p.src, group: UNSORTED, say: x.desc || '（原文沒有說明）', when: '', orig: x.orig || '', used: false, ai: false, en: !/[\u4e00-\u9fff]/.test(x.desc || ''), url: x.url, dir: (x.path || '').split('/').slice(-2, -1)[0] || '' })));
   const sk = skillData.skills.filter((s) => srcPack[s.src]).concat(newSk);
+  // 英文說明的 AI 中文翻譯：data/skill-zh.json，鍵＝來源/名稱|英文說明的雜湊；有翻譯就取代說明並標 AI翻譯（原文仍保留在頁面下方）
+  const ZH_FILE = path.join(here, 'data', 'skill-zh.json');
+  const skillZh = fs.existsSync(ZH_FILE) ? JSON.parse(fs.readFileSync(ZH_FILE, 'utf8')) : {};
+  const zhKey = (s) => s.src + '/' + s.name + '|' + crypto.createHash('md5').update(s.say).digest('hex').slice(0, 8);
+  sk.forEach((s) => { const z = skillZh[zhKey(s)]; if (z) { s.say = z; s.ai = true; s.en = false; } });
+  if (process.env.DUMP_EN) fs.writeFileSync(process.env.DUMP_EN, JSON.stringify(sk.filter((s) => s.en).map((s) => ({ k: zhKey(s), en: s.say })), null, 0));
+  console.log('仍是英文原文的 skill：' + sk.filter((s) => s.en).length + ' / ' + sk.length);
   const INST_FILE = path.join(here, 'data', 'installs.json');
   const instData = fs.existsSync(INST_FILE) ? JSON.parse(fs.readFileSync(INST_FILE, 'utf8')) : { fetched: '', installs: {} };
   const ALIAS = { 'mattpocock-retro': 'retro', 'emil-prototype': 'prototype' }; // 我們為了避免撞名改過的名字，對回原名
@@ -366,6 +374,8 @@ if (skillData) {
     packPageN++;
   }
   console.log('來源包專屬頁 ' + packPageN + ' 頁');
+  // 從 Skill 列表進來時，返回鈕改成「← Skill」、回到列表（history.back 會保留分頁與篩選）
+  const BACK_FROM_LIST = '<script>(function(){try{var r=new URL(document.referrer);if(r.origin===location.origin&&(r.pathname==="/skill/"||r.pathname==="/skill")){var a=document.querySelector(".skdh .back");a.textContent="← Skill";a.setAttribute("href","../../");a.setAttribute("onclick","history.back();return false")}}catch(e){}})()</script>';
   const BACK_SKILL = "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/'||r.pathname==='/skill')){history.back();return false}}catch(e){}";
   const reFor = (n) => { const e = n.replace(/[.*+?^$()|[\]\\{}-]/g, '\\$&'); return n.includes('-') ? new RegExp('(?<![A-Za-z0-9-])' + e + '(?![A-Za-z0-9-])', 'i') : new RegExp('(/|`)' + e + '(?![A-Za-z0-9-])'); };
   const relPosts = (s) => { const re = reFor(s.name); return posts.filter((p) => re.test((p.body || '') + '\n' + (p.cta || ''))); };
@@ -406,7 +416,7 @@ if (skillData) {
       desc: s.say.slice(0, 110),
       depth: '../../../',
       active: 'skill',
-      body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
+      body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' + BACK_FROM_LIST : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
         + '<article class="skd">\n'
         + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
         + '<div class="tags">' + (s.group === UNSORTED ? '' : '<span class="tg">' + esc(s.group) + '</span>') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
