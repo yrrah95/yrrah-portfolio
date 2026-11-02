@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 5</span>以前改完 code 都想說等一下再跑測試，然後就忘了，等報修炸出來才發現早就壞了</h1>
@@ -31,6 +32,7 @@
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>貼文說：作者以前改完 code，想等一下再跑測試，然後就忘了。<br>後來作者設了一個 hook。<br>它在改完檔案後自動跑測試。測試壞了，當場跳出紅字。<br>貼文說：重點是它不靠 Claude 記得。這是你寫死的規則，每次都會跑。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>打開 <code>.claude/settings.json</code>。</li><li>設一個 <code>PostToolUse</code> hook。</li><li>設成每次 <code>Edit</code> 或 <code>Write</code> 完檔案，就自動跑你的測試指令。</li></ol><p>同一招還能做這些事：</p><ul><li>偵測到 <code>rm -rf</code> 就攔下。</li><li>commit 前自動檢查。</li><li>動到 <code>.env</code> 就跳警告。</li></ul></div></section>
   <nav class="pn"><a href="../4/">← Day 4</a><a href="../6/">Day 6 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>

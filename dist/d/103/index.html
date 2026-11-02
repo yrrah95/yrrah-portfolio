@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 103</span>Claude Code 的 .claude/rules/ 資料夾</h1>
@@ -53,6 +54,7 @@ paths 換成你專案裡的資料夾</pre>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>.claude/rules/</code> 是專案裡放規則檔的資料夾。<br>貼文說：<code>CLAUDE.md</code> 越寫越長，Claude 越不照做。<br>規則檔的檔頭寫 <code>paths</code>，Claude 碰到那些檔案才載入這條規則。</p></div><div class="ex"><h2>怎麼設</h2><ol><li>在專案裡放 <code>.claude/rules/</code>。</li><li>一個主題放一個 .md 檔。</li><li>在檔頭用 <code>paths</code> 寫哪些檔案要套用。</li><li>Claude 讀、寫或改到那些檔案，才載入規則。</li><li>沒寫 <code>paths</code> 的規則，開工就載入。</li></ol></div><div class="ex"><h2>怎麼測</h2><ol><li>建立規則檔 <code>.claude/rules/api-format.md</code>。</li><li>檔頭寫 <code>paths:</code>，下面一行寫 <code>src/api/**/*.py</code>。</li><li>規則寫：函式回傳 <code>dict</code>，<code>ok</code>、<code>data</code>、<code>error</code> 三欄都要有。</li><li>規則再寫：找不到時 <code>ok</code> 設 <code>False</code>，不要 raise 例外。</li><li>對 Claude 說 <code>在 src/api/users.py 新增 get_user(user_id) 函式，用 user_id 找出對應的人</code>。</li><li>把 <code>paths</code> 換成你專案裡的資料夾。</li></ol><p>作者的結果，同一句話：</p><ul><li>沒有規則檔：函式找到回傳元組，找不到回傳 <code>None</code>。</li><li>有規則檔：函式回傳 dict，<code>ok</code> 是 <code>True</code>，<code>error</code> 是 <code>None</code>。</li><li>改別的檔案 <code>src/ui</code>：在規則範圍外，Claude 照一般寫法。</li></ul></div></section>
   <nav class="pn"><a href="../102/">← Day 102</a><a href="../104/">Day 104 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>

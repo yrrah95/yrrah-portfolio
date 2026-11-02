@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 79</span>打了一大段 prompt 手滑按到 Ctrl+C 整段不見了？</h1>
@@ -44,6 +45,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>輸入框被 <code>Ctrl+C</code> 清空後，輸入框是空的時候，按一下 <code>Up</code> 就能救回草稿。<br>文字、貼上的內容、圖片都會一起回來。<br>這招要 2.1.288 以上。</p></div><div class="ex"><h2>怎麼救回來</h2><ol><li>輸入框打到一半，不小心按了 <code>Ctrl+C</code>。整個輸入框清空。</li><li>不要重打。輸入框現在是空的，直接按 <code>Up</code>。</li><li>草稿回到輸入框。貼上的文字和圖片都在。</li></ol></div><div class="ex"><h2>草稿保險清單</h2><ul><li><code>Esc Esc</code>：連按兩下清空。草稿進歷史，按 <code>Up</code> 叫回。</li><li><code>Ctrl+S</code>：先暫存草稿。空的時候再按一次放回。</li><li><code>Up</code>：平常按它，是翻以前送過的 prompt。</li></ul></div></section>
   <nav class="pn"><a href="../78/">← Day 78</a><a href="../80/">Day 80 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>

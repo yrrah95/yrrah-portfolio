@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 92</span>官方有個 brand-guidelines skill</h1>
@@ -48,6 +49,7 @@ claude plugin install example-skills@anthropic-agent-skills
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>brand-guidelines</code> 是官方的 skill。<br>貼文說：跟 Claude 說「照品牌規範」。<br>它就用 Anthropic 的 7 個顏色、2 種字型排網頁。<br>做網頁、簡報時，Claude 自己套上去。</p></div><div class="ex"><h2>裡面寫了什麼</h2><ul><li>主色 4 個：深色字、米白底、兩種灰。</li><li>強調色 3 個：橘、藍、綠，輪流用在色塊上。</li><li>標題字型：Poppins，沒裝就用 Arial。</li><li>內文字型：Lora，沒裝就用 Georgia。</li></ul><p>這兩種字型沒有中文字。<br>中文用電腦內建的字型。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>輸入 <code>claude plugin marketplace add anthropics/skills</code>。</li><li>輸入 <code>claude plugin install example-skills@anthropic-agent-skills</code>。</li><li>對 Claude 說 <code>照品牌規範 把 notes.txt 做成網頁</code>。</li></ol></div><div class="ex"><h2>怎麼測</h2><p>同一句話，沒裝和裝了各試一次。</p><ul><li>沒裝 skill：Claude 回找不到規範檔。藍底黃線是它先暫定的配色。</li><li>裝了 <code>brand-guidelines</code>：米白底，橘藍綠色條輪流。顏色字型都照 skill 裡寫的。</li></ul></div></section>
   <nav class="pn"><a href="../91/">← Day 91</a><a href="../93/">Day 93 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>

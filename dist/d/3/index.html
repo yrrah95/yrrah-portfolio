@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 3</span>前面加一個 !，那一行直接送進終端機跑，跳過 Claude 判斷</h1>
@@ -36,6 +37,7 @@
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>在一行前面加 <code>!</code>，那一行會直接送進終端機執行。<br>這一行跳過 Claude 的判斷。<br>貼文說：單純想查看狀態時蠻好用，可以節省 TOKEN。</p></div><div class="ex"><h2>怎麼用</h2><ul><li><code>!git status</code>：看哪些檔案被動過，動到哪一步。</li><li><code>!git log --oneline -5</code>：列出最近 5 筆 commit 紀錄，一行一筆。</li><li><code>!git diff</code>：看檔案改了哪些內容，逐行列出差異。</li><li><code>!git branch</code>：看現在有哪些分支。</li><li><code>!ls</code>：不是 git 指令。列出目前資料夾裡的檔案和子資料夾。</li></ul><p><code>git log</code> 沒加參數時，會列出完整版。完整版含時間、作者、完整訊息，比較長。</p></div></section>
   <nav class="pn"><a href="../2/">← Day 2</a><a href="../4/">Day 4 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>

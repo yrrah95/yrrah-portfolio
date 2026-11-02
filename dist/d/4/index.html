@@ -9,7 +9,8 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}'></script>
 </head>
 <body>
-<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← Claude Code Everyday</a></header>
+<nav class="nav"><div class="in"><a class="brand" href="../../">Claude Code Everyday</a><div class="links"><a href="../../">全部貼文</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
 <article class="post">
   <div class="head">
     <h1><span class="day">Day 4</span>Claude Code 不是只能開著視窗一句一句聊。</h1>
@@ -40,6 +41,7 @@ claude -p &quot;檢查這段 code 有沒有 bug&quot; &gt; result.txt
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>Claude Code 不是只能開著視窗一句一句聊。<br>加上 <code>-p</code>，直接丟一句指令進去。<br>答案印完就結束，不會跳出對話介面。<br>貼文說：可以寫進 CI、排程腳本、git hook。<br>跑完自動記錄，不用人坐在那邊等它回話。<br>貼文舉例：排程每天早上掃一次 repo 有沒有明顯漏洞，起床看記錄。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>輸入 <code>claude -p &quot;檢查這段 code 有沒有 bug&quot; &gt; result.txt</code>。</li><li>打開 <code>result.txt</code> 看結果。</li></ol><p>其他快捷鍵：</p><ul><li><code>-p</code>：印一次結果就結束。</li><li><code>-c</code>（<code>--continue</code>）：接續這個資料夾裡最近一次的對話。不用選，直接接上一次的。</li><li><code>-r</code>（<code>--resume</code>）：也是接續對話。可以指定要接哪一個，給對話代碼，或跳出清單讓你挑。</li><li><code>-n</code>（<code>--name</code>）：幫這次的對話取名字。之後在清單裡比較好找。</li><li><code>-w</code>（<code>--worktree</code>）：開一個新的 git worktree，同時開多個獨立工作區平行做事。</li><li><code>-d</code>（<code>--debug</code>）：除錯模式。</li><li><code>-v</code>（<code>--version</code>）：顯示目前版本號。</li><li><code>-h</code>（<code>--help</code>）：顯示說明。</li></ul></div></section>
   <nav class="pn"><a href="../3/">← Day 3</a><a href="../5/">Day 5 →</a></nav>
 </article>
+<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-02</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>
