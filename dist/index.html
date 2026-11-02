@@ -11,7 +11,7 @@
 <body>
 <header class="top"><h1>Claude Code Everyday</h1>
 <input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></header>
-<nav class="tabs" id="tabs"><button class="on" data-s="d">最新</button><button data-s="v">最多瀏覽</button><button data-s="l">最多按讚</button></nav>
+<div class="sortbar"><select id="sk" aria-label="排序方式"><option value="d">最新</option><option value="v">最多瀏覽</option><option value="l">最多按讚</option></select><button type="button" id="sd" aria-label="切換降冪或升冪">↓ 降冪</button></div>
 <main class="grid" id="grid">
 <a class="card" href="d/108/" data-d="108" data-v="-1" data-l="-1" data-rv="108" data-rl="108" data-t="claude code 有個設定叫 automemoryenabled claude code 有個設定叫 automemoryenabled
 叫 claude 別再自己把你的習慣記成筆記
@@ -1244,16 +1244,20 @@ win+shift+s 截圖 → 回終端機 alt+v，圖就進去了。
 <p class="empty" id="empty" hidden>沒有符合的貼文</p>
 <footer><a href="https://www.threads.com/@yrrah9_" rel="noopener">@yrrah9_</a></footer>
 <script>
-const q=document.getElementById('q'),grid=document.getElementById('grid'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty'),tabs=document.getElementById('tabs');
-const SK='yc-sort',QK='yc-q';
-function sortBy(k){tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.s===k));
-[...cs].sort((a,c)=>+c.dataset[k]-+a.dataset[k]||c.dataset.d-a.dataset.d).forEach(c=>grid.appendChild(c));
+const q=document.getElementById('q'),grid=document.getElementById('grid'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty'),sk=document.getElementById('sk'),sd=document.getElementById('sd');
+const SK='yc-sort',DK='yc-dir',QK='yc-q';let dir='desc';
+function apply(){const k=sk.value,asc=dir==='asc';
+[...cs].sort((a,c)=>{const x=+a.dataset[k],y=+c.dataset[k];if(k!=='d'&&(x<0)!==(y<0))return x<0?1:-1;
+return (asc?x-y:y-x)||(asc?a.dataset.d-c.dataset.d:c.dataset.d-a.dataset.d)}).forEach(c=>grid.appendChild(c));
 cs.forEach(c=>{const m=c.querySelector('.meta'),v=+c.dataset[k];
-m.textContent=k==='d'||v<0?'':'#'+c.dataset['r'+k]+' · '+v.toLocaleString('zh-TW')+(k==='v'?' 瀏覽':' 讚')})}
+m.textContent=k==='d'||v<0?'':'#'+c.dataset['r'+k]+' · '+v.toLocaleString('zh-TW')+(k==='v'?' 瀏覽':' 讚')});
+sd.textContent=asc?'↑ 升冪':'↓ 降冪'}
+function save(){try{sessionStorage.setItem(SK,sk.value);sessionStorage.setItem(DK,dir)}catch(_){}}
 function filt(){const k=q.value.trim().toLowerCase();let n=0;cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.hidden=n>0}
-tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;sortBy(k);try{sessionStorage.setItem(SK,k)}catch(_){}});
+sk.addEventListener('change',()=>{apply();save()});
+sd.addEventListener('click',()=>{dir=dir==='asc'?'desc':'asc';apply();save()});
 q.addEventListener('input',()=>{filt();try{sessionStorage.setItem(QK,q.value)}catch(_){}});
-try{const k0=sessionStorage.getItem(SK);if(k0&&k0!=='d')sortBy(k0);const q0=sessionStorage.getItem(QK);if(q0){q.value=q0;filt()}}catch(_){}
+try{const k0=sessionStorage.getItem(SK),d0=sessionStorage.getItem(DK);if(k0&&sk.querySelector('option[value="'+k0+'"]'))sk.value=k0;if(d0==='asc')dir='asc';if(sk.value!=='d'||dir!=='desc')apply();const q0=sessionStorage.getItem(QK);if(q0){q.value=q0;filt()}}catch(_){}
 history.scrollRestoration='manual';
 const nv=performance.getEntriesByType('navigation')[0];
 function saveY(){try{sessionStorage.setItem('yc-y',String(window.scrollY))}catch(_){}}
