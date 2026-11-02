@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 30｜開兩個 Claude 改同一個專案</title>
+<meta name="description" content="開兩個 Claude 改同一個專案">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 30</span>開兩個 Claude 改同一個專案</h1>
+  <time>2026-08-15</time>
+  <div class="text">同一個檔案,後面那個直接蓋掉前面那個
+
+叫它開一個隔離的工作區就好:
+
+1. 一個指令,它用 git 在專案底下另外開一份完整的檔案複本,配一條新分支
+2. 待在裡面時,它去改主目錄的檔案會被擋下來,連跑指令都要留在複本裡
+3. 想再開一份,換個名字跑一次,兩份完全獨立
+4. 派出去的 agent 也能一人一份: 在它的設定檔加一行 isolation: worktree
+5. 你的 .env 不會跟過去: 專案根目錄放一個 .worktreeinclude,把要帶的檔名寫進去
+
+指令: claude --worktree 名字</div>
+  <div class="imgs"></div>
+  
+  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  <nav class="pn"><a href="../29/">← Day 29</a><a href="../31/">Day 31 →</a></nav>
+</article>
+</body>
+</html>

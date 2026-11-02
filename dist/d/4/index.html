@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 4｜Claude Code 不是只能開著視窗一句一句聊。</title>
+<meta name="description" content="Claude Code 不是只能開著視窗一句一句聊。">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 4</span>Claude Code 不是只能開著視窗一句一句聊。</h1>
+  <time>2026-07-20</time>
+  <div class="text">加 -p 直接丟一句指令進去，答案印完就結束，連對話介面都不會跳出來。
+
+claude -p &quot;檢查這段 code 有沒有 bug&quot; &gt; result.txt
+
+寫進 CI、排程腳本、git hook 都行，跑完自動記錄，不用人坐在那邊等它回話。
+
+排程每天早上掃一次 repo 有沒有明顯漏洞，起床看記錄就好。
+
+快捷鍵:
+- -p：印一次結果就結束
+- -c（--continue）：接續「這個資料夾裡最近一次」的對話，不用選，直接接上一次的
+- -r（--resume）：也是接續對話，但可以指定要接哪一個（給對話代碼，或跳出清單讓你挑）
+- -n（--name）：幫這次的對話取個名字，之後在清單裡比較好找
+- -w（--worktree）：開一個新的 git worktree 同時開多個獨立工作區平行做事
+- -d（--debug）：除錯模式
+- -v（--version）：顯示目前版本號
+- -h（--help）：顯示說明</div>
+  <div class="imgs"></div>
+  
+  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  <nav class="pn"><a href="../3/">← Day 3</a><a href="../5/">Day 5 →</a></nav>
+</article>
+</body>
+</html>

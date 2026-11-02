@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 105｜Claude Code 有個 InstructionsLoaded hook</title>
+<meta name="description" content="Claude Code 有個 InstructionsLoaded hook">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 105</span>Claude Code 有個 InstructionsLoaded hook</h1>
+  <time>2026-10-29</time>
+  <div class="text">叫 Claude 把每次讀進來的 CLAUDE.md 和規則檔記下來
+交給你的是 哪個檔 還有 5 種讀進來的原因是哪一種</div>
+  <div class="imgs"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/01-cover.png" alt="Day 105 第 1 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/02-steps.png" alt="Day 105 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/03-list.png" alt="Day 105 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/04-terminal.png" alt="Day 105 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/05-terminal.png" alt="Day 105 第 5 張" loading="lazy"></div>
+  <pre class="cta">在專案的 .claude/settings.json 加上（指令是 bash 的 grep）:
+{
+  &quot;hooks&quot;: {
+    &quot;InstructionsLoaded&quot;: [
+      {
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;grep -oE '\&quot;(file_path|load_reason)\&quot;:\&quot;[^\&quot;]*\&quot;' &gt;&gt; .claude/loaded.log&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+
+加好之後 跟 Claude 說:
+在 src/api/users.py 新增 get_user(user_id) 函式，用 user_id 找出對應的人</pre>
+  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DfEz456idjh" rel="noopener">在 Threads 看原文</a></p>
+  <nav class="pn"><a href="../104/">← Day 104</a><a href="../106/">Day 106 →</a></nav>
+</article>
+</body>
+</html>

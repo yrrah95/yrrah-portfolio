@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 103｜Claude Code 的 .claude/rules/ 資料夾</title>
+<meta name="description" content="Claude Code 的 .claude/rules/ 資料夾">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 103</span>Claude Code 的 .claude/rules/ 資料夾</h1>
+  <time>2026-10-27</time>
+  <div class="text">CLAUDE.md 越寫越長 它越不照做？
+規則檔檔頭寫 paths 碰到那些檔案才載入</div>
+  <div class="imgs"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/01-cover.png" alt="Day 103 第 1 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/02-steps.png" alt="Day 103 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/03-terminal.png" alt="Day 103 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/04-terminal.png" alt="Day 103 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/05-terminal.png" alt="Day 103 第 5 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/06-terminal.png" alt="Day 103 第 6 張" loading="lazy"></div>
+  <pre class="cta">建一個規則檔（路徑 .claude/rules/api-format.md）:
+---
+paths:
+  - &quot;src/api/**/*.py&quot;
+---
+- 函式回傳 dict，ok、data、error 三欄都要有
+
+建好之後 跟 Claude 說:
+在 src/api/users.py 新增 get_user(user_id) 函式，用 user_id 找出對應的人
+
+paths 換成你專案裡的資料夾</pre>
+  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/De_qWWLCWqO" rel="noopener">在 Threads 看原文</a></p>
+  <nav class="pn"><a href="../102/">← Day 102</a><a href="../104/">Day 104 →</a></nav>
+</article>
+</body>
+</html>

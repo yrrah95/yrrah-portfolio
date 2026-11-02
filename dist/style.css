@@ -1,0 +1,29 @@
+:root{--bg:#f6f1e6;--fg:#201f1a;--mute:#7a7467;--accent:#c96644;--line:#e0d8c6;--card:#fbf8f0}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1b17;--fg:#efe9db;--mute:#a39c8c;--accent:#e08a66;--line:#34322b;--card:#25241f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+a{color:inherit}
+.top{max-width:1080px;margin:0 auto;padding:40px 16px 16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.top h1{margin:0;font-size:28px}
+.top.slim{padding:20px 16px 0;max-width:640px}
+.back{text-decoration:none;color:var(--mute)}
+#q{flex:1 1 220px;max-width:340px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font:inherit}
+.grid{max-width:1080px;margin:0 auto;padding:8px 16px 40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.card{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding-bottom:14px}
+.card[hidden]{display:none}
+.card img,.noimg{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--line)}
+.day{font-size:13px;font-weight:700;color:var(--accent);padding:0 14px}
+.ttl{padding:0 14px;font-weight:600;line-height:1.5}
+.empty{text-align:center;color:var(--mute)}
+footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--mute)}
+.post{max-width:640px;margin:0 auto;padding:24px 16px 56px}
+.post h1{margin:0;font-size:24px;line-height:1.4}
+.post h1 .day{display:block;padding:0;margin-bottom:6px}
+.post time{color:var(--mute);font-size:14px}
+.text{white-space:pre-line;margin:20px 0}
+.imgs{display:flex;flex-direction:column;gap:12px}
+.imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.cta{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:20px 0;font:14px/1.7 ui-monospace,Consolas,monospace}
+.src{margin:24px 0}
+.pn{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.pn a{text-decoration:none;color:var(--accent)}

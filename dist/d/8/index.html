@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 8｜9 萬顆星的 skill《caveman》</title>
+<meta name="description" content="9 萬顆星的 skill《caveman》">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 8</span>9 萬顆星的 skill《caveman》</h1>
+  <time>2026-07-24</time>
+  <div class="text">讓 AI 講話像穴居人，砍掉 65% 輸出 token
+
+- 原理：
+只縮短 AI「講出來的話」，不縮小它「知道的東西」
+程式碼、指令、錯誤訊息一個字都不動，被砍的只有廢話跟鋪陳
+它自己的圖表寫得很白：output token 省 65%、技術準確度 100%
+
+同一個答案，三分之一的字，技術資訊沒少
+
+改造前:
+你的元件一直重新渲染，很可能是每次 render 都建了新的物件參照，建議用 useMemo 包起來
+
+改造後:
+每次 render 建新物件參照 = 重繪。用 useMemo 包
+
+安裝方法:
+claude plugin marketplace add JuliusBrussee/caveman
+claude plugin install caveman@caveman</div>
+  <div class="imgs"></div>
+  
+  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  <nav class="pn"><a href="../7/">← Day 7</a><a href="../9/">Day 9 →</a></nav>
+</article>
+</body>
+</html>

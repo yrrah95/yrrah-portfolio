@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 107｜Claude Code 有個設定叫 skillOverrides</title>
+<meta name="description" content="Claude Code 有個設定叫 skillOverrides">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 107</span>Claude Code 有個設定叫 skillOverrides</h1>
+  <time>2026-10-31</time>
+  <div class="text">叫 Claude 當作沒有你指定的那個 skill
+那個 skill 還留在電腦裡 只是 Claude 的清單裡看不到它</div>
+  <div class="imgs"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/01-cover.png" alt="Day 107 第 1 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/02-steps.png" alt="Day 107 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/03-steps.png" alt="Day 107 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/04-terminal.png" alt="Day 107 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/05-terminal.png" alt="Day 107 第 5 張" loading="lazy"></div>
+  <pre class="cta">在專案的 .claude/settings.json 加上:
+{
+  &quot;skillOverrides&quot;: {
+    &quot;deploy-prod&quot;: &quot;off&quot;
+  }
+}
+(deploy-prod 換成你要藏的 skill 名字)
+
+加好之後 跟 Claude 說:
+列出你現在看得到的 skill 名稱，只列 weekly-report、deploy-prod 這類專案自己放的，一行一個。沒有就寫「沒有」。</pre>
+  <p class="src"><a href="https://www.threads.com/@yrrah9_/post/DfJ9OUhiXdS" rel="noopener">在 Threads 看原文</a></p>
+  <nav class="pn"><a href="../106/">← Day 106</a><a href="../108/">Day 108 →</a></nav>
+</article>
+</body>
+</html>

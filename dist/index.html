@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code Everyday</title>
+<meta name="description" content="每天一個 Claude Code 用法，Threads 貼文的完整存檔。">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="top"><h1>Claude Code Everyday</h1>
+<input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></header>
+<main class="grid" id="grid">
+<a class="card" href="d/108/" data-t="claude code 有個設定叫 automemoryenabled claude code 有個設定叫 automemoryenabled
+叫 claude 別再自己把你的習慣記成筆記
+預設是開的 關掉之後 新對話就不記得你交代過的事">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D108/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 108</span>
+  <span class="ttl">Claude Code 有個設定叫 autoMemoryEnabled</span>
+</a>
+<a class="card" href="d/107/" data-t="claude code 有個設定叫 skilloverrides claude code 有個設定叫 skilloverrides
+叫 claude 當作沒有你指定的那個 skill
+那個 skill 還留在電腦裡 只是 claude 的清單裡看不到它">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D107/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 107</span>
+  <span class="ttl">Claude Code 有個設定叫 skillOverrides</span>
+</a>
+<a class="card" href="d/106/" data-t="claude code 有個設定叫 blockwritesoutsideworkingdirectories claude code 有個設定叫 blockwritesoutsideworkingdirectories
+叫 claude 只准改你打開的資料夾裡的檔案
+它想改資料夾外面的檔案 會被直接擋下 連不用問你的全部放行模式也一樣">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D106/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 106</span>
+  <span class="ttl">Claude Code 有個設定叫 blockWritesOutsideWorkingDirectories</span>
+</a>
+<a class="card" href="d/105/" data-t="claude code 有個 instructionsloaded hook claude code 有個 instructionsloaded hook
+叫 claude 把每次讀進來的 claude.md 和規則檔記下來
+交給你的是 哪個檔 還有 5 種讀進來的原因是哪一種">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D105/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 105</span>
+  <span class="ttl">Claude Code 有個 InstructionsLoaded hook</span>
+</a>
+<a class="card" href="d/104/" data-t="github 4,500 星的 repo 有個 skill 叫 answer-me-with-html github 4,500 星的 repo 有個 skill 叫 answer-me-with-html
+它的 skill.md 規定 claude 複雜的答案要交一頁 html 但不准自己手寫
+結尾不准寫總結 沒查證的事要講出來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D104/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 104</span>
+  <span class="ttl">GitHub 4,500 星的 repo 有個 skill 叫 answer-me-with-html</span>
+</a>
+<a class="card" href="d/103/" data-t="claude code 的 .claude/rules/ 資料夾 claude code 的 .claude/rules/ 資料夾
+claude.md 越寫越長 它越不照做？
+規則檔檔頭寫 paths 碰到那些檔案才載入">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D103/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 103</span>
+  <span class="ttl">Claude Code 的 .claude/rules/ 資料夾</span>
+</a>
+<a class="card" href="d/102/" data-t="github 10 萬星的 repo 有個 skill 叫 design-taste-frontend github 10 萬星的 repo 有個 skill 叫 design-taste-frontend
+它的 skill.md 規定 claude 做網頁 不准用漸層 不准加小標籤
+設計點子要從客戶自己才有的東西長出來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D102/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 102</span>
+  <span class="ttl">GitHub 10 萬星的 repo 有個 skill 叫 design-taste-frontend</span>
+</a>
+<a class="card" href="d/101/" data-t="claude code 內建有個 /verify 指令 claude code 內建有個 /verify 指令
+叫它把你的 app 建置起來 真的跑一次
+交給你的是跑出來的結果 不是測試通過的報告">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D101/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 101</span>
+  <span class="ttl">Claude Code 內建有個 /verify 指令</span>
+</a>
+<a class="card" href="d/100/" data-t="claude code 內建有個 /batch 指令 claude code 內建有個 /batch 指令
+一個改法要套到很多檔案 還要一個一個叫它改？
+打它 它先拆成 5 到 30 份 你點頭才分頭做">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D100/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 100</span>
+  <span class="ttl">Claude Code 內建有個 /batch 指令</span>
+</a>
+<a class="card" href="d/99/" data-t="claude code 內建有個 /deep-research 指令 claude code 內建有個 /deep-research 指令
+你問一個問題 它分頭上網查很多來源
+被核對推翻的說法 不會進報告">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D99b/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 99</span>
+  <span class="ttl">Claude Code 內建有個 /deep-research 指令</span>
+</a>
+<a class="card" href="d/98/" data-t="claude code 內建有個 /simplify 指令 claude code 內建有個 /simplify 指令
+改完程式碼打它 它會整理剛改的部分
+自己重寫的 2 個現成函式 它直接換回去">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D98/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 98</span>
+  <span class="ttl">Claude Code 內建有個 /simplify 指令</span>
+</a>
+<a class="card" href="d/97/" data-t="claude code 內建有個 /dataviz 指令 claude code 內建有個 /dataviz 指令
+叫它畫圖表 標題只寫主題 還要自己看圖找結論？
+加在最前面 標題直接寫結論">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D97/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 97</span>
+  <span class="ttl">Claude Code 內建有個 /dataviz 指令</span>
+</a>
+<a class="card" href="d/96/" data-t="matt pocock 的 skill 叫 prototype matt pocock 的 skill 叫 prototype
+它的 skill.md 規定 claude 一開始就把雛形當成會丟掉的
+不寫測試 不加抽象 做完只留驗證過的決定">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D96/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 96</span>
+  <span class="ttl">Matt Pocock 的 skill 叫 prototype</span>
+</a>
+<a class="card" href="d/95/" data-t="skills.sh 安裝數第一的 skill 叫 find-skills skills.sh 安裝數第一的 skill 叫 find-skills
+它的 skill.md 規定 claude 不准只看搜尋結果就推薦
+裝的人不到 100 要小心 repo 不到 100 星要懷疑">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D95/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 95</span>
+  <span class="ttl">skills.sh 安裝數第一的 skill 叫 find-skills</span>
+</a>
+<a class="card" href="d/94/" data-t="claude code 有個 --append-system-prompt 旗標 claude code 有個 --append-system-prompt 旗標
+想要它回短一點 每開一次就要講一次？
+打開時接一條規則 同一題從 77 行變 3 行">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 94</span>
+  <span class="ttl">Claude Code 有個 --append-system-prompt 旗標</span>
+</a>
+<a class="card" href="d/93/" data-t="claude code 有個 --max-budget-usd 旗標 claude code 有個 --max-budget-usd 旗標
+用 claude -p 丟著跑 怕它一直燒錢？
+給它一個美元上限 花到就自己停">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D93/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 93</span>
+  <span class="ttl">Claude Code 有個 --max-budget-usd 旗標</span>
+</a>
+<a class="card" href="d/92/" data-t="官方有個 brand-guidelines skill 官方有個 brand-guidelines skill
+跟 claude 說一句「照品牌規範」
+它就用 anthropic 的 7 個顏色 2 種字型 把網頁排好給你">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D92/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 92</span>
+  <span class="ttl">官方有個 brand-guidelines skill</span>
+</a>
+<a class="card" href="d/91/" data-t="claude code 有個 --tools 旗標 claude code 有個 --tools 旗標
+只留 read 一個工具 它就只能看 改不了你的檔
+同一句話 不加旗標改得動 加了就被拒絕">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D91/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 91</span>
+  <span class="ttl">Claude Code 有個 --tools 旗標</span>
+</a>
+<a class="card" href="d/90/" data-t="claude code 有個 --add-dir 旗標 claude code 有個 --add-dir 旗標
+專案外面的共用文件 預設不讓它讀 加法有三種
+加上之後 它就讀得到 內容照樣列給你">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D90/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 90</span>
+  <span class="ttl">Claude Code 有個 --add-dir 旗標</span>
+</a>
+<a class="card" href="d/89/" data-t="叫 claude 寫程式畫藝術圖 每張畫都有一個號碼 叫 claude 寫程式畫藝術圖 每張畫都有一個號碼
+同一個號碼永遠畫出同一張 換一個號碼就換一張
+官方有個 skill 專門做這個">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D89/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 89</span>
+  <span class="ttl">叫 Claude 寫程式畫藝術圖 每張畫都有一個號碼</span>
+</a>
+<a class="card" href="d/88/" data-t="叫 claude 測你做好的網頁 官方 skill 只教它 3 步 叫 claude 測你做好的網頁 官方 skill 只教它 3 步
+先看畫面 再找按鈕 最後才動手
+用的是看不見的瀏覽器 還能截圖">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D88/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 88</span>
+  <span class="ttl">叫 Claude 測你做好的網頁 官方 skill 只教它 3 步</span>
+</a>
+<a class="card" href="d/87/" data-t="叫 claude 做 slack 表情動圖 它不是找圖 叫 claude 做 slack 表情動圖 它不是找圖
+是用程式一格一格畫 還附 slack 規格檢查
+官方有個 skill 專門做這個">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D87/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 87</span>
+  <span class="ttl">叫 Claude 做 Slack 表情動圖 它不是找圖</span>
+</a>
+<a class="card" href="d/86/" data-t="叫 claude 做海報 它先寫 4~6 段設計理念 叫 claude 做海報 它先寫 4~6 段設計理念
+寫完才動筆畫
+官方有個 skill 專門這樣做">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D86/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 86</span>
+  <span class="ttl">叫 Claude 做海報 它先寫 4~6 段設計理念</span>
+</a>
+<a class="card" href="d/85/" data-t="你設了 hook 想擋危險動作 你設了 hook 想擋危險動作
+腳本路徑打錯 它照樣放行
+新版加一行設定 壞了就改成擋下">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D85/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 85</span>
+  <span class="ttl">你設了 hook 想擋危險動作</span>
+</a>
+<a class="card" href="d/84/" data-t="claude 跑大任務時 終端機就被它佔著 claude 跑大任務時 終端機就被它佔著
+其實整段對話可以丟去背景
+終端機馬上還給你">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D84/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 84</span>
+  <span class="ttl">Claude 跑大任務時 終端機就被它佔著</span>
+</a>
+<a class="card" href="d/83/" data-t="輸入框不是拿來寫長 prompt 的 輸入框不是拿來寫長 prompt 的
+按快捷鍵就能換成文字編輯器寫">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D83/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 83</span>
+  <span class="ttl">輸入框不是拿來寫長 prompt 的</span>
+</a>
+<a class="card" href="d/82/" data-t="叫 claude 幫簡報配色 不用你講色碼 叫 claude 幫簡報配色 不用你講色碼
+官方有個 skill 先給你看 10 套現成的
+你點一套 它就套上去 文件和網頁也行">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D82/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 82</span>
+  <span class="ttl">叫 Claude 幫簡報配色 不用你講色碼</span>
+</a>
+<a class="card" href="d/81/" data-t="叫 claude 直接寫文件 它只能猜你要什麼 叫 claude 直接寫文件 它只能猜你要什麼
+官方有個 skill 反過來 先問你問題
+寫完還派一個沒看過對話的 claude 來讀">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D81/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 81</span>
+  <span class="ttl">叫 Claude 直接寫文件 它只能猜你要什麼</span>
+</a>
+<a class="card" href="d/80/" data-t="以為 /code-review 把問題都列給你了？ 以為 /code-review 把問題都列給你了？
+它預設有回報上限 加個參數才會全部列出來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D80/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 80</span>
+  <span class="ttl">以為 /code-review 把問題都列給你了？</span>
+</a>
+<a class="card" href="d/79/" data-t="打了一大段 prompt 手滑按到 ctrl+c 整段不見了？ 打了一大段 prompt 手滑按到 ctrl+c 整段不見了？
+輸入框是空的時候 按一下 up 就救得回來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D79/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 79</span>
+  <span class="ttl">打了一大段 prompt 手滑按到 Ctrl+C 整段不見了？</span>
+</a>
+<a class="card" href="d/78/" data-t="claude 做長任務的時候 旁邊可以多一個 agent 盯著 claude 做長任務的時候 旁邊可以多一個 agent 盯著
+它發現你可能漏看的事 會在輸入框上面提醒你">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D78/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 78</span>
+  <span class="ttl">Claude 做長任務的時候 旁邊可以多一個 agent 盯著</span>
+</a>
+<a class="card" href="d/77/" data-t="不用每次叮嚀「commit 前先驗證」 不用每次叮嚀「commit 前先驗證」
+放一個叫 verify 的 skill claude 動手 commit 前就會被提醒去跑">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D77/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 77</span>
+  <span class="ttl">不用每次叮嚀「commit 前先驗證」</span>
+</a>
+<a class="card" href="d/76/" data-t="終端機跟 claude 聊到一半 想換到桌面 app 接著做？ 終端機跟 claude 聊到一半 想換到桌面 app 接著做？
+不用重講一次 同一段對話直接搬過去">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D76/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 76</span>
+  <span class="ttl">終端機跟 Claude 聊到一半 想換到桌面 app 接著做？</span>
+</a>
+<a class="card" href="d/75/" data-t="claude code 的權限模式有 6 種 claude code 的權限模式有 6 種
+現在沒特別設定的話 一打開就是 auto mode">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D75/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 75</span>
+  <span class="ttl">Claude Code 的權限模式有 6 種</span>
+</a>
+<a class="card" href="d/74/" data-t="畫面最底下可以多掛一行狀態列 畫面最底下可以多掛一行狀態列
+官方給了 30 多種資料可以挑">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D74/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 74</span>
+  <span class="ttl">畫面最底下可以多掛一行狀態列</span>
+</a>
+<a class="card" href="d/73/" data-t="claude code 的快捷鍵 只有 7 個改不動 claude code 的快捷鍵 只有 7 個改不動
+其他都可以換成你順手的鍵">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D73/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 73</span>
+  <span class="ttl">Claude Code 的快捷鍵 只有 7 個改不動</span>
+</a>
+<a class="card" href="d/72/" data-t="在 claude.md 用大寫寫 important、must、never 在 claude.md 用大寫寫 important、must、never
+現在的模型比較聽話 反而會照做過頭
+
+2.1.283 加了一個指令 把這種寫給舊模型的句子抓出來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D72/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 72</span>
+  <span class="ttl">在 CLAUDE.md 用大寫寫 IMPORTANT、MUST、NEVER</span>
+</a>
+<a class="card" href="d/71/" data-t="終端機拉到全螢幕 終端機拉到全螢幕
+claude 回的字一行拉到最右邊 看完一行要找半天下一行在哪？
+
+2.1.282 加了一個設定 段落收窄 表格跟程式碼照樣全寬">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D71/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 71</span>
+  <span class="ttl">終端機拉到全螢幕</span>
+</a>
+<a class="card" href="d/70/" data-t="叫 claude code 幫你 commit 叫 claude code 幫你 commit
+每一筆最後都會自動多一行 co-authored-by 署名
+
+新版一行設定 commit 跟 pr 的署名一起關掉">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D70/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 70</span>
+  <span class="ttl">叫 Claude Code 幫你 commit</span>
+</a>
+<a class="card" href="d/69/" data-t="每天都在用 claude code 每天都在用 claude code
+你知道自己最常在哪裡被它誤會嗎？
+
+一個指令 它把你最近的對話翻過一遍
+寫成一份報告給你">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D69/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 69</span>
+  <span class="ttl">每天都在用 Claude Code</span>
+</a>
+<a class="card" href="d/68/" data-t="一個指令,把你最近 24 小時的額度拆開給你看 一個指令,把你最近 24 小時的額度拆開給你看
+哪個 skill、哪個 plugin、哪個 mcp server 各吃掉幾 %">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D68/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 68</span>
+  <span class="ttl">一個指令,把你最近 24 小時的額度拆開給你看</span>
+</a>
+<a class="card" href="d/67/" data-t="claude.md 寫了一堆規則 claude 還是不照做？ claude.md 寫了一堆規則 claude 還是不照做？
+官方文件建議一份控制在 200 行內 太長它更不容易照做">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D67/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 67</span>
+  <span class="ttl">CLAUDE.md 寫了一堆規則 Claude 還是不照做？</span>
+</a>
+<a class="card" href="d/66/" data-t="/model 那一排模型清單 不是寫死的 /model 那一排模型清單 不是寫死的
+你可以自己挑留哪幾個 順序也自己排">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D66/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 66</span>
+  <span class="ttl">/model 那一排模型清單 不是寫死的</span>
+</a>
+<a class="card" href="d/65/" data-t="專案裡放 agents.md 就好 不用再開一個 claude.md 專案裡放 agents.md 就好 不用再開一個 claude.md
+它現在自己會讀">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D65/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 65</span>
+  <span class="ttl">專案裡放 AGENTS.md 就好 不用再開一個 CLAUDE.md</span>
+</a>
+<a class="card" href="d/64/" data-t="排隊的訊息 回合一結束只會送出最舊的那則 排隊的訊息 回合一結束只會送出最舊的那則
+其他的還留在隊伍裡">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D64/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 64</span>
+  <span class="ttl">排隊的訊息 回合一結束只會送出最舊的那則</span>
+</a>
+<a class="card" href="d/63/" data-t="整段對話想留下來 不用一路往上捲著複製 整段對話想留下來 不用一路往上捲著複製
+一行指令 直接寫成純文字檔">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D63/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 63</span>
+  <span class="ttl">整段對話想留下來 不用一路往上捲著複製</span>
+</a>
+<a class="card" href="d/62/" data-t="做到一半 它突然忘了前面講好的規則？ 做到一半 它突然忘了前面講好的規則？
+不是變笨 是工作記憶滿了
+系統自動壓縮 摘要留下 細節丟掉">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D62/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 62</span>
+  <span class="ttl">做到一半 它突然忘了前面講好的規則？</span>
+</a>
+<a class="card" href="d/61/" data-t="你裝的 skill 到底有沒有被叫過，claude code 自己也答不出來 你裝的 skill 到底有沒有被叫過，claude code 自己也答不出來">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D61/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 61</span>
+  <span class="ttl">你裝的 skill 到底有沒有被叫過，Claude Code 自己也答不出來</span>
+</a>
+<a class="card" href="d/60/" data-t="打一個目標 它會自己一輪一輪做下去 打一個目標 它會自己一輪一輪做下去
+每輪判一次 只有三種結果
+還沒到、到了、根本做不到">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D38/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 60</span>
+  <span class="ttl">打一個目標 它會自己一輪一輪做下去</span>
+</a>
+<a class="card" href="d/59/" data-t="pr 丟出去才發現漏洞,通常太晚了 pr 丟出去才發現漏洞,通常太晚了
+
+其實可以先叫幾個 agent 幫你看過一輪">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D59/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 59</span>
+  <span class="ttl">PR 丟出去才發現漏洞,通常太晚了</span>
+</a>
+<a class="card" href="d/58/" data-t="每次想換 claude 講話風格,都要開 /config 選單慢慢挑 每次想換 claude 講話風格,都要開 /config 選單慢慢挑
+
+最新版偷偷加回一條捷徑,打指令就能直接切">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D58/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 58</span>
+  <span class="ttl">每次想換 Claude 講話風格,都要開 /config 選單慢慢挑</span>
+</a>
+<a class="card" href="d/57/" data-t="問 claude 某個功能怎麼用,答完後它有時候會多丟一句「這邊有教學可以看」 問 claude 某個功能怎麼用,答完後它有時候會多丟一句「這邊有教學可以看」
+
+不是亂推,是官方內建的 skill,只有真的問到「怎麼用」才出聲,你在忙正事它不吭聲
+
+指令:
+claude plugin marketplace add anthropics/skills
+claude plugin install academy-guide@anthropic-agent-skills">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D57/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 57</span>
+  <span class="ttl">問 Claude 某個功能怎麼用,答完後它有時候會多丟一句「這邊有教學可以看」</span>
+</a>
+<a class="card" href="d/56/" data-t="grilling 跟 interview-me 都會在 ai 動手前先問你一輪 grilling 跟 interview-me 都會在 ai 動手前先問你一輪
+
+但「問到什麼程度算問完」,兩個 skill 的答案不一樣
+
+指令:
+npx skills add addyosmani/agent-skills --skill interview-me">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D56/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 56</span>
+  <span class="ttl">grilling 跟 interview-me 都會在 AI 動手前先問你一輪</span>
+</a>
+<a class="card" href="d/55/" data-t="一有整合需求就裝一個 mcp server,幾乎是反射動作 一有整合需求就裝一個 mcp server,幾乎是反射動作
+
+但每接一個 server,它的工具定義預設就整包進 context
+anthropic 自己量過,有個流程光工具定義就吃掉 15 萬 token
+
+對方本來就有 cli 的(gh、aws、docker 這種)
+讓 claude 直接用 bash 跑,閒置時完全不吃 context
+
+指令:
+claude mcp list">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D55/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 55</span>
+  <span class="ttl">一有整合需求就裝一個 MCP server,幾乎是反射動作</span>
+</a>
+<a class="card" href="d/54/" data-t="同一段流程說明、同一份 prompt,你是不是每天重貼一次 同一段流程說明、同一份 prompt,你是不是每天重貼一次
+
+包成一個 skill,claude 遇到對的情境自己叫出來
+
+官方 skill-creator 一步步問你、幫你寫 skill.md、再測觸發準不準
+
+指令:
+claude plugin marketplace add anthropics/skills
+claude plugin install example-skills@anthropic-agent-skills">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D54/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 54</span>
+  <span class="ttl">同一段流程說明、同一份 prompt,你是不是每天重貼一次</span>
+</a>
+<a class="card" href="d/53/" data-t="/doctor 查設定有沒有壞 /doctor 查設定有沒有壞
+/skill-doctor 查你載了卻沒在用的 skill、各吃多少 context
+
+指令: /skill-doctor">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D53/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 53</span>
+  <span class="ttl">/doctor 查設定有沒有壞</span>
+</a>
+<a class="card" href="d/52/" data-t="交報告、報提案，最怕上台被問到一個你沒準備的角度 交報告、報提案，最怕上台被問到一個你沒準備的角度
+
+先在 claude code 裡把那一輪提問跑過一遍
+
+貼上你的報告，加這句：
+你現在是我主管，逐題質詢這份報告，一次一題，我回完你再問下一題">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D52/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 52</span>
+  <span class="ttl">交報告、報提案，最怕上台被問到一個你沒準備的角度</span>
+</a>
+<a class="card" href="d/51/" data-t="資安審查,以為要本科系才看得懂 資安審查,以為要本科系才看得懂
+其實叫 claude code 做,你不會寫 code 也行
+
+指令:
+/security-review">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D51/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 51</span>
+  <span class="ttl">資安審查,以為要本科系才看得懂</span>
+</a>
+<a class="card" href="d/50/" data-t="claude 改完一輪,你不知道它到底動了哪些檔 claude 改完一輪,你不知道它到底動了哪些檔
+還要另開一個視窗敲 git diff 一個個對
+
+指令:
+/diff">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D50/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 50</span>
+  <span class="ttl">Claude 改完一輪,你不知道它到底動了哪些檔</span>
+</a>
+<a class="card" href="d/49/" data-t="claude 一跑起來,終端機畫面就閃個不停 claude 一跑起來,終端機畫面就閃個不停
+捲軸還會自己彈回最上面,看到一半就找不到位置
+
+指令:
+/tui fullscreen">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D49/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 49</span>
+  <span class="ttl">Claude 一跑起來,終端機畫面就閃個不停</span>
+</a>
+<a class="card" href="d/48/" data-t="auto mode 開下去,它讀了你哪些檔案,你其實不知道 auto mode 開下去,它讀了你哪些檔案,你其實不知道
+2.1.257 起,第一次讀到工作目錄外面它會先問你一次
+
+設定:
+permissions.blockreadsoutsideworkingdirectories">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D48/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 48</span>
+  <span class="ttl">auto mode 開下去,它讀了你哪些檔案,你其實不知道</span>
+</a>
+<a class="card" href="d/47/" data-t="claude 回了一大段,你想貼到 notion 或群組 claude 回了一大段,你想貼到 notion 或群組
+在終端機用滑鼠拉,拉半天還常常框到多餘的
+
+指令:
+/copy">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D47/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 47</span>
+  <span class="ttl">Claude 回了一大段,你想貼到 Notion 或群組</span>
+</a>
+<a class="card" href="d/46/" data-t="週報打開一個空白檔,坐在那邊想第一句要寫什麼 週報打開一個空白檔,坐在那邊想第一句要寫什麼
+官方 skill 庫裡有一個專門寫公司內部文件的
+
+安裝:
+/plugin marketplace add anthropics/skills
+/plugin install example-skills@anthropic-agent-skills">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D46/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 46</span>
+  <span class="ttl">週報打開一個空白檔,坐在那邊想第一句要寫什麼</span>
+</a>
+<a class="card" href="d/45/" data-t="做到一半想問個小問題,又怕把對話塞亂 做到一半想問個小問題,又怕把對話塞亂
+/btw 問下去,答案不進對話紀錄
+它做它的,你問你的,兩邊不打架
+
+指令: /btw 剛剛那個設定檔叫什麼">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D45/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 45</span>
+  <span class="ttl">做到一半想問個小問題,又怕把對話塞亂</span>
+</a>
+<a class="card" href="d/44/" data-t="一件事丟去背景跑,你繼續做你的 一件事丟去背景跑,你繼續做你的
+做完它自己 commit、push,回報東西放哪
+管它只要 5 個指令
+
+指令: claude --bg &quot;要做的事&quot;">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D44/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 44</span>
+  <span class="ttl">一件事丟去背景跑,你繼續做你的</span>
+</a>
+<a class="card" href="d/43/" data-t="用量上限撞到了,其實不用你回來按繼續 用量上限撞到了,其實不用你回來按繼續
+它會自己等到額度重置,接著做完
+條件是那個視窗不能關
+
+設定: /config">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D43b/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 43</span>
+  <span class="ttl">用量上限撞到了,其實不用你回來按繼續</span>
+</a>
+<a class="card" href="d/42/" data-t="新版多一個工具,它出包會自己寫一張報修單 新版多一個工具,它出包會自己寫一張報修單
+四段固定,其中一段是原文抄你當下講的那句話
+送不送,你自己決定
+
+指令: /feedback">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D42/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 42</span>
+  <span class="ttl">新版多一個工具,它出包會自己寫一張報修單</span>
+</a>
+<a class="card" href="d/41/" data-t="要等的事不用自己盯 要等的事不用自己盯
+一行指令,它每 5 分鐘自己查一次,到點回報
+
+指令: /loop 5m 盯著部署好了沒">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D41/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 41</span>
+  <span class="ttl">要等的事不用自己盯</span>
+</a>
+<a class="card" href="d/40/" data-t="新版多一個環境變數,新視窗開起來直接是你要的模型 新版多一個環境變數,新視窗開起來直接是你要的模型
+但有 4 個東西會讓它整個失效,其中一個你一定中過
+
+設定: anthropic_default_model=opus">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D40/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 40</span>
+  <span class="ttl">新版多一個環境變數,新視窗開起來直接是你要的模型</span>
+</a>
+<a class="card" href="d/39/" data-t="17 萬顆星的官方 skill 庫,上週上架了 discernment-nudge 17 萬顆星的官方 skill 庫,上週上架了 discernment-nudge
+ai 回答完,它會多附 2~3 條回問句,專挑你該懷疑的地方
+安裝方法:
+/plugin marketplace add anthropics/skills
+/plugin install discernment-nudge@anthropic-agent-skills">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D39/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 39</span>
+  <span class="ttl">17 萬顆星的官方 skill 庫,上週上架了 discernment-nudge</span>
+</a>
+<a class="card" href="d/38/" data-t="打一次完成條件 它會自己一輪一輪做下去 打一次完成條件 它會自己一輪一輪做下去
+每輪判一次 只有三種結果
+還沒到、到了、根本做不到
+
+指令: /goal 加上你的完成條件">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D38/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 38</span>
+  <span class="ttl">打一次完成條件 它會自己一輪一輪做下去</span>
+</a>
+<a class="card" href="d/37/" data-t="你開的兩個 claude code 視窗,以前互相看不到 你開的兩個 claude code 視窗,以前互相看不到
+現在 windows 也能讓它們互相傳話,跨電腦也行
+
+查有哪些 session: /list-agents">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D37/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 37</span>
+  <span class="ttl">你開的兩個 Claude Code 視窗,以前互相看不到</span>
+</a>
+<a class="card" href="d/36/" data-t="派隊友不是越多越好 派隊友不是越多越好
+官方給的數字是 3 到 5 個
+三個專注的,常常贏過五個散開的
+
+開啟方法: settings.json 的 env 加一行
+&quot;claude_code_experimental_agent_teams&quot;: &quot;1&quot;">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D36/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 36</span>
+  <span class="ttl">派隊友不是越多越好</span>
+</a>
+<a class="card" href="d/35/" data-t="2.1.237 多了第 5 種內建輸出風格 concise 2.1.237 多了第 5 種內建輸出風格 concise
+它直接給結果 不寫前言 也不邊做邊報告 事情照樣做完整
+
+指令: /config 選 output style">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D35/01-cover.png" alt="" loading="lazy">
+  <span class="day">Day 35</span>
+  <span class="ttl">2.1.237 多了第 5 種內建輸出風格 Concise</span>
+</a>
+<a class="card" href="d/34/" data-t="接手的舊 code 不敢上線？叫 claude 先查一輪資安漏洞，順便產一份交接用的說明文 接手的舊 code 不敢上線？叫 claude 先查一輪資安漏洞，順便產一份交接用的說明文
+
+上線前檢查: /security-review">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D34/card2-steps.png" alt="" loading="lazy">
+  <span class="day">Day 34</span>
+  <span class="ttl">接手的舊 code 不敢上線？叫 Claude 先查一輪資安漏洞，順便產一份交接用的說明文</span>
+</a>
+<a class="card" href="d/33/" data-t="8 萬顆星，一個把模糊點子磨成一頁企劃的 skill 8 萬顆星，一個把模糊點子磨成一頁企劃的 skill
+
+安裝方法: npx skills@latest add addyosmani/agent-skills">
+  <img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D33/card2-steps.png" alt="" loading="lazy">
+  <span class="day">Day 33</span>
+  <span class="ttl">8 萬顆星，一個把模糊點子磨成一頁企劃的 skill</span>
+</a>
+<a class="card" href="d/32/" data-t="22 萬顆星,一個幫你去問別人的 skill 22 萬顆星,一個幫你去問別人的 skill
+
+你要做決定,關鍵那幾件事只有同事知道
+叫它產一份問卷,丟過去,他有空再填
+
+1. 它只問你兩件事:這份要給誰、你需要拿回什麼
+2. 題目對準「他知道、你不知道」的那一塊
+3. 產出一份 markdown 檔,最重要的問題排最前面
+4. 一題只問一件事,下面直接留填答案的空位
+5. 開頭寫清楚為什麼問、答案會用在哪,最後留一題「還有什麼我們沒問到的」
+
+安裝方法: npx skills@latest add mattpocock/skills --skill to-questionnaire">
+  <div class="noimg"></div>
+  <span class="day">Day 32</span>
+  <span class="ttl">22 萬顆星,一個幫你去問別人的 skill</span>
+</a>
+<a class="card" href="d/31/" data-t="10 萬顆星,一個逼 ai 少寫程式的 skill 10 萬顆星,一個逼 ai 少寫程式的 skill
+它的角色設定是公司裡最懶的那個資深工程師
+你寫五十行,他看一眼,用一行換掉
+
+1. 動手前先問一句:這段能不能不要寫
+2. 有現成的就不重寫:專案裡的、內建的、已經裝的,照順序先找過一遍
+3. 三個力度:lite 只提醒、full 照做、ultra 連需求本身都頂回來
+4. 這四樣永遠不砍:輸入檢查、錯誤處理、資安、無障礙
+5. 跟 day 8 的 caveman 分工:caveman 管它怎麼講話,ponytail 管它怎麼寫 code
+
+安裝方法(兩行要分兩次送出):
+/plugin marketplace add dietrichgebert/ponytail
+/plugin install ponytail@ponytail">
+  <div class="noimg"></div>
+  <span class="day">Day 31</span>
+  <span class="ttl">10 萬顆星,一個逼 AI 少寫程式的 skill</span>
+</a>
+<a class="card" href="d/30/" data-t="開兩個 claude 改同一個專案 開兩個 claude 改同一個專案
+同一個檔案,後面那個直接蓋掉前面那個
+
+叫它開一個隔離的工作區就好:
+
+1. 一個指令,它用 git 在專案底下另外開一份完整的檔案複本,配一條新分支
+2. 待在裡面時,它去改主目錄的檔案會被擋下來,連跑指令都要留在複本裡
+3. 想再開一份,換個名字跑一次,兩份完全獨立
+4. 派出去的 agent 也能一人一份: 在它的設定檔加一行 isolation: worktree
+5. 你的 .env 不會跟過去: 專案根目錄放一個 .worktreeinclude,把要帶的檔名寫進去
+
+指令: claude --worktree 名字">
+  <div class="noimg"></div>
+  <span class="day">Day 30</span>
+  <span class="ttl">開兩個 Claude 改同一個專案</span>
+</a>
+<a class="card" href="d/29/" data-t="15 個任務不是開 15 個隊友 15 個任務不是開 15 個隊友
+官方文件寫的是先開 3 個
+
+day 20 那篇底下有人留言:隊友開超過三四個,訊息傳來傳去的成本比工作本身還高
+官方自己也寫了同一件事
+
+1. 先開 3~5 個,15 個獨立任務也是先開 3 個
+2. 三個專心的隊友,常常贏過五個散開的
+3. 一個隊友配 5~6 件任務,才不會有人在那邊閒著
+4. 一件任務要小到交得出東西:一個函式、一個測試檔、一次審查
+5. 兩個隊友不要改到同一個檔案,會互相蓋掉
+
+打開方法: settings.json 的 env 加 &quot;claude_code_experimental_agent_teams&quot;: &quot;1&quot;">
+  <div class="noimg"></div>
+  <span class="day">Day 29</span>
+  <span class="ttl">15 個任務不是開 15 個隊友</span>
+</a>
+<a class="card" href="d/28/" data-t="8 萬 6 千顆星的那套 skill,addy osmani 的 interview-me 8 萬 6 千顆星的那套 skill,addy osmani 的 interview-me
+你叫 claude 做東西,它會先反問你一輪:
+
+1. 先寫一句話猜你到底要什麼,後面附一個 0 到 100 的信心分數
+2. 一次只問一題,每題先講它自己猜的答案,你只要說對不對
+3. 你回「可擴展」「乾淨架構」這種漂亮話,它會追問:如果不用跟任何人交代,你真正想要的是什麼
+4. 問完把結論寫成六行給你確認,包含這次不做什麼
+5. 它要能預測你接下來三題會怎麼回,才算問完
+
+安裝方法: npx skills add addyosmani/agent-skills --skill interview-me">
+  <div class="noimg"></div>
+  <span class="day">Day 28</span>
+  <span class="ttl">8 萬 6 千顆星的那套 skill,Addy Osmani 的 interview-me</span>
+</a>
+<a class="card" href="d/27/" data-t="claude code 可以用手機操作了 claude code 可以用手機操作了
+但它不是在雲端跑,跑的還是你桌上那台電腦
+
+1. 電腦打一行指令,手機掃 qr code 就接上,要 pro 或 max 方案
+2. 它要動手改東西,你在手機上按核准就行
+3. 手機拍的照片直接貼進去給它看,不用先存檔再叫它讀
+4. 筆電睡著或斷網,醒來會自己接回去
+
+指令: claude --remote-control">
+  <div class="noimg"></div>
+  <span class="day">Day 27</span>
+  <span class="ttl">Claude Code 可以用手機操作了</span>
+</a>
+<a class="card" href="d/26/" data-t="叫 claude 教你一個新東西,它一口氣倒完一整篇,你當下看得懂,關掉視窗就忘光了 叫 claude 教你一個新東西,它一口氣倒完一整篇,你當下看得懂,關掉視窗就忘光了
+
+matt pocock 有個 skill 叫 teach,它改成一堂一堂上:
+
+1. 先問你為什麼想學,之後每一堂課都繞著這個理由出
+2. 一次只教一小塊,教完給你一份印得出來的講義
+3. 課後直接考你,答完馬上告訴你哪裡不對
+4. 隔幾天再考一次同一件事,故意讓你想不起來,這樣才記得住
+5. 記著你已經懂到哪,下次從你剛好差一點的地方接著教
+
+學瑜珈、學健身也能用,不限程式
+
+安裝方法: npx skills@latest add mattpocock/skills --skill teach">
+  <div class="noimg"></div>
+  <span class="day">Day 26</span>
+  <span class="ttl">叫 Claude 教你一個新東西,它一口氣倒完一整篇,你當下看得懂,關掉視窗就忘光了</span>
+</a>
+<a class="card" href="d/25/" data-t="有些事 claude 幫不了你:登入你的後台、按下申請金鑰、把那串密碼複製出來 有些事 claude 幫不了你:登入你的後台、按下申請金鑰、把那串密碼複製出來
+
+matt pocock 有個 skill 叫 wizard,它改成幫你排隊帶路
+你說要設定什麼,它產一支腳本:
+
+1. 它自己開網址,直接講點哪個按鈕、複製哪一串
+2. 你貼回來的值它幫你寫進設定檔,密碼那種打字時畫面不顯示
+3. 有些值 github 上也要放一份,它一起幫你存好
+4. 每一關畫面只留當下這一步,還告訴你總共幾關、現在第幾關
+5. 中途關掉沒差,下次重跑,填過的按 enter 就跳過
+
+安裝方法: npx skills@latest add mattpocock/skills --skill wizard">
+  <div class="noimg"></div>
+  <span class="day">Day 25</span>
+  <span class="ttl">有些事 Claude 幫不了你:登入你的後台、按下申請金鑰、把那串密碼複製出來</span>
+</a>
+<a class="card" href="d/24/" data-t="叫 claude「講簡單一點」,它常常只是把同一段話換幾個同義詞,你還是看不懂 叫 claude「講簡單一點」,它常常只是把同一段話換幾個同義詞,你還是看不懂
+
+matt pocock 有個 skill 叫 wait-what 專門處理這件事
+它剛剛講的那段你看不懂,它會:
+
+1. 先補上你缺的前情,不是換句話再講一次
+2. 照 asd-ste100 重講,那是航太業替飛機維修手冊訂的英文規範,寫給英文不是母語的技師看
+3. 句子要短、一句只講一個動作、用主動語態
+4. 不會自己跳出來,你打 /wait-what 它才動
+
+安裝方法: claude plugins install mattpocock-skills">
+  <div class="noimg"></div>
+  <span class="day">Day 24</span>
+  <span class="ttl">叫 Claude「講簡單一點」,它常常只是把同一段話換幾個同義詞,你還是看不懂</span>
+</a>
+<a class="card" href="d/23/" data-t="matt pocock 的 grill-me,原本的規矩是一次只問一題 matt pocock 的 grill-me,原本的規矩是一次只問一題
+七月底上線的新版改成一輪問一批
+
+- 原理: 它先把你的計畫攤成一棵決策樹,挑出「不用等別題答案就能問」的那幾題,一次全部丟給你
+
+你一次答完,它重算一輪,把剛才被卡住的問題放進下一批
+要靠別題答案才能問的,排到後面才問
+
+查得到的事實它自己派人去查,不會停在那裡等你
+
+更新方法:
+claude plugin update mattpocock-skills">
+  <div class="noimg"></div>
+  <span class="day">Day 23</span>
+  <span class="ttl">Matt Pocock 的 grill-me,原本的規矩是一次只問一題</span>
+</a>
+<a class="card" href="d/22/" data-t="25 個 skill,一行指令全部裝完 25 個 skill,一行指令全部裝完
+
+matt pocock 那套 skill 這禮拜改版,整包變成 claude code 的 plugin
+
+1. 它已經在官方市集裡,不用先加來源,打一行就開始裝
+2. 他以後改了什麼會自動更新,不用自己回去拉
+3. 裝完在每個專案跑一次 /setup-matt-pocock-skills,它會問你用哪個 issue 系統、貼什麼標籤、產出的文件放哪
+4. 想自己改內容的走另一條: npx skills@latest add mattpocock/skills,檔案會複製進你的專案,可以改,但不會自動更新
+5. 兩條挑一條,都裝的話每個 skill 會出現兩次
+
+安裝方法:
+claude plugins install mattpocock-skills">
+  <div class="noimg"></div>
+  <span class="day">Day 22</span>
+  <span class="ttl">25 個 skill,一行指令全部裝完</span>
+</a>
+<a class="card" href="d/21/" data-t="你裝過的 skill、mcp、plugin 你裝過的 skill、mcp、plugin
+有多少是裝完就再也沒用過的?
+
+有一個指令會列出來,還會告訴你每一個吃掉多少記憶空間
+它只報告,你點頭才會動手改
+
+- 順便抓的:跑很慢的 hook、裝重複的舊版本、設定檔壞掉打不開
+- 順便做的:幫 claude.md 瘦身,把 claude 看程式碼就知道的東西砍掉(目錄結構、套件清單),留下你踩過的坑跟規矩
+
+指令: /doctor">
+  <div class="noimg"></div>
+  <span class="day">Day 21</span>
+  <span class="ttl">你裝過的 skill、MCP、plugin</span>
+</a>
+<a class="card" href="d/20/" data-t="claude 可以一次開好幾個自己出來 claude 可以一次開好幾個自己出來
+而且它們之間會互相挑毛病,不是各做各的
+
+這個實驗功能叫 agent teams
+派出去的隊友是完整的 claude,不是用完就丟的小幫手
+很吃額度,官方建議一次 3 到 5 個
+
+1. 開完直接用中文講「派三個隊友,一個看 ux、一個看架構、一個唱反調」
+2. 每個隊友有自己的記憶空間,互不干擾
+3. 隊友之間會直接傳話,互相挑對方的毛病
+4. 上下鍵選人,enter 進去單獨跟它一個人講話
+5. 可以要求它先交計畫,審過才准動手
+
+開啟方法: settings.json 的 env 加一行
+&quot;claude_code_experimental_agent_teams&quot;: &quot;1&quot;">
+  <div class="noimg"></div>
+  <span class="day">Day 20</span>
+  <span class="ttl">Claude 可以一次開好幾個自己出來</span>
+</a>
+<a class="card" href="d/19/" data-t="claude 接管瀏覽器之後點錯地方,九成是你的縮放沒調回來 claude 接管瀏覽器之後點錯地方,九成是你的縮放沒調回來
+
+它不是讀網頁原始碼再算位置,是先截一張圖,再照圖上的座標點下去
+
+所以你把頁面放大到 150%,它看到的畫面就跟平常不一樣,按鈕跑掉它就點在空的地方
+
+- 而且它自己調不了: ctrl+0、ctrl+ 加、ctrl+ 減這幾個縮放快捷鍵,工具直接回錯誤,只能你先調好
+
+叫它做事之前: ctrl+0 把縮放歸零">
+  <div class="noimg"></div>
+  <span class="day">Day 19</span>
+  <span class="ttl">Claude 接管瀏覽器之後點錯地方,九成是你的縮放沒調回來</span>
+</a>
+<a class="card" href="d/18/" data-t="裝一個官方擴充,它就能開你桌面上那個 chrome 裝一個官方擴充,它就能開你桌面上那個 chrome
+
+- 原理: 不是另外開一個你看不到的瀏覽器,是接管你眼前這個,你登入過的網站它全部進得去,不用另外串接
+
+能叫它做什麼:
+
+1. 讀網頁跳出來的錯誤訊息,回頭改 code
+2. 在你的 gmail、notion、google 文件裡直接打字
+3. 表單一格一格幫你填
+4. 把網頁上的資料抓下來存成檔案
+5. 把整段操作錄成 gif
+
+碰到登入頁或驗證碼,它會停下來叫你自己按
+
+- 前提: pro 以上方案,chrome 要裝官方擴充,沒裝它會跳出來帶你裝
+
+安裝方法:
+claude --chrome">
+  <div class="noimg"></div>
+  <span class="day">Day 18</span>
+  <span class="ttl">裝一個官方擴充,它就能開你桌面上那個 Chrome</span>
+</a>
+<a class="card" href="d/17/" data-t="claude code 可以直接改你電腦裡的 excel 和 word,不用再複製貼上 claude code 可以直接改你電腦裡的 excel 和 word,不用再複製貼上
+
+裝一個官方 plugin,一次拿到四個技能:
+
+1. excel — 讀整張表,加欄位,套公式,清爛資料
+2. word — 產報告,自動加目錄和頁碼,也能改現成的檔
+3. ppt — 做簡報,或把舊簡報的字全部抓出來
+4. pdf — 抽文字和表格,合併拆頁,填表單,掃描檔轉成可搜尋
+
+- 原理: 這四個就是 claude.ai 網頁版做檔案的同一套東西,官方開源出來給 claude code 用
+
+安裝方法:
+/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills">
+  <div class="noimg"></div>
+  <span class="day">Day 17</span>
+  <span class="ttl">Claude Code 可以直接改你電腦裡的 Excel 和 Word,不用再複製貼上</span>
+</a>
+<a class="card" href="d/16/" data-t="聊到一半想試另一種做法,不用開新對話重講前情 聊到一半想試另一種做法,不用開新對話重講前情
+
+claude code 有四個分身指令:
+
+1. /branch — 當場分兩條,你跳到新的那條
+2. /fork — 複本丟背景跑,你留在原地
+3. /subtask — 派它出去查,結果自己回來
+4. --fork-session — 重開終端接舊對話,不蓋掉原本那條
+
+- 原理: 都是複製一份對話發新的 session id,兩條各走各的,不會互相蓋掉
+
+想回原本那條: /resume 加原本的 session id">
+  <div class="noimg"></div>
+  <span class="day">Day 16</span>
+  <span class="ttl">聊到一半想試另一種做法,不用開新對話重講前情</span>
+</a>
+<a class="card" href="d/15/" data-t="「把問題清楚地寫出來或說出來，問題就已經解決了一半」 「把問題清楚地寫出來或說出來，問題就已經解決了一半」
+
+我寫了一個 skill 叫 kitchen-table,陪你把它問清楚
+
+1. 一次只問一題
+2. 只傾聽,不評判
+3. 不給你選項,答案你自己講
+4. 一步步引導,不急著給結論
+5. 最後留一句話，和一個這週做得到的小行動
+
+安裝方法:
+npx -y skills add yrrah95/skills --skill kitchen-table --agent claude-code">
+  <div class="noimg"></div>
+  <span class="day">Day 15</span>
+  <span class="ttl">「把問題清楚地寫出來或說出來，問題就已經解決了一半」</span>
+</a>
+<a class="card" href="d/14/" data-t="審查現在跑在背景,不會再把你的對話洗掉 審查現在跑在背景,不會再把你的對話洗掉
+
+2.1.218 起 /code-review 改成背景執行
+它自己去翻檔案,看完才把結果丟回來,中間那一大段不佔你的畫面
+
+- 原理:審查被拆出去當背景任務,不再跟你共用同一個對話
+順便提醒:2.1.215 之後它也不會自己跑審查了,你不叫它,它就不會看
+
+直接打指令就是審你這次改的東西
+想審 github 上的 pr,後面加編號就好
+
+指令:
+/code-review">
+  <div class="noimg"></div>
+  <span class="day">Day 14</span>
+  <span class="ttl">審查現在跑在背景,不會再把你的對話洗掉</span>
+</a>
+<a class="card" href="d/13/" data-t="你裝的 skill 和 mcp,在你還沒開口之前就已經在吃額度了 你裝的 skill 和 mcp,在你還沒開口之前就已經在吃額度了
+
+裝越多,它越容易忘記你前面交代過的事,打開也越慢
+
+有個開關可以一次全關,跑起來正常就代表是設定的問題
+
+- 原理:每個 mcp、每個 skill 都要先把自己的說明塞進去,它才知道有這些工具可以用你還沒開口,記憶空間就先被佔掉一塊
+
+會被關掉的:
+1. claude.md 不讀
+2. 所有 skill、plugin 不載入
+3. hooks 不觸發
+4. mcp 不連
+5. 自訂指令、主題、快捷鍵全部停用
+
+還是正常的:
+登入、模型、內建工具、權限,跟平常一樣
+
+指令:
+claude --safe-mode">
+  <div class="noimg"></div>
+  <span class="day">Day 13</span>
+  <span class="ttl">你裝的 skill 和 MCP,在你還沒開口之前就已經在吃額度了</span>
+</a>
+<a class="card" href="d/12/" data-t="做完網頁被人一眼看穿「這 claude 寫的吧」 做完網頁被人一眼看穿「這 claude 寫的吧」
+
+anthropic 官方的 frontend-design,做畫面前先叫它讀這份
+
+1. 先給你一份設計方案,不會一上來就寫 code
+2. 它自己列了一張「ai 常見長相」黑名單,撞到就重想
+3. 顏色跟字體會挑到有個性,不是每個案子都同一套
+4. 整頁只留一個記憶點,其他全部安靜下來
+5. 連按鈕上的字都算設計,「儲存變更」不會寫成「送出」
+
+安裝方法:
+npx -y skills add anthropics/skills --skill frontend-design --agent claude-code">
+  <div class="noimg"></div>
+  <span class="day">Day 12</span>
+  <span class="ttl">做完網頁被人一眼看穿「這 Claude 寫的吧」</span>
+</a>
+<a class="card" href="d/11/" data-t="叫 claude 修 bug,它東改西改,改完 bug 還在 叫 claude 修 bug,它東改西改,改完 bug 還在
+
+matt pocock 的 diagnosing-bugs 治這個,第一條規矩:
+還沒做出「跑一下就知道修好沒」的檢查指令,不准動手改 code
+
+1. 先建檢查指令,每改一次跑一次,修掉沒有立刻見真章
+2. 把重現 bug 的步驟一步步刪,刪到剩最少,問題就鎖死在那幾步裡
+3. 像辦案列 3~5 個嫌疑,從最可疑的查起,不准認定第一個就是兇手
+4. debug 加的 log 全掛同一個記號,收尾搜一次全刪光
+5. 修之前先寫自動檢查,bug 還在它就失敗,修完它通過才算真的修好
+
+安裝方法:
+npx -y skills add mattpocock/skills --skill diagnosing-bugs --agent claude-code">
+  <div class="noimg"></div>
+  <span class="day">Day 11</span>
+  <span class="ttl">叫 Claude 修 bug,它東改西改,改完 bug 還在</span>
+</a>
+<a class="card" href="d/10/" data-t="白名單不要自己手寫 白名單不要自己手寫
+你以為你常用的，跟你實際一直在按同意的，不是同一批
+
+內建有個指令會幫你統計:
+
+1. 翻你過去的對話紀錄
+2. 挑出最常放行、而且只讀不改的指令
+3. 照出現次數排優先序
+4. 寫進專案的 .claude/settings.json
+
+會動到東西的照樣跳確認
+刪檔、推 code 不會被靜音
+
+指令:
+/fewer-permission-prompts">
+  <div class="noimg"></div>
+  <span class="day">Day 10</span>
+  <span class="ttl">白名單不要自己手寫</span>
+</a>
+<a class="card" href="d/9/" data-t="對話接不上不是 claude 的問題 對話接不上不是 claude 的問題
+是你沒交接
+
+matt pocock 的 handoff,換視窗前先讓它寫一份交接文件
+
+五條規矩:
+
+1. 把目前進度寫成文件,新對話讀了就接得上
+2. 存到系統暫存資料夾,不會弄髒你的專案
+3. 附上「下一個對話該用哪些 skill」
+4. 規格、計畫、commit 裡寫過的不重抄,只留路徑
+5. 金鑰、密碼、個資先塗掉再寫
+
+安裝方法:
+npx -y skills add mattpocock/skills --skill handoff --agent claude-code">
+  <div class="noimg"></div>
+  <span class="day">Day 9</span>
+  <span class="ttl">對話接不上不是 Claude 的問題</span>
+</a>
+<a class="card" href="d/8/" data-t="9 萬顆星的 skill《caveman》 9 萬顆星的 skill《caveman》
+讓 ai 講話像穴居人，砍掉 65% 輸出 token
+
+- 原理：
+只縮短 ai「講出來的話」，不縮小它「知道的東西」
+程式碼、指令、錯誤訊息一個字都不動，被砍的只有廢話跟鋪陳
+它自己的圖表寫得很白：output token 省 65%、技術準確度 100%
+
+同一個答案，三分之一的字，技術資訊沒少
+
+改造前:
+你的元件一直重新渲染，很可能是每次 render 都建了新的物件參照，建議用 usememo 包起來
+
+改造後:
+每次 render 建新物件參照 = 重繪。用 usememo 包
+
+安裝方法:
+claude plugin marketplace add juliusbrussee/caveman
+claude plugin install caveman@caveman">
+  <div class="noimg"></div>
+  <span class="day">Day 8</span>
+  <span class="ttl">9 萬顆星的 skill《caveman》</span>
+</a>
+<a class="card" href="d/7/" data-t="18 萬顆星的 skill matt pocock 的 grill-me 18 萬顆星的 skill matt pocock 的 grill-me
+作用是讓 claude 把你的計畫從頭問到尾
+你沒想清楚的地方會被一個一個挖出來
+
+它的規矩只有五句話:
+
+1. 不留情地把每個面向都問過一遍，直到我們有共識
+2. 沿著決策樹走，一個決定牽動下一個決定
+3. 每題都附上你建議的答案
+4. 一次只問一題，等我回答再問下一題
+5. 查得到的事實自己查，決定留給我
+
+安裝方法:
+npx -y skills add mattpocock/skills --skill grill-me --agent claude-code">
+  <div class="noimg"></div>
+  <span class="day">Day 7</span>
+  <span class="ttl">18 萬顆星的 skill Matt Pocock 的 grill-me</span>
+</a>
+<a class="card" href="d/6/" data-t="7700 顆星的 skill 《i-have-adhd》 : 逼 claude 講重點 7700 顆星的 skill 《i-have-adhd》 : 逼 claude 講重點
+
+沒有鋪陳、沒有客套、沒有結尾廢話
+
+具體規則:
+
+1. 第一句先給下一步
+2. 多步驟就編號
+3. 結尾給一個明確的下一步
+4. 砍掉離題
+5. 沒有前言、沒有回顧、沒有結尾客套
+
+1. claude plugin marketplace add ayghri/i-have-adhd
+2. claude plugin install i-have-adhd@i-have-adhd
+3. 打 /i-have-adhd">
+  <div class="noimg"></div>
+  <span class="day">Day 6</span>
+  <span class="ttl">7700 顆星的 skill 《i-have-adhd》 : 逼 Claude 講重點</span>
+</a>
+<a class="card" href="d/5/" data-t="以前改完 code 都想說等一下再跑測試，然後就忘了，等報修炸出來才發現早就壞了 以前改完 code 都想說等一下再跑測試，然後就忘了，等報修炸出來才發現早就壞了
+
+後來設了個 hook，它改完檔案自動幫我跑測試，壞了當場紅字跳出來，我再也沒漏過
+
+位置在 .claude/settings.json，設一個 posttooluse hook：
+每次 edit 或 write 完檔案，就自動跑你的測試指令
+
+重點是它不靠 claude 記得，是你寫死的規則，每次都會跑
+
+同一招還能拿來：偵測到 rm -rf 就攔下、commit 前自動檢查、動到 .env 就跳警告">
+  <div class="noimg"></div>
+  <span class="day">Day 5</span>
+  <span class="ttl">以前改完 code 都想說等一下再跑測試，然後就忘了，等報修炸出來才發現早就壞了</span>
+</a>
+<a class="card" href="d/4/" data-t="claude code 不是只能開著視窗一句一句聊。 claude code 不是只能開著視窗一句一句聊。
+
+加 -p 直接丟一句指令進去，答案印完就結束，連對話介面都不會跳出來。
+
+claude -p &quot;檢查這段 code 有沒有 bug&quot; &gt; result.txt
+
+寫進 ci、排程腳本、git hook 都行，跑完自動記錄，不用人坐在那邊等它回話。
+
+排程每天早上掃一次 repo 有沒有明顯漏洞，起床看記錄就好。
+
+快捷鍵:
+- -p：印一次結果就結束
+- -c（--continue）：接續「這個資料夾裡最近一次」的對話，不用選，直接接上一次的
+- -r（--resume）：也是接續對話，但可以指定要接哪一個（給對話代碼，或跳出清單讓你挑）
+- -n（--name）：幫這次的對話取個名字，之後在清單裡比較好找
+- -w（--worktree）：開一個新的 git worktree 同時開多個獨立工作區平行做事
+- -d（--debug）：除錯模式
+- -v（--version）：顯示目前版本號
+- -h（--help）：顯示說明">
+  <div class="noimg"></div>
+  <span class="day">Day 4</span>
+  <span class="ttl">Claude Code 不是只能開著視窗一句一句聊。</span>
+</a>
+<a class="card" href="d/3/" data-t="前面加一個 !，那一行直接送進終端機跑，跳過 claude 判斷 前面加一個 !，那一行直接送進終端機跑，跳過 claude 判斷
+
+在單純想查看狀態的時候蠻好用的，可以節省token
+
+!git status — 看「哪些檔案被動過、動到哪一步」
+
+!git log --oneline -5 — 列出最近 5 筆 commit 紀錄，一行一筆。
+像是看最近 5 筆信用卡刷卡紀錄的簡短版，只列「花多少錢、在哪刷」，不列明細。git log 沒加參數會列出完整版（含時間、作者、完整訊息），比較長
+
+!git diff — 看檔案「改了哪些內容」的逐行差異
+像是把改動前後兩份文件疊在一起，用螢光筆標記哪裡不一樣（畫紅線刪掉的、畫綠線加上的）
+
+!git branch — 看現在有哪些分支
+
+!ls — 不是 git 指令，是列出目前資料夾裡有哪些檔案/子資料夾，像打開抽屜看裡面裝什麼">
+  <div class="noimg"></div>
+  <span class="day">Day 3</span>
+  <span class="ttl">前面加一個 !，那一行直接送進終端機跑，跳過 Claude 判斷</span>
+</a>
+<a class="card" href="d/2/" data-t="windows 按 ctrl+v 貼不了截圖給 claude code，不是壞掉，是鍵不對。 windows 按 ctrl+v 貼不了截圖給 claude code，不是壞掉，是鍵不對。
+
+我本來也以為複製貼上截圖是 mac 限定，按了沒反應就放棄。
+
+結果 windows 要按 alt+v。
+
+win+shift+s 截圖 → 回終端機 alt+v，圖就進去了。
+懶得記的話，把圖檔直接拖進視窗也行。">
+  <div class="noimg"></div>
+  <span class="day">Day 2</span>
+  <span class="ttl">Windows 按 Ctrl+V 貼不了截圖給 Claude Code，不是壞掉，是鍵不對。</span>
+</a>
+<a class="card" href="d/1/" data-t="claude code 把程式改壞的時候，千萬不要叫它「改回來」。 claude code 把程式改壞的時候，千萬不要叫它「改回來」。
+
+我試過，越叫它修越亂，改到後面連原本好的地方都被動到。
+
+後來才發現：esc 連按兩下。
+
+會跳出這次對話的所有訊息，挑一個還沒出事的時間點，直接跳回去重來。
+
+以前不知道這招，來回十幾輪越改越糟。現在偏了就回溯，快超多。">
+  <div class="noimg"></div>
+  <span class="day">Day 1</span>
+  <span class="ttl">Claude Code 把程式改壞的時候，千萬不要叫它「改回來」。</span>
+</a></main>
+<p class="empty" id="empty" hidden>沒有符合的貼文</p>
+<footer><a href="https://www.threads.com/@yrrah9_" rel="noopener">@yrrah9_</a></footer>
+<script>
+const q=document.getElementById('q'),cs=[...document.querySelectorAll('.card')],em=document.getElementById('empty');
+q.addEventListener('input',()=>{const k=q.value.trim().toLowerCase();let n=0;
+cs.forEach(c=>{const ok=!k||c.dataset.t.includes(k);c.hidden=!ok;if(ok)n++});em.hidden=n>0});
+</script>
+</body>
+</html>

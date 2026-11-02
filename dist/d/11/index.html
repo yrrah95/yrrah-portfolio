@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 11｜叫 Claude 修 bug,它東改西改,改完 bug 還在</title>
+<meta name="description" content="叫 Claude 修 bug,它東改西改,改完 bug 還在">
+<link rel="stylesheet" href="../../style.css">
+
+</head>
+<body>
+<header class="top slim"><a class="back" href="../../">← Claude Code Everyday</a></header>
+<article class="post">
+  <h1><span class="day">Day 11</span>叫 Claude 修 bug,它東改西改,改完 bug 還在</h1>
+  <time>2026-07-27</time>
+  <div class="text">Matt Pocock 的 diagnosing-bugs 治這個,第一條規矩:
+還沒做出「跑一下就知道修好沒」的檢查指令,不准動手改 code
+
+1. 先建檢查指令,每改一次跑一次,修掉沒有立刻見真章
+2. 把重現 bug 的步驟一步步刪,刪到剩最少,問題就鎖死在那幾步裡
+3. 像辦案列 3~5 個嫌疑,從最可疑的查起,不准認定第一個就是兇手
+4. debug 加的 log 全掛同一個記號,收尾搜一次全刪光
+5. 修之前先寫自動檢查,bug 還在它就失敗,修完它通過才算真的修好
+
+安裝方法:
+npx -y skills add mattpocock/skills --skill diagnosing-bugs --agent claude-code</div>
+  <div class="imgs"></div>
+  
+  <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  <nav class="pn"><a href="../10/">← Day 10</a><a href="../12/">Day 12 →</a></nav>
+</article>
+</body>
+</html>
