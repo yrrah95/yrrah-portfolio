@@ -255,7 +255,7 @@ if (skillData) {
   const maxStars = packs.length ? packs[0].stars : 1;
   const rows = packs.map((p) => {
     const list = packSkills(p);
-    const kinds = p.plugin ? 'plugin' : '';
+    const kinds = p.plugin ? 'plugin' : 'skill';
     const gs = [...new Set(list.map((s) => s.group))];
     const pt = (p.name + ' ' + packZh[p.repo] + ' ' + p.repo).toLowerCase();
     const link = list.length > 1 ? esc(p.src) + '/' : esc(list[0].src) + '/' + esc(list[0].name) + '/';
@@ -265,8 +265,8 @@ if (skillData) {
       + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + list.length + '</span> 個 skill</span></span></a></li>';
   }).join('\n');
   const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
-  const rail = '<aside class="rail"><section><h2>類型</h2>' + railBtn('data-ty', '', '全部', packs.length) + railBtn('data-ty', 'plugin', 'Plugin', packs.filter((p) => p.plugin).length) + '</section>'
-    + '<section><h2>功能</h2>' + railBtn('data-g', '', '全部', packs.length) + groups.map((g) => railBtn('data-g', g, g, packs.filter((p) => packSkills(p).some((s) => s.group === g)).length)).join('') + '</section></aside>';
+  const nPlugin = packs.filter((p) => p.plugin).length;
+  const rail = '<aside class="rail">' + railBtn('data-ty', 'skill', 'Skill', packs.length - nPlugin) + railBtn('data-ty', 'plugin', 'Plugin', nPlugin) + '</aside>';
   const skillPage = page({
     title: 'Skill｜Claude Code Everyday',
     desc: packs.length + ' 個熱門來源包、' + sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯）。',
@@ -276,7 +276,7 @@ if (skillData) {
       + '<div class="cw">' + rail + '<div class="cmain"><div class="pkt"><input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
       + '<ol class="pklist" id="grid">' + rows + '</ol>\n'
       + '<p class="empty" id="empty" hidden>沒有符合的項目</p>\n'
-      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 標示代表專案內有 plugin 檔案，我只檢查檔案是否存在，沒有逐一審查內容。</p></div></div>\n'
+      + '<p class="pknote">星數與更新日抓取於 ' + esc(packData.fetched) + '。Plugin 代表專案內有 plugin 檔案，Skill 代表沒偵測到。我只檢查檔案是否存在，沒有逐一審查內容，安裝方式請看各專案說明。</p></div></div>\n'
       + '<script>\n'
       + "const q=document.getElementById('q'),ps=[...document.querySelectorAll('.pk')],em=document.getElementById('empty'),K={ty:'sk-ty',g:'sk-g',q:'sk-q'};let ty='',g='';\n"
       + "function hit(p,st,sg){const kw=q.value.trim().toLowerCase();if(!st&&ty&&p.dataset.k.split(' ').indexOf(ty)<0)return false;if(!sg&&g&&p.dataset.g.split('|').indexOf(g)<0)return false;return!kw||p.dataset.t.indexOf(kw)>=0}\n"
@@ -286,8 +286,8 @@ if (skillData) {
       + "});\n"
       + "em.hidden=n>0;\n"
       + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=ps.filter(p=>hit(p,true)&&(v===''||p.dataset.k.split(' ').indexOf(v)>=0)).length});\n"
-      + "document.querySelectorAll('[data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=ps.filter(p=>hit(p,false,true)&&(v===''||p.dataset.g.split('|').indexOf(v)>=0)).length})}\n"
-      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;if(b.dataset.ty!==undefined)ty=b.dataset.ty;if(b.dataset.g!==undefined)g=b.dataset.g;render();save()});\n"
+      + "}\n"
+      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;ty=(ty===b.dataset.ty)?'':b.dataset.ty;render();save()});\n"
       + "q.addEventListener('input',()=>{render();save()});\n"
       + "try{ty=sessionStorage.getItem(K.ty)||'';g=sessionStorage.getItem(K.g)||'';q.value=sessionStorage.getItem(K.q)||''}catch(_){}\n"
       + "render();\n"
