@@ -223,3 +223,12 @@ a.tg:hover{border-color:var(--mute);color:var(--fg)}
 .prow code{font-weight:700;overflow-wrap:anywhere}
 .prow span{color:var(--mute);font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (max-width:760px){.prow a{grid-template-columns:1fr}}
+.gh{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);font-weight:700;margin-top:18px;text-decoration:none}
+.gh:hover{background:var(--accent);color:var(--bg)}
+.crows{margin-top:6px}
+.crow{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) auto;gap:14px;align-items:baseline;padding:10px 6px;border-bottom:1px solid var(--line);text-decoration:none}
+.crow[hidden]{display:none}.crow:hover{background:var(--card)}
+.crow code{font-weight:700;overflow-wrap:anywhere}
+.crow .d{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .g{font-size:12px;color:var(--mute);white-space:nowrap}
+@media (max-width:760px){.crow{grid-template-columns:1fr;gap:2px}.crow .d{white-space:normal}.crow .g{display:none}}

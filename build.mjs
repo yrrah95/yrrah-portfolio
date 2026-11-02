@@ -266,7 +266,8 @@ if (skillData) {
   }).join('\n');
   const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
   const nPlugin = packs.filter((p) => p.plugin).length;
-  const rail = '<aside class="rail">' + railBtn('data-ty', 'skill', 'Skill', packs.length - nPlugin) + railBtn('data-ty', 'plugin', 'Plugin', nPlugin) + '</aside>';
+  const rail = '<aside class="rail"><section><h2>類別</h2>' + railBtn('data-ty', 'skill', 'Skill', packs.length - nPlugin) + railBtn('data-ty', 'plugin', 'Plugin', nPlugin) + '</section>'
+    + '<section><h2>功能</h2>' + groups.map((g) => railBtn('data-g', g, g, packs.filter((p) => packSkills(p).some((s) => s.group === g)).length)).join('') + '</section></aside>';
   const skillPage = page({
     title: 'Skill｜Claude Code Everyday',
     desc: packs.length + ' 個熱門來源包、' + sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯）。',
@@ -286,8 +287,8 @@ if (skillData) {
       + "});\n"
       + "em.hidden=n>0;\n"
       + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=ps.filter(p=>hit(p,true)&&(v===''||p.dataset.k.split(' ').indexOf(v)>=0)).length});\n"
-      + "}\n"
-      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;ty=(ty===b.dataset.ty)?'':b.dataset.ty;render();save()});\n"
+      + "document.querySelectorAll('.rail [data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=ps.filter(p=>hit(p,false,true)&&p.dataset.g.split('|').indexOf(v)>=0).length})}\n"
+      + "document.addEventListener('click',e=>{const b=e.target.closest('.rail button');if(!b)return;if(b.dataset.ty!==undefined)ty=(ty===b.dataset.ty)?'':b.dataset.ty;if(b.dataset.g!==undefined)g=(g===b.dataset.g)?'':b.dataset.g;render();save()});\n"
       + "q.addEventListener('input',()=>{render();save()});\n"
       + "try{ty=sessionStorage.getItem(K.ty)||'';g=sessionStorage.getItem(K.g)||'';q.value=sessionStorage.getItem(K.q)||''}catch(_){}\n"
       + "render();\n"
@@ -312,14 +313,14 @@ if (skillData) {
         + '<article class="skd">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
         + '<div class="tags">' + (p.plugin ? '<span class="tg">Plugin</span>' : '') + '<span class="ska">AI翻譯</span></div>\n'
         + '<p class="lede">' + esc(packZh[p.repo]) + '</p>\n'
-        + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span><a href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a></p>\n'
+        + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
+        + '<a class="gh" href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a>\n'
         + '<div class="pkt pq"><input id="q" type="search" placeholder="搜尋這個包的 skill" autocomplete="off"></div>\n'
-        + secs.map((x) => '<section class="psec"><h2>' + esc(x.g) + ' <small>' + x.items.length + '</small></h2><ul class="prow">'
-          + x.items.map((s) => '<li data-t="' + esc((s.name + ' ' + s.say).toLowerCase()) + '"><a href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span></a></li>').join('') + '</ul></section>').join('\n')
+        + '<div class="crows">' + secs.map((x) => x.items.map((s) => '<a class="crow" data-t="' + esc((s.name + ' ' + s.say + ' ' + x.g).toLowerCase()) + '" href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span class="d"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span><span class="g">' + esc(x.g) + '</span></a>').join('')).join('') + '</div>'
         + '\n<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n</article>\n'
         + '<script>\n'
         + "const q=document.getElementById('q'),em=document.getElementById('empty');\n"
-        + "q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.psec').forEach(s=>{let c=0;s.querySelectorAll('li').forEach(li=>{const v=!kw||li.dataset.t.indexOf(kw)>=0;li.hidden=!v;if(v)c++});s.hidden=!c;n+=c});em.hidden=n>0})\n"
+        + "q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.crow').forEach(r=>{const v=!kw||r.dataset.t.indexOf(kw)>=0;r.hidden=!v;if(v)n++});em.hidden=n>0})\n"
         + '</script>',
     });
     const dir = path.join(OUT, 'skill', p.src);
