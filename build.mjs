@@ -263,7 +263,7 @@ if (skillData) {
   const groups = skillData.groups.filter((g) => gc[g]);
   const authors = Object.keys(ac).sort((x, y) => ac[y] - ac[x] || x.localeCompare(y));
   const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-a="' + esc(s.src) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
-    + '<div class="skh"><code class="skn">/' + esc(s.name) + '</code>' + (s.used ? '<span class="sku">用過</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
+    + '<div class="skh"><code class="skn">/' + esc(s.name) + '</code>' + '<span class="sks">' + esc(s.src) + '</span></div>'
     + '<p class="sksay">' + esc(s.say) + '</p>'
     + (s.when ? '<p class="skwhen">' + esc(s.when) + '</p>' : '')
     + '</li>').join('\n');
@@ -275,7 +275,7 @@ if (skillData) {
     desc: sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。',
     depth: '../',
     active: 'skill',
-    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。標「用過」的是我實際用過的。</p></header>\n'
+    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。</p></header>\n'
       + '<div class="bar">' + dd('g', '全部功能', opts('全部功能', groups, gc)) + dd('a', '全部作者', opts('全部作者', authors, ac))
       + '<button type="button" class="clr" id="clr" hidden>' + XICON + '清除</button>'
       + '<input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'

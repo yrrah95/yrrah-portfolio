@@ -119,7 +119,6 @@ a{color:inherit}
 .sk[hidden]{display:none}
 .skh{display:flex;align-items:center;gap:8px;min-width:0}
 .skn{font:700 15px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--fg);overflow-wrap:anywhere;min-width:0}
-.sku{font-size:12px;font-weight:700;color:var(--bg);background:var(--accent);border-radius:999px;padding:0 8px;line-height:20px;flex:none}
 .sks{margin-left:auto;font-size:12px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:0 9px;line-height:20px;flex:none;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sksay{margin:0;line-height:1.65;overflow-wrap:anywhere}
 .skwhen{margin:auto 0 0;padding-top:10px;border-top:1px dashed var(--line);color:var(--mute);font-size:14px;line-height:1.65;overflow-wrap:anywhere}
