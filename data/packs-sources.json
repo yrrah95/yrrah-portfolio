@@ -1,23 +1,368 @@
 {
   "_說明": "排行榜的一列＝一個來源包。src 對應 data/skills.json 的作者徽章，repo 是 GitHub 專案。收錄條件：星數 ≥10000、近 12 個月有更新。sources 沒列到的 src 不進排行榜。",
   "packs": [
-    { "src": "obra", "repo": "obra/superpowers", "name": "superpowers" },
-    { "src": "mattpocock", "repo": "mattpocock/skills", "name": "mattpocock/skills" },
-    { "src": "anthropic-agent-skills", "repo": "anthropics/skills", "name": "anthropics/skills", "merge": ["anthropics"] },
-    { "src": "nextlevelbuilder", "repo": "nextlevelbuilder/ui-ux-pro-max-skill", "name": "ui-ux-pro-max" },
-    { "src": "gstack", "repo": "garrytan/gstack", "name": "gstack" },
-    { "src": "caveman", "repo": "JuliusBrussee/caveman", "name": "caveman" },
-    { "src": "addyosmani", "repo": "addyosmani/agent-skills", "name": "agent-skills" },
-    { "src": "pbakaus", "repo": "pbakaus/impeccable", "name": "impeccable" },
-    { "src": "mvanhorn", "repo": "mvanhorn/last30days-skill", "name": "last30days" },
-    { "src": "cathrynlavery", "repo": "cathrynlavery/diagram-design", "name": "diagram-design" },
-    { "src": "blader", "repo": "blader/humanizer", "name": "humanizer" },
-    { "src": "i-have-adhd", "repo": "ayghri/i-have-adhd", "name": "i-have-adhd" },
-    { "src": "marketingskills", "repo": "coreyhaines31/marketingskills", "name": "marketingskills" },
-    { "src": "emil", "repo": "emilkowalski/skills", "name": "emil/skills" },
-    { "src": "nutlope", "repo": "Nutlope/hallmark", "name": "hallmark" },
-    { "src": "vercel-labs", "repo": "vercel-labs/skills", "name": "find-skills" },
-    { "src": "op7418", "repo": "op7418/humanizer-zh", "name": "humanizer-zh" },
-    { "src": "garrytan", "repo": "garrytan/gbrain", "name": "gbrain" }
+    {
+      "src": "obra",
+      "repo": "obra/superpowers",
+      "name": "superpowers"
+    },
+    {
+      "src": "mattpocock",
+      "repo": "mattpocock/skills",
+      "name": "mattpocock/skills"
+    },
+    {
+      "src": "anthropic-agent-skills",
+      "repo": "anthropics/skills",
+      "name": "anthropics/skills",
+      "merge": [
+        "anthropics"
+      ]
+    },
+    {
+      "src": "nextlevelbuilder",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "name": "ui-ux-pro-max"
+    },
+    {
+      "src": "gstack",
+      "repo": "garrytan/gstack",
+      "name": "gstack"
+    },
+    {
+      "src": "caveman",
+      "repo": "JuliusBrussee/caveman",
+      "name": "caveman"
+    },
+    {
+      "src": "addyosmani",
+      "repo": "addyosmani/agent-skills",
+      "name": "agent-skills"
+    },
+    {
+      "src": "pbakaus",
+      "repo": "pbakaus/impeccable",
+      "name": "impeccable"
+    },
+    {
+      "src": "mvanhorn",
+      "repo": "mvanhorn/last30days-skill",
+      "name": "last30days"
+    },
+    {
+      "src": "cathrynlavery",
+      "repo": "cathrynlavery/diagram-design",
+      "name": "diagram-design"
+    },
+    {
+      "src": "blader",
+      "repo": "blader/humanizer",
+      "name": "humanizer"
+    },
+    {
+      "src": "i-have-adhd",
+      "repo": "ayghri/i-have-adhd",
+      "name": "i-have-adhd"
+    },
+    {
+      "src": "marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "name": "marketingskills"
+    },
+    {
+      "src": "emil",
+      "repo": "emilkowalski/skills",
+      "name": "emil/skills"
+    },
+    {
+      "src": "nutlope",
+      "repo": "Nutlope/hallmark",
+      "name": "hallmark"
+    },
+    {
+      "src": "vercel-labs",
+      "repo": "vercel-labs/skills",
+      "name": "find-skills"
+    },
+    {
+      "src": "op7418",
+      "repo": "op7418/humanizer-zh",
+      "name": "humanizer-zh"
+    },
+    {
+      "src": "garrytan",
+      "repo": "garrytan/gbrain",
+      "name": "gbrain"
+    },
+    {
+      "src": "x-dietrichgebert-ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "name": "ponytail",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-thedotmack-claude-mem",
+      "repo": "thedotmack/claude-mem",
+      "name": "claude-mem",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-leonxlnx-taste-skill",
+      "repo": "Leonxlnx/taste-skill",
+      "name": "taste-skill",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-egonex-ai-understand-anything",
+      "repo": "Egonex-AI/Understand-Anything",
+      "name": "Understand-Anything",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-heygen-com-hyperframes",
+      "repo": "heygen-com/hyperframes",
+      "name": "hyperframes",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-k-dense-ai-scientific-agent-skills",
+      "repo": "K-Dense-AI/scientific-agent-skills",
+      "name": "scientific-agent-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-kepano-obsidian-skills",
+      "repo": "kepano/obsidian-skills",
+      "name": "obsidian-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-anthropics-claude-plugins-official",
+      "repo": "anthropics/claude-plugins-official",
+      "name": "claude-plugins-official",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-wshobson-agents",
+      "repo": "wshobson/agents",
+      "name": "wshobson/agents",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-yeachan-heo-oh-my-claudecode",
+      "repo": "Yeachan-Heo/oh-my-claudecode",
+      "name": "oh-my-claudecode",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-jarrodwatts-claude-hud",
+      "repo": "jarrodwatts/claude-hud",
+      "name": "claude-hud",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-othmanadi-planning-with-files",
+      "repo": "OthmanAdi/planning-with-files",
+      "name": "planning-with-files",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-phuryn-pm-skills",
+      "repo": "phuryn/pm-skills",
+      "name": "pm-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-jimliu-baoyu-skills",
+      "repo": "JimLiu/baoyu-skills",
+      "name": "baoyu-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-agricidaniel-claude-seo",
+      "repo": "AgriciDaniel/claude-seo",
+      "name": "claude-seo",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-kkkkhazix-khazix-skills",
+      "repo": "KKKKhazix/khazix-skills",
+      "name": "khazix-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-google-skills",
+      "repo": "google/skills",
+      "name": "google/skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-wanshuiyin-auto-claude-code-research-in-sleep",
+      "repo": "wanshuiyin/Auto-claude-code-research-in-sleep",
+      "name": "Auto-claude-code-research-in-sleep",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-muratcankoylan-agent-skills-for-context-engineering",
+      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "name": "Agent-Skills-for-Context-Engineering",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-yusufkaraaslan-skill_seekers",
+      "repo": "yusufkaraaslan/Skill_Seekers",
+      "name": "Skill_Seekers",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-orchestra-research-ai-research-skills",
+      "repo": "Orchestra-Research/AI-Research-SKILLs",
+      "name": "AI-Research-SKILLs",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-conardli-garden-skills",
+      "repo": "ConardLi/garden-skills",
+      "name": "garden-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-tw93-kami",
+      "repo": "tw93/Kami",
+      "name": "Kami",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-jeffallan-claude-skills",
+      "repo": "Jeffallan/claude-skills",
+      "name": "claude-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-zubair-trabzada-geo-seo-claude",
+      "repo": "zubair-trabzada/geo-seo-claude",
+      "name": "geo-seo-claude",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-nicobailon-visual-explainer",
+      "repo": "nicobailon/visual-explainer",
+      "name": "visual-explainer",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-agricidaniel-claude-ads",
+      "repo": "AgriciDaniel/claude-ads",
+      "name": "claude-ads",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-agents365-ai-drawio-skill",
+      "repo": "Agents365-ai/drawio-skill",
+      "name": "drawio-skill",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-ibelick-ui-skills",
+      "repo": "ibelick/ui-skills",
+      "name": "ui-skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-jakubkrehel-skills",
+      "repo": "jakubkrehel/skills",
+      "name": "jakubkrehel/skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-android-skills",
+      "repo": "android/skills",
+      "name": "android/skills",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-agricidaniel-claude-obsidian",
+      "repo": "AgriciDaniel/claude-obsidian",
+      "name": "claude-obsidian",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-nidhinjs-prompt-master",
+      "repo": "nidhinjs/prompt-master",
+      "name": "prompt-master",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-zarazhangrui-frontend-slides",
+      "repo": "zarazhangrui/frontend-slides",
+      "name": "frontend-slides",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-cloudflare-security-audit-skill",
+      "repo": "cloudflare/security-audit-skill",
+      "name": "security-audit-skill",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-alchaincyf-huashu-design",
+      "repo": "alchaincyf/huashu-design",
+      "name": "huashu-design",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-tt-a1i-archify",
+      "repo": "tt-a1i/archify",
+      "name": "archify",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-latent-spaces-brag",
+      "repo": "latent-spaces/brag",
+      "name": "brag",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-lemomo-ai-lemo-opuscar",
+      "repo": "lemomo-ai/lemo-opuscar",
+      "name": "lemo-opuscar",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-vincentwei1021-video-shotcraft",
+      "repo": "Vincentwei1021/video-shotcraft",
+      "name": "video-shotcraft",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-nvidia-skillspector",
+      "repo": "NVIDIA/SkillSpector",
+      "name": "SkillSpector",
+      "fetchSkills": true
+    },
+    {
+      "src": "x-affaan-m-ecc",
+      "repo": "affaan-m/ECC",
+      "name": "affaan-m/ECC",
+      "countOnly": true
+    },
+    {
+      "src": "x-davila7-claude-code-templates",
+      "repo": "davila7/claude-code-templates",
+      "name": "claude-code-templates",
+      "countOnly": true
+    },
+    {
+      "src": "x-alirezarezvani-claude-skills",
+      "repo": "alirezarezvani/claude-skills",
+      "name": "claude-skills",
+      "countOnly": true
+    },
+    {
+      "src": "x-mukul975-anthropic-cybersecurity-skills",
+      "repo": "mukul975/Anthropic-Cybersecurity-Skills",
+      "name": "Anthropic-Cybersecurity-Skills",
+      "countOnly": true
+    }
   ]
 }
