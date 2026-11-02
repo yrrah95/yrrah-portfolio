@@ -255,59 +255,67 @@ posts.forEach((p, i) => {
 const SKILL_FILE = path.join(here, 'data', 'skills.json');
 const skillData = fs.existsSync(SKILL_FILE) ? JSON.parse(fs.readFileSync(SKILL_FILE, 'utf8')) : null;
 const CHEV = '<svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+const XICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 if (skillData) {
   const sk = skillData.skills;
-  const cnt = {};
-  sk.forEach((s) => { cnt[s.group] = (cnt[s.group] || 0) + 1; });
-  const groups = skillData.groups.filter((g) => cnt[g]);
-  const usedN = sk.filter((s) => s.used).length;
-  const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-u="' + (s.used ? 1 : 0) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
+  const gc = {}, ac = {};
+  sk.forEach((s) => { gc[s.group] = (gc[s.group] || 0) + 1; ac[s.src] = (ac[s.src] || 0) + 1; });
+  const groups = skillData.groups.filter((g) => gc[g]);
+  const authors = Object.keys(ac).sort((x, y) => ac[y] - ac[x] || x.localeCompare(y));
+  const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-a="' + esc(s.src) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
     + '<div class="skh"><code class="skn">/' + esc(s.name) + '</code>' + (s.used ? '<span class="sku">用過</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
     + '<p class="sksay">' + esc(s.say) + '</p>'
     + (s.when ? '<p class="skwhen">' + esc(s.when) + '</p>' : '')
     + '</li>').join('\n');
-  const menu = '<li role="option" data-v="" aria-selected="true">全部分組<small>' + sk.length + '</small></li>'
-    + groups.map((g) => '<li role="option" data-v="' + esc(g) + '" aria-selected="false">' + esc(g) + '<small>' + cnt[g] + '</small></li>').join('');
+  const opts = (all, list, cnt) => '<li role="option" data-v="" aria-selected="true">' + all + '<small>' + sk.length + '</small></li>'
+    + list.map((v) => '<li role="option" data-v="' + esc(v) + '" aria-selected="false">' + esc(v) + '<small>' + cnt[v] + '</small></li>').join('');
+  const dd = (k, label, menu) => '<div class="sortbar solo" id="' + k + 'bar"><div class="dd"><button type="button" class="ddb" id="' + k + 'k" aria-haspopup="listbox" aria-expanded="false"><span id="' + k + 'l">' + label + '</span>' + CHEV + '</button><ul class="ddm long" id="' + k + 'm" role="listbox" hidden>' + menu + '</ul></div></div>';
   const skillPage = page({
     title: 'Skill｜Claude Code Everyday',
     desc: sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。',
     depth: '../',
     active: 'skill',
     body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。標「用過」的是我實際用過的。</p></header>\n'
-      + '<div class="bar"><div class="sortbar solo"><div class="dd"><button type="button" class="ddb" id="gk" aria-haspopup="listbox" aria-expanded="false"><span id="gkl">全部分組</span>' + CHEV + '</button><ul class="ddm long" id="gdm" role="listbox" hidden>' + menu + '</ul></div></div>'
-      + '<button type="button" class="chipb" id="us" aria-pressed="false">只看用過<small>' + usedN + '</small></button>'
-      + '<input id="q" type="search" placeholder="搜尋，例如 review、設計" autocomplete="off"></div>\n'
+      + '<div class="bar">' + dd('g', '全部功能', opts('全部功能', groups, gc)) + dd('a', '全部作者', opts('全部作者', authors, ac))
+      + '<button type="button" class="clr" id="clr" hidden>' + XICON + '清除</button>'
+      + '<input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
       + '<ul class="skgrid" id="grid">' + cards + '</ul>\n'
       + '<nav class="pager" id="pg" aria-label="分頁" hidden></nav>\n'
       + '<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n'
       + '<script>\n'
-      + "const q=document.getElementById('q'),cs=[...document.querySelectorAll('.sk')],em=document.getElementById('empty'),gk=document.getElementById('gk'),gkl=document.getElementById('gkl'),gdm=document.getElementById('gdm'),us=document.getElementById('us'),pg=document.getElementById('pg');\n"
-      + "const PER=12,KG='sk-g',KU='sk-u',KQ='sk-q',KP='sk-p';let g='',onlyUsed=false,page=1;\n"
+      + "const q=document.getElementById('q'),cs=[...document.querySelectorAll('.sk')],em=document.getElementById('empty'),pg=document.getElementById('pg'),clr=document.getElementById('clr');\n"
+      + "const PER=12,K={g:'sk-g',a:'sk-a',q:'sk-q',p:'sk-p'},ALL={g:'全部功能',a:'全部作者'};let sel={g:'',a:''},page=1;\n"
+      + "const D={};['g','a'].forEach(k=>{D[k]={btn:document.getElementById(k+'k'),lbl:document.getElementById(k+'l'),menu:document.getElementById(k+'m'),bar:document.getElementById(k+'bar')}});\n"
       + "const CL='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 18l-6-6 6-6\"/></svg>';\n"
       + "const CR='<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg>';\n"
       + "function pageList(n,c){const s=new Set([1,n,c-1,c,c+1]);if(c<=3){s.add(2);s.add(3);s.add(4)}if(c>=n-2){s.add(n-1);s.add(n-2);s.add(n-3)}const a=[...s].filter(x=>x>=1&&x<=n).sort((x,y)=>x-y),o=[];a.forEach((x,i)=>{if(i&&x-a[i-1]>1)o.push(0);o.push(x)});return o}\n"
-      + "function save(){try{sessionStorage.setItem(KG,g);sessionStorage.setItem(KU,onlyUsed?'1':'0');sessionStorage.setItem(KQ,q.value);sessionStorage.setItem(KP,String(page))}catch(_){}}\n"
-      + "function render(){const kw=q.value.trim().toLowerCase();const all=cs.filter(c=>(!g||c.dataset.g===g)&&(!onlyUsed||c.dataset.u==='1')&&(!kw||c.dataset.t.includes(kw)));\n"
-      + "const n=Math.max(1,Math.ceil(all.length/PER));if(page>n)page=n;if(page<1)page=1;cs.forEach(c=>{c.hidden=true});all.slice((page-1)*PER,page*PER).forEach(c=>{c.hidden=false});em.hidden=all.length>0;\n"
-      + "gkl.textContent=g||'全部分組';gdm.querySelectorAll('li').forEach(li=>li.setAttribute('aria-selected',String(li.dataset.v===g)));us.setAttribute('aria-pressed',String(onlyUsed));\n"
+      + "function save(){try{sessionStorage.setItem(K.g,sel.g);sessionStorage.setItem(K.a,sel.a);sessionStorage.setItem(K.q,q.value);sessionStorage.setItem(K.p,String(page))}catch(_){}}\n"
+      + "function ok(c,skip){const kw=q.value.trim().toLowerCase();return(skip==='g'||!sel.g||c.dataset.g===sel.g)&&(skip==='a'||!sel.a||c.dataset.a===sel.a)&&(!kw||c.dataset.t.includes(kw))}\n"
+      + "function render(){const all=cs.filter(c=>ok(c)),n=Math.max(1,Math.ceil(all.length/PER));if(page>n)page=n;if(page<1)page=1;cs.forEach(c=>{c.hidden=true});all.slice((page-1)*PER,page*PER).forEach(c=>{c.hidden=false});em.hidden=all.length>0;\n"
+      + "['g','a'].forEach(k=>{const base=cs.filter(c=>ok(c,k)),cnt={};base.forEach(c=>{const v=c.dataset[k];cnt[v]=(cnt[v]||0)+1});\n"
+      + "D[k].menu.querySelectorAll('li').forEach(li=>{const v=li.dataset.v,m=v===''?base.length:(cnt[v]||0);li.querySelector('small').textContent=m;li.classList.toggle('zero',m===0&&v!==sel[k]);li.setAttribute('aria-selected',String(v===sel[k]))});\n"
+      + "D[k].lbl.textContent=sel[k]||ALL[k];D[k].bar.classList.toggle('on',!!sel[k])});\n"
+      + "clr.hidden=!(sel.g||sel.a||q.value.trim());\n"
       + "if(n<=1){pg.hidden=true;pg.innerHTML='';return}pg.hidden=false;\n"
       + "let h='<button type=\"button\" data-p=\"'+(page-1)+'\" aria-label=\"上一頁\"'+(page===1?' disabled':'')+'>'+CL+'</button>';\n"
       + "pageList(n,page).forEach(x=>{h+=x?'<button type=\"button\" data-p=\"'+x+'\" aria-label=\"第 '+x+' 頁\"'+(x===page?' aria-current=\"page\"':'')+'>'+x+'</button>':'<span class=\"gap\">…</span>'});\n"
       + "h+='<button type=\"button\" data-p=\"'+(page+1)+'\" aria-label=\"下一頁\"'+(page===n?' disabled':'')+'>'+CR+'</button>';pg.innerHTML=h}\n"
-      + "function openM(o){gdm.hidden=!o;gk.setAttribute('aria-expanded',String(o))}\n"
-      + "gk.addEventListener('click',e=>{e.stopPropagation();openM(gdm.hidden)});\n"
-      + "gdm.addEventListener('click',e=>{const li=e.target.closest('li');if(!li)return;g=li.dataset.v;page=1;render();save();openM(false);gk.focus()});\n"
-      + "document.addEventListener('click',()=>openM(false));gk.addEventListener('keydown',e=>{if(e.key==='Escape')openM(false)});\n"
-      + "us.addEventListener('click',()=>{onlyUsed=!onlyUsed;page=1;render();save()});\n"
+      + "function closeAll(except){['g','a'].forEach(k=>{if(k!==except){D[k].menu.hidden=true;D[k].btn.setAttribute('aria-expanded','false')}})}\n"
+      + "['g','a'].forEach(k=>{const d=D[k];\n"
+      + "d.btn.addEventListener('click',e=>{e.stopPropagation();closeAll(k);d.menu.hidden=!d.menu.hidden;d.btn.setAttribute('aria-expanded',String(!d.menu.hidden))});\n"
+      + "d.menu.addEventListener('click',e=>{const li=e.target.closest('li');if(!li||li.classList.contains('zero'))return;sel[k]=li.dataset.v;page=1;render();save();closeAll();d.btn.focus()});\n"
+      + "d.btn.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()})});\n"
+      + "document.addEventListener('click',()=>closeAll());\n"
       + "q.addEventListener('input',()=>{page=1;render();save()});\n"
+      + "clr.addEventListener('click',()=>{sel={g:'',a:''};q.value='';page=1;render();save()});\n"
       + "pg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;page=+b.dataset.p;render();save();document.querySelector('.bar').scrollIntoView({behavior:'smooth',block:'start'})});\n"
-      + "try{g=sessionStorage.getItem(KG)||'';onlyUsed=sessionStorage.getItem(KU)==='1';q.value=sessionStorage.getItem(KQ)||'';page=+sessionStorage.getItem(KP)||1}catch(_){}\n"
+      + "try{sel.g=sessionStorage.getItem(K.g)||'';sel.a=sessionStorage.getItem(K.a)||'';q.value=sessionStorage.getItem(K.q)||'';page=+sessionStorage.getItem(K.p)||1}catch(_){}\n"
       + "render();\n"
       + '</script>',
   });
   fs.mkdirSync(path.join(OUT, 'skill'), { recursive: true });
   fs.writeFileSync(path.join(OUT, 'skill', 'index.html'), skillPage);
-  console.log('Skill ' + sk.length + ' 個，分組 ' + groups.length + ' 組');
+  console.log('Skill ' + sk.length + ' 個，功能 ' + groups.length + ' 組，作者 ' + authors.length + ' 位');
 } else {
   warns.push('沒有 data/skills.json，Skill 分頁略過（node tools/sync-skills.mjs 產生）');
 }
