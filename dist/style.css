@@ -91,7 +91,7 @@ a{color:inherit}
 .lead{margin:0;color:var(--mute)}
 .nav{position:sticky;top:0;z-index:15;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .nav .in{max-width:1080px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{font-weight:700;font-size:17px;text-decoration:none}
+.brand{display:flex;align-items:center;text-decoration:none}.brand img{height:26px;width:auto;display:block}
 .links{display:flex;gap:20px}
 .links a{display:inline-flex;align-items:center;gap:4px;color:var(--mute);text-decoration:none}
 .links a:hover{color:var(--fg)}
@@ -109,4 +109,4 @@ a{color:inherit}
 .pager button:disabled{opacity:.4;cursor:default}
 .pager .gap{align-self:center;color:var(--mute);padding:0 4px}
 .brand,.links a{white-space:nowrap}
-@media(max-width:560px){.nav .in{gap:8px}.brand{font-size:15px}.links{gap:12px}.pager{gap:4px}.pager button{min-width:34px;height:36px;padding:0 6px;border-radius:8px}}
+@media(max-width:560px){.nav .in{gap:8px}.brand img{height:20px}.links a:first-child{display:none}.links{gap:12px}.pager{gap:4px}.pager button{min-width:34px;height:36px;padding:0 6px;border-radius:8px}}

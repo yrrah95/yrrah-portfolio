@@ -76,7 +76,7 @@ const beacon = BEACON
   : '';
 const BUILT = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10); // 網站建置日（台灣時間）
 const ARROW = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
-const navHtml = (depth) => `<nav class="nav"><div class="in"><a class="brand" href="${depth || './'}">Claude Code Everyday</a><div class="links"><a href="${depth || './'}">全部貼文</a><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads ${ARROW}</a></div></div></nav>`;
+const navHtml = (depth) => `<nav class="nav"><div class="in"><a class="brand" href="${depth || './'}" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="${depth}logo-dark.png"><img src="${depth}logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="${depth || './'}">全部貼文</a><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads ${ARROW}</a></div></div></nav>`;
 const footHtml = `<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads @yrrah9_ ${ARROW}</a><span>網站更新於 ${BUILT}</span></span></div></footer>`;
 const page = ({ title, desc, body, depth }) => `<!doctype html>
 <html lang="zh-Hant">
@@ -221,6 +221,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), index);
 fs.copyFileSync(path.join(here, 'src', 'style.css'), path.join(OUT, 'style.css'));
+for (const f of ['logo-light.png', 'logo-dark.png']) fs.copyFileSync(path.join(here, 'src', f), path.join(OUT, f));
 
 posts.forEach((p, i) => {
   const newer = posts[i - 1], older = posts[i + 1];
