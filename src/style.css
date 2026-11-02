@@ -1,5 +1,5 @@
-:root{--bg:#f6f1e6;--fg:#201f1a;--mute:#7a7467;--accent:#c96644;--line:#e0d8c6;--card:#fbf8f0}
-@media (prefers-color-scheme:dark){:root{--bg:#1c1b17;--fg:#efe9db;--mute:#a39c8c;--accent:#e08a66;--line:#34322b;--card:#25241f}}
+:root{--bg:#f6f1e6;--fg:#201f1a;--mute:#7a7467;--accent:#c96644;--line:#e0d8c6;--card:#fbf8f0;--code:#ece5d3}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1b17;--fg:#efe9db;--mute:#a39c8c;--accent:#e08a66;--line:#34322b;--card:#25241f;--code:#14130f}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
 a{color:inherit}
@@ -248,3 +248,32 @@ a.tg:hover{border-color:var(--mute);color:var(--fg)}
 .crow .g:empty{display:none}
 }
 .rail,.rail section{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.skd h1{margin:20px 0 0;font-size:32px}
+.skd .tags{margin:12px 0 0}
+.skd .lede{margin-top:24px;font-size:19px;max-width:34em}
+.skd h2{margin:44px 0 10px;font-size:15px;letter-spacing:.04em}
+.when{max-width:34em}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;margin:28px 0 0;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.facts div{background:var(--card);padding:12px 14px}
+.facts dt{font-size:13px;color:var(--mute);line-height:1.4}
+.facts dd{margin:2px 0 0;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.5}
+.facts dd small{font-size:13px;font-weight:400;color:var(--mute)}
+.facts .hot{color:var(--accent)}
+.vs{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.vs li{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:4px 16px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.vs li:last-child{border-bottom:0}
+.vs a{font-weight:700;text-decoration:none}.vs a:hover{color:var(--accent)}
+.vs span:last-child{color:var(--mute);font-size:15px}
+.cmd{display:flex;border:1px solid var(--line);border-radius:10px;background:var(--code);overflow:hidden}
+.cmd code{flex:1;min-width:0;padding:12px 14px;font-size:14px;line-height:1.6;overflow-x:auto;white-space:nowrap}
+.cmd button{flex:none;border:0;border-left:1px solid var(--line);background:transparent;color:var(--accent);font:inherit;font-weight:700;padding:0 16px;cursor:pointer}
+.cmd button:hover{background:var(--line)}
+.cmd button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.note{margin-top:10px;font-size:14px;color:var(--mute);line-height:1.7;max-width:34em}
+.skd .orig{margin:0;font-size:15px;line-height:1.7}
+.orig-note{margin-top:8px;font-size:13px;color:var(--mute)}
+.go{margin:44px 0 0;display:flex;flex-wrap:wrap;gap:12px}
+.go a.sub{border-color:var(--line);color:var(--mute);font-weight:400}
+.go a.sub:hover{background:transparent;color:var(--fg);border-color:var(--mute)}
+@media (max-width:520px){.skd h1{font-size:28px}.vs li{grid-template-columns:1fr}.facts dd{font-size:16px}}
+.cmd code{scrollbar-width:thin;scrollbar-color:var(--line) transparent}

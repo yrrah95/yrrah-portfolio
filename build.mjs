@@ -371,10 +371,35 @@ if (skillData) {
   const relPosts = (s) => { const re = reFor(s.name); return posts.filter((p) => re.test((p.body || '') + '\n' + (p.cta || ''))); };
   let detailN = 0, relN = 0;
   const pkOf = (s) => srcPack[s.src];
+  // 詳細頁的手寫補充（跟相近 skill 差在哪、較短的「什麼時候用」）：data/skill-vs.json，沒有就略過
+  const VS_FILE = path.join(here, 'data', 'skill-vs.json');
+  const skillVs = fs.existsSync(VS_FILE) ? JSON.parse(fs.readFileSync(VS_FILE, 'utf8')) : {};
+  const bigN = (n) => (n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 萬' : String(n));
+  const factsHtml = (s) => {
+    const p = pkOf(s); if (!p) return '';
+    const it = [];
+    if (s.inst) it.push('<div><dt>安裝次數</dt><dd class="hot">' + bigN(s.inst) + '</dd></div>');
+    it.push('<div><dt>所屬包星數</dt><dd>' + bigN(p.stars) + ' <small>★</small></dd></div>');
+    it.push('<div><dt>授權</dt><dd>' + esc(p.license || '未標示') + '</dd></div>');
+    it.push('<div><dt>包最近更新</dt><dd>' + esc(p.pushed) + '</dd></div>');
+    return '<dl class="facts">' + it.join('') + '</dl>\n';
+  };
+  const vsHtml = (x) => {
+    if (!x.vs || !x.vs.length) return '';
+    return '<section><h2>跟相近的 skill 差在哪</h2><ul class="vs">' + x.vs.map((v) => { const o = sk.find((y) => y.name === v[0] && y.src === (v[2] || x.src || '')); const nm = '/' + esc(v[0]); return '<li>' + (o ? '<a class="mono" href="../../' + esc(o.src) + '/' + esc(o.name) + '/">' + nm + '</a>' : '<span class="mono">' + nm + '</span>') + '<span>' + esc(v[1]) + '</span></li>'; }).join('') + '</ul></section>\n';
+  };
+  // 只有 skills.sh 查得到安裝次數的 skill 才給安裝指令（指令寫法取自 skills.sh 頁面）
+  const installHtml = (s) => {
+    const p = pkOf(s); if (!p || !s.inst) return '';
+    const cmd = 'npx skills add ' + p.url + ' --skill ' + (ALIAS[s.name] || s.dir || s.name);
+    return '<section><h2>怎麼裝</h2><div class="cmd"><code class="mono">' + esc(cmd) + '</code><button type="button" data-copy>複製</button></div><p class="note">裝進你的 Claude Code。這個網站不保證安全，裝之前先看過原文。</p></section>\n';
+  };
+  const COPY_JS = '<script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var c=b.parentNode.querySelector("code");function ok(){b.textContent="已複製";setTimeout(function(){b.textContent="複製"},1500)}function sel(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="請按 Ctrl+C"}try{navigator.clipboard.writeText(c.textContent).then(ok,sel)}catch(e){sel()}})})</script>';
   for (const s of sk) {
     const rel = relPosts(s);
     if (rel.length) relN++;
     rel.forEach((p) => { const l = (skillsByDay[p.day] = skillsByDay[p.day] || []); if (!l.some((x) => x.name === s.name)) l.push(s); });
+    const vsx = skillVs[s.name] && (skillVs[s.name].src || s.src) === s.src ? skillVs[s.name] : {};
     const origLang = /[\u4e00-\u9fff]/.test(s.orig || '') ? '' : ' lang="en"';
     const html = page({
       title: '/' + s.name + '｜Skill｜Claude Code Everyday',
@@ -384,12 +409,16 @@ if (skillData) {
       body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
         + '<article class="skd">\n'
         + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
-        + '<div class="tags">' + (s.group === UNSORTED ? '' : '<span class="tg">' + esc(s.group) + '</span>') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + '' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
+        + '<div class="tags">' + (s.group === UNSORTED ? '' : '<span class="tg">' + esc(s.group) + '</span>') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
         + '<p class="lede"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>\n'
-        + (s.when ? '<section><h2>什麼時候用</h2><p>' + esc(s.when) + '</p></section>\n' : '')
-        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
+        + factsHtml(s)
+        + (vsx.when || s.when ? '<section><h2>什麼時候用</h2><p class="when">' + esc(vsx.when || s.when) + '</p></section>\n' : '')
+        + vsHtml(vsx)
+        + installHtml(s)
+        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p><p class="orig-note">原作者的說明，以原文為準。</p></section>\n' : '')
         + (rel.length ? '<section><h2>相關貼文</h2><ul class="rel">' + rel.map((p) => '<li><a href="../../../d/' + p.day + '/"><span class="day">Day ' + p.day + '</span>' + esc(p.title) + '</a></li>').join('') + '</ul></section>\n' : '')
-        + (s.url ? '<p class="go"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a></p>\n' : '')
+        + '<div class="go">' + (s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a>' : '') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="sub" href="../../' + esc(pkOf(s).src) + '/">看 ' + esc(pkOf(s).name) + ' 的 ' + packSkills(pkOf(s)).length + ' 個 skill</a>' : '') + '</div>\n'
+        + COPY_JS
         + '</article>',
     });
     const dir = path.join(OUT, 'skill', s.src, s.name);
