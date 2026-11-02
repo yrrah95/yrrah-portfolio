@@ -263,7 +263,7 @@ if (skillData) {
   const groups = skillData.groups.filter((g) => gc[g]);
   const authors = Object.keys(ac).sort((x, y) => ac[y] - ac[x] || x.localeCompare(y));
   const cards = sk.map((s) => '<li class="sk" data-g="' + esc(s.group) + '" data-a="' + esc(s.src) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.when + ' ' + s.src + ' ' + s.group).toLowerCase()) + '">'
-    + '<div class="skh"><code class="skn">' + (s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">/' + esc(s.name) + '</a>' : '/' + esc(s.name)) + '</code>' + '<span class="sks">' + esc(s.src) + '</span></div>'
+    + '<div class="skh"><code class="skn">' + (s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">/' + esc(s.name) + '</a>' : '/' + esc(s.name)) + '</code>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '<span class="sks">' + esc(s.src) + '</span></div>'
     + '<p class="sksay"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>'
     + (s.when ? '<p class="skwhen">' + esc(s.when) + '</p>' : '')
     + '</li>').join('\n');
@@ -272,10 +272,10 @@ if (skillData) {
   const dd = (k, label, menu) => '<div class="sortbar solo" id="' + k + 'bar"><div class="dd"><button type="button" class="ddb" id="' + k + 'k" aria-haspopup="listbox" aria-expanded="false"><span id="' + k + 'l">' + label + '</span>' + CHEV + '</button><ul class="ddm long" id="' + k + 'm" role="listbox" hidden>' + menu + '</ul></div></div>';
   const skillPage = page({
     title: 'Skill｜Claude Code Everyday',
-    desc: sk.length + ' 個 Claude Code skill，附中文說明與什麼時候用；沒有中文的先放英文原文。',
+    desc: sk.length + ' 個 Claude Code skill 的中文說明（AI 翻譯），附上什麼時候用。',
     depth: '../',
     active: 'skill',
-    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill。沒有中文說明的，先放英文原文。</p></header>\n'
+    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">' + sk.length + ' 個 Claude Code skill 的中文說明，附上什麼時候用。中文都是 AI 翻譯，以原文為準。整理自各作者的公開頁面，不代表我用過或保證安全，安裝前請自己看過內容。</p></header>\n'
       + '<div class="bar">' + dd('g', '全部功能', opts('全部功能', groups, gc)) + dd('a', '全部作者', opts('全部作者', authors, ac))
       + '<button type="button" class="clr" id="clr" hidden>' + XICON + '清除</button>'
       + '<input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'

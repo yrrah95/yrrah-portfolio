@@ -24,7 +24,8 @@
    "group": "想清楚要做什麼",
    "say": "這是 Matt Pocock 這包 skill 的入口路由器，只要把現在遇到的狀況講一遍，它會從整包工程向 skill（像是 to-spec、triage、implement）裡指出最適合接手的一個，不用自己去記每個 skill 叫什麼名字、各自負責什麼。",
    "when": "不確定該叫 Matt Pocock 這包裡哪一個 skill、想先問一輪釐清再決定走哪條路時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "autoplan",
@@ -32,7 +33,8 @@
    "group": "想清楚要做什麼",
    "say": "把 CEO／設計／工程／開發體驗四關審查一次跑完，中間自動決策不打斷你",
    "when": "計畫寫好了，想一次審完再動手。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "brainstorming",
@@ -40,7 +42,8 @@
    "group": "想清楚要做什麼",
    "say": "動手做任何新東西之前，先把你的意圖、需求、設計問清楚的前置訪談。",
    "when": "開新功能、蓋新元件之前——它自稱「創作前必跑」。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "codebase-design",
@@ -48,17 +51,19 @@
    "group": "想清楚要做什麼",
    "say": "提供一套共通詞彙，幫你判斷模組的對外介面設得好不好、還有沒有值得繼續往下挖深的地方、切割點（seam）該擺在哪裡，讓程式碼更好測試、也更容易讓 AI 看懂用途。",
    "when": "要設計或改善一個模組的介面、找可以繼續挖深的地方、或決定切割點放哪裡時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "constraint-driven-development",
    "src": "addyosmani",
    "group": "想清楚要做什麼",
-   "say": "Establishes a project's quality bar as a written contract and stops agents quietly lowering it. Interviews the user on which dimensions matter, supplies sane default thresholds when they have no number in mind, records everything in CONSTRAINTS.md, and…",
+   "say": "把專案的品質標準寫成一份書面約定，避免 agent 悄悄把標準降低。會先訪問你在意哪些面向，你沒有具體數字時提供合理的預設門檻，並把一切記在 CONSTRAINTS.md⋯⋯",
    "when": "",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/constraint-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "domain-modeling",
@@ -66,17 +71,19 @@
    "group": "想清楚要做什麼",
    "say": "幫忙建立跟磨利一個專案的領域模型：把系統裡在講的名詞定義清楚、寫進或更新 GLOSSARY.md，也記錄或修改架構決策紀錄（ADR，就是「為什麼這樣設計」的存證）。",
    "when": "在討論 codebase 裡的名詞定義、要寫或改 GLOSSARY.md、或要記一筆 ADR 時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "doubt-driven-development",
    "src": "addyosmani",
    "group": "想清楚要做什麼",
-   "say": "Subjects every non-trivial decision to a fresh-context adversarial review before it stands. Use when you want every assumption cross-examined before proceeding, when stress-testing a plan for hidden failure modes, when correctness matters more than speed…",
-   "when": "",
+   "say": "每個不簡單的決定，在定案前都交給一個全新脈絡的對抗式審查。",
+   "when": "想讓每個假設在動手前都被交叉質問、想替計畫找出隱藏的失敗模式、正確性比速度重要時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/doubt-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "grill-me",
@@ -84,7 +91,8 @@
    "group": "想清楚要做什麼",
    "say": "針對一個方案或設計，用連環問句步步逼問，把還沒想清楚的地方逼出來，目的是把這個方案磨利，逼完就直接進下一步，不會順便產出任何文件。",
    "when": "手上已經有一個方案或設計、想被逼問到更扎實再往下做時用；跟通用的 grilling（任何決定、想法都能逼）不同，這支只鎖在方案／設計本身，也不像 grill-with-docs 會邊逼邊寫 ADR 跟 glossary。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "grill-with-docs",
@@ -92,7 +100,8 @@
    "group": "想清楚要做什麼",
    "say": "跟 grill-me 一樣用連環問句逼問方案或設計，差別是逼問的過程會順手把逼出來的定義寫成文件：架構決策紀錄（ADR）跟名詞表（glossary），逼完手上就多了這兩份存證。",
    "when": "逼問方案的同時想順便把決策原因跟名詞定義存下來、之後有據可查時用，比 grill-me 多一步產文件，也比通用的 grilling 更聚焦在方案設計本身。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "grilling",
@@ -100,7 +109,8 @@
    "group": "想清楚要做什麼",
    "say": "對一個計畫或決定地毯式追問。互相獨立的題目一輪全問，你答完一批它再推下一批",
    "when": "你說「幫我釐清」「烤問我」。想法卡在腦裡繞圈時用",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "gstack",
@@ -108,17 +118,19 @@
    "group": "想清楚要做什麼",
    "say": "gstack 那整套 skill 的總機，忘記該用哪一個就問它",
    "when": "記不起來 /spec /review /ship 誰負責什麼",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "idea-refine",
    "src": "addyosmani",
    "group": "想清楚要做什麼",
-   "say": "Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging…",
-   "when": "",
+   "say": "用結構化的發散與收斂思考，把粗糙的點子磨成清楚、可執行的概念。",
+   "when": "點子還很模糊、承諾計畫前想先壓力測試假設、或想在收斂前先擴大選項時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/idea-refine/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "interview-me",
@@ -126,7 +138,8 @@
    "group": "想清楚要做什麼",
    "say": "一次只問一個問題，把你自己也還沒想清楚的真正需求問出來，一路問到有九成五把握才停，不會自己腦補你沒講清楚的條件就動手做。",
    "when": "交代的需求含糊（沒講清楚做給誰、為什麼現在做）、或你自己也想被逼問一下時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "office-hours",
@@ -134,7 +147,8 @@
    "group": "想清楚要做什麼",
    "say": "YC 式產品諮詢，兩種模式：聊點子、或審一份已經寫好的計畫",
    "when": "有點子但不確定值不值得做。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "plan-ceo-review",
@@ -142,7 +156,8 @@
    "group": "想清楚要做什麼",
    "say": "用創辦人的角度審計畫：這件事值不值得做、有沒有更該做的",
    "when": "怕自己在做一個做完也沒用的東西",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "plan-design-review",
@@ -150,7 +165,8 @@
    "group": "想清楚要做什麼",
    "say": "用設計師的眼睛審計畫，會跟你來回問，不是丟一份報告",
    "when": "計畫裡有畫面要給人看的部分",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "plan-devex-review",
@@ -158,7 +174,8 @@
    "group": "想清楚要做什麼",
    "say": "審「別人（或未來的你）要怎麼用這東西」順不順",
    "when": "做的是工具、CLI、給人接的介面",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "plan-eng-review",
@@ -166,17 +183,19 @@
    "group": "想清楚要做什麼",
    "say": "用工程主管的角度審計畫：架構、測試、失敗模式",
    "when": "動手前想知道這個做法會不會半路撞牆",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "planning-and-task-breakdown",
    "src": "addyosmani",
    "group": "想清楚要做什麼",
-   "say": "Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.",
-   "when": "",
+   "say": "把工作拆成有順序的任務。",
+   "when": "手上有規格或明確需求、要拆成可實作的任務；任務大到不知從何開始、需要估範圍、或可以平行做時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/planning-and-task-breakdown/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "prototype",
@@ -184,7 +203,8 @@
    "group": "想清楚要做什麼",
    "say": "做一個用完就丟的原型先玩玩看，再決定要不要正式做",
    "when": "設計還不確定，想先摸摸看手感。會依情況產終端機小程式或幾種不同的介面版本",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "spec",
@@ -192,17 +212,19 @@
    "group": "想清楚要做什麼",
    "say": "把「我想做一個 X」變成寫得出程式的規格，分五個階段逼問細節",
    "when": "腦中有個想法但講不出細節的時候。這是 gstack 流水線的第一站",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "spec-driven-development",
    "src": "addyosmani",
    "group": "想清楚要做什麼",
-   "say": "Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when drafting a PRD or requirements document with objectives and scope, or when requirements are unclear, ambiguous, or only…",
-   "when": "",
+   "say": "寫程式前先產出規格。",
+   "when": "開新專案、新功能或大改動，而且還沒有規格；要寫含目標與範圍的 PRD 或需求文件；需求不清楚或含糊時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/spec-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "to-questionnaire",
@@ -210,7 +232,8 @@
    "group": "想清楚要做什麼",
    "say": "把你自己答不出來的決定，變成一份給別人填的問卷。",
    "when": "卡在「這題該問誰」，需要別人的資訊才決定得了。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "to-spec",
@@ -218,7 +241,8 @@
    "group": "想清楚要做什麼",
    "say": "不另外開一輪訪談，直接把目前這輪對話裡已經聊過的內容整理、合成一份 spec，並發布到專案的 issue tracker 上。",
    "when": "這輪對話已經把需求聊得差不多、想直接把結論轉成 spec 存進 tracker 時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "to-tickets",
@@ -226,7 +250,8 @@
    "group": "想清楚要做什麼",
    "say": "把一份計畫、spec 或目前這輪對話拆成一批「探路彈」式的小 ticket，每張都寫清楚它擋在誰前面、被誰擋住，發布到設定好的 tracker（本機檔案就寫在各自 ticket 檔裡，接真的 tracker 就用原生的阻擋關聯）。",
    "when": "手上有計畫或 spec、要拆成一批彼此有依賴關係的可執行 ticket 時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "triage",
@@ -234,7 +259,8 @@
    "group": "想清楚要做什麼",
    "say": "把 issue 跟外部送進來的 PR 推過一套分流狀態機：分類、查證、必要時逼問，最後寫成一份 agent 可以直接接手的任務簡報。",
    "when": "有一批 issue 或外部 PR 堆積、需要先分類查證再交給人或 agent 處理時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "wayfinder",
@@ -242,17 +268,19 @@
    "group": "想清楚要做什麼",
    "say": "把一大塊超過單一 agent session 能處理完的工作，規劃成一張共用的「決策 ticket」地圖，放在 issue tracker 上，一張一張解決，直到整條路都通到目的地為止。",
    "when": "手上的工作量大到一次 agent session 做不完、需要分批決策才能走完全程時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "writing-plans",
    "src": "obra",
    "group": "想清楚要做什麼",
-   "say": "Use when you have a spec or requirements for a multi-step task, before touching code",
+   "say": "手上有多步驟任務的規格或需求、還沒動手改程式之前使用。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/writing-plans/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "ai-elements",
@@ -260,17 +288,19 @@
    "group": "寫程式",
    "say": "用 ai-elements 元件庫拼 AI 聊天介面：對話串、訊息、工具顯示、輸入框。",
    "when": "要做聊天機器人或 AI 助理的網頁介面時。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "api-and-interface-design",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend.",
-   "when": "",
+   "say": "引導穩定的 API 與介面設計。",
+   "when": "設計 API、模組邊界或任何公開介面時；建立 REST 或 GraphQL 端點、定義模組間的型別約定、或劃分前後端界線時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/api-and-interface-design/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "caveman-explore",
@@ -278,17 +308,19 @@
    "group": "寫程式",
    "say": "只讀不改的程式碼探索，適合完全沒頭緒、要跨檔案大範圍定位、或直接搜尋找不到目標的時候；只回傳「檔案:行號」，讀取內容不會佔用主線 context。",
    "when": "剛接手陌生 repo、或關鍵字搜尋落空時用；已知確切檔名或函式名就不用，跟找「為什麼壞」的 investigate-first 也不同。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "code-simplification",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked…",
-   "when": "",
+   "say": "把程式碼簡化到更清楚。",
+   "when": "要在不改變行為的前提下重構；程式能跑，但比該有的更難讀、難維護、難擴充；審查累積了多餘複雜度的程式碼時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/code-simplification/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "codex",
@@ -296,27 +328,30 @@
    "group": "寫程式",
    "say": "把 OpenAI 的 Codex CLI 包起來用，有三種模式。",
    "when": "想讓另一家的模型也看一次這段程式碼。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "debugging-and-error-recovery",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic…",
-   "when": "",
+   "say": "引導有系統地找出根本原因來除錯。",
+   "when": "測試失敗、建置壞掉、昨天還好的東西壞了、行為跟預期不符，或遇到任何意外錯誤時；需要查出什麼壞了、為什麼壞。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/debugging-and-error-recovery/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "deprecation-and-migration",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when migrating a database schema in production, such as renaming or dropping a column without downtime…",
-   "when": "",
+   "say": "管理淘汰與遷移。",
+   "when": "要移除舊系統、API 或功能；要把使用者從一個實作遷到另一個；要在正式環境遷移資料庫結構，例如不停機重新命名或刪除欄位。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/deprecation-and-migration/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "deslop-shared-libs",
@@ -324,7 +359,8 @@
    "group": "寫程式",
    "say": "掃最近改過的程式碼，找出哪些重複出現的邏輯值得抽出來變成共用函式庫，而不是放任每個檔案各寫一份差不多、日後要改還要改五次的東西。",
    "when": "剛做完一批功能、程式碼裡開始出現重複邏輯、想看看有沒有東西該抽成共用程式碼時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "diagnosing-bugs",
@@ -332,27 +368,30 @@
    "group": "寫程式",
    "say": "針對難纏的 bug 或效能突然變差的狀況，走一套系統化的診斷迴圈：先重現問題、縮小範圍、驗證假設，逐步逼近真正的根因，而不是憑感覺亂改。",
    "when": "遇到「除錯」「修這個 bug」、東西壞掉、噴錯、或效能忽然變慢時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "dispatching-parallel-agents",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+   "say": "面對 2 個以上、彼此不共用狀態也沒有先後依賴的獨立任務時使用。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/dispatching-parallel-agents/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "executing-plans",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available",
+   "say": "在目前這個 session 裡，由你自己擔任實作者來執行實作計畫時使用：你的人類夥伴選了就地執行，或沒有可用的子 agent 工具。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/executing-plans/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "implement",
@@ -360,7 +399,8 @@
    "group": "寫程式",
    "say": "拿到一份 spec 或一批 ticket 之後，照著上面寫的內容直接把程式碼實作出來，不再重新確認需求，專心把東西做出來。",
    "when": "需求已經寫成 spec 或 ticket、只差把程式碼生出來時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "implement-spec",
@@ -368,7 +408,8 @@
    "group": "寫程式",
    "say": "專門接續 /to-spec 跟 /to-tickets 產出的結果，把那份 spec 跟拆好的 ticket 轉成實際程式碼，是這條 spec 流程的最後一步。",
    "when": "已經跑完 /to-spec 跟 /to-tickets、要把結果落地成程式碼時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "improve-codebase-architecture",
@@ -376,17 +417,19 @@
    "group": "寫程式",
    "say": "掃過整個 codebase 找出哪些地方值得「挖深」（介面設計還能改善），整理成一份視覺化的 HTML 報告，再挑其中一項用連環逼問的方式把它想清楚。",
    "when": "想幫整個專案的架構做一次健檢、找出值得優化的模組時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "incremental-implementation",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next task from a plan. Use when rolling a change out behind a feature flag, when you're about to…",
-   "when": "",
+   "say": "把改動切成薄而可驗證的小片段，逐步交付。",
+   "when": "實作任何會動到多個檔案的功能或改動、或從計畫接手下一個任務時；要把改動放在功能開關後面上線時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/incremental-implementation/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "investigate",
@@ -394,7 +437,8 @@
    "group": "寫程式",
    "say": "系統化除錯，一路挖到真正的根因才停",
    "when": "除錯兩三輪還沒頭緒的時候。這是你全域規則裡指定的觸發點",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "investigate-first",
@@ -402,7 +446,8 @@
    "group": "寫程式",
    "say": "動手改程式碼之前，先把原因不明的故障診斷清楚：列出幾個可能原因，依證據強弱排序，鎖定最可能的根因後才決定怎麼改，而不是憑感覺亂試。",
    "when": "原因不明、時好時壞、效能突然變差時用；跟 caveman-explore 不同，這裡是推敲「為什麼壞」，不是單純找位置。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "lean-build",
@@ -410,7 +455,8 @@
    "group": "寫程式",
    "say": "開發全新功能、產品切片或串接外部服務時，控制「做過頭」的風險：盡量重用 repo 裡既有的東西、把範圍鎖緊，訂出一個明確的收工條件，達到就停手不再多做。",
    "when": "要生出全新行為、產品切片或串接外部服務，又怕自己越做越大時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "mcp-builder",
@@ -418,7 +464,8 @@
    "group": "寫程式",
    "say": "教你怎麼寫一個好的 MCP server，讓 AI 能接外部服務",
    "when": "想把某個服務接進 Claude Code 當工具用",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "migrate-to-shoehorn",
@@ -426,7 +473,8 @@
    "group": "寫程式",
    "say": "把測試檔裡用 as 做型別斷言的寫法，改成用 @total-typescript/shoehorn 這個套件來產生假資料，讓測試資料只給需要的欄位、不用整個物件硬塞型別。",
    "when": "測試檔裡有很多 as 斷言想清掉、或要產生只帶部分欄位的測試資料時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "migration",
@@ -434,17 +482,19 @@
    "group": "寫程式",
    "say": "針對 schema、資料、API、通訊協定、設定檔或套件版本的遷移，實作可以回頭的相容性轉換：新舊版本安全過渡，並留下沒有東西被破壞、隨時能退回原狀的證明。",
    "when": "要動資料庫結構、資料、API、通訊協定、設定檔或套件版本，且需要能回滾時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "observability-and-instrumentation",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you…",
-   "when": "",
+   "say": "在程式裡加上觀測，讓正式環境的行為看得見、查得出問題。",
+   "when": "要加記錄、指標、追蹤或警報；要上線任何在正式環境執行、而且需要證據證明它有在運作的功能；收到正式環境問題回報時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/observability-and-instrumentation/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "safe-refactor",
@@ -452,7 +502,8 @@
    "group": "寫程式",
    "say": "只調整程式碼結構、不改變外部行為：抽函式、合併重複邏輯、搬移歸屬、清理雜亂，每一步結構調整前後都要跑一次驗證，確保功能真的沒有被動到。",
    "when": "純粹整理結構、確定功能本身不該變時用；跟 surgical-patch 不同，那邊是真的要改行為，這裡行為完全不動。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "scaffold-exercises",
@@ -460,7 +511,8 @@
    "group": "寫程式",
    "say": "幫忙建立教學練習題的目錄結構，一次生出各個小節、題目、解答跟解說檔，而且會確保這些檔案通過 lint 檢查。",
    "when": "要建立新的課程練習、或替新的一個小節搭骨架時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "skill-creator",
@@ -468,7 +520,8 @@
    "group": "寫程式",
    "say": "建立、修改、評測 skill 本身",
    "when": "想自己寫一個新 skill，或覺得手上某個 skill 不好用想改",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "skillify",
@@ -476,17 +529,19 @@
    "group": "寫程式",
    "say": "把剛剛成功跑完的 /scrape 流程固化成一個可以重複用的 skill",
    "when": "同一個網站要一直抓、不想每次重講一遍",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "source-driven-development",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Grounds every implementation decision in official documentation. Use when you want to verify an approach against the official docs before implementing it, or when you want authoritative, source-cited code free from outdated patterns. Use when building with…",
-   "when": "",
+   "say": "每個實作決定都以官方文件為依據。",
+   "when": "想在實作前先對照官方文件確認做法，或想要有出處、沒有過時寫法的程式碼時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "subagent-driven-development",
@@ -494,7 +549,8 @@
    "group": "寫程式",
    "say": "把一份計畫裡互不相干的任務拆給多個子 agent 同時做",
    "when": "任務清單很長、彼此不相依，想一次跑完",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "surgical-patch",
@@ -502,17 +558,19 @@
    "group": "寫程式",
    "say": "修 bug 或做小幅行為調整時，只在最貼近問題根源的那一層動手，範圍盡量窄；改完要證明沒有退步，周圍其他行為也沒被牽動，並跑過跟這次改動相關的測試。",
    "when": "修 bug 或做小幅行為調整時用；跟 safe-refactor 不同，這裡預期行為會改變，但改動範圍要盡量窄。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "systematic-debugging",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+   "say": "遇到任何 bug、測試失敗或意外行為時使用，要在提出修正之前。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "tdd",
@@ -520,37 +578,41 @@
    "group": "寫程式",
    "say": "測試先寫、再寫程式的紅綠重構循環",
    "when": "想確定功能真的會動，而不是看起來會動",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "test-driven-development",
    "src": "addyosmani",
    "group": "寫程式",
-   "say": "Drives development with tests using the red-green-refactor loop. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing…",
-   "when": "",
+   "say": "用紅燈、綠燈、重構的循環，讓測試帶著開發走。",
+   "when": "實作任何邏輯、修任何 bug、改變任何行為時；需要證明程式有效、收到 bug 回報、或要修改既有程式碼時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/test-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "test-driven-development",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when implementing any feature or bugfix, before writing implementation code",
+   "say": "實作任何功能或修 bug 時使用，要在寫實作程式之前。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "using-git-worktrees",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+   "say": "開始需要和目前工作區隔離的功能開發時，或執行實作計畫之前使用。透過原生工具或 git worktree 備案，確保有一個隔離的工作區。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/using-git-worktrees/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "wait-what",
@@ -558,17 +620,19 @@
    "group": "寫程式",
    "say": "等等，剛剛那段沒聽懂——叫它重講一次",
    "when": "Claude 講太快或太術語，你想要換個說法。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "writing-skills",
    "src": "obra",
    "group": "寫程式",
-   "say": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+   "say": "建立新 skill、編輯既有 skill、或在部署前驗證 skill 能用時使用。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/writing-skills/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "benchmark",
@@ -576,7 +640,8 @@
    "group": "檢查與出貨",
    "say": "用瀏覽器背景程序反覆量網站速度，比對這次有沒有變慢。",
    "when": "改完前端，想確認沒有把載入速度弄壞。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "benchmark-models",
@@ -584,17 +649,19 @@
    "group": "檢查與出貨",
    "say": "拿同一個 gstack 流程跑不同模型，比它們的結果與花費。",
    "when": "想知道某個流程用哪個模型比較划算。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "browser-testing-with-devtools",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Tests in real browsers via Chrome DevTools MCP. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real…",
-   "when": "",
+   "say": "透過 Chrome DevTools MCP 在真實瀏覽器裡測試。",
+   "when": "建置或除錯任何在瀏覽器裡執行的東西時；需要檢查 DOM、擷取主控台錯誤、分析網路請求、量效能，或用真實瀏覽器驗證畫面輸出時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/browser-testing-with-devtools/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "canary",
@@ -602,7 +669,8 @@
    "group": "檢查與出貨",
    "say": "上線之後盯一段時間，出事就叫你。",
    "when": "剛部署完，想先看著別直接關掉。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-evidence-review",
@@ -610,7 +678,8 @@
    "group": "檢查與出貨",
    "say": "只讀不動地看一遍 Caveman Cloud 蒐集到的證據：花費、Cave Score 綜合評分、各 workflow、追蹤紀錄、延遲、錯誤、路由與省下多少錢，整理成現況報告。",
    "when": "想知道 Caveman 到底抓到什麼、LLM 花費流向哪裡時看這份。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-manage",
@@ -618,7 +687,8 @@
    "group": "檢查與出貨",
    "say": "檢視 Caveman Cloud 上一個實驗（例如換一種省錢做法）目前的生命週期跑到哪個階段，是還在等核准、已經上線還是該回滾，並主動攔下不安全的執行動作。",
    "when": "要啟動、核准、取消、升級或回滾一個 Caveman 實驗時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-optimize",
@@ -626,17 +696,19 @@
    "group": "檢查與出貨",
    "say": "把 Caveman 觀察到的省錢／省 token 機會，轉成一個由你挑選的候選方案，跟原本的基準做法配對評比，需要你明確核准才會套用。",
    "when": "想檢視或評估一份 Caveman 最佳化報告時用；跟 lean-build 不同，這裡優化的是既有效率問題，不是蓋新功能。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ci-cd-and-automation",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies.",
-   "when": "",
+   "say": "自動化 CI/CD 流程的設定。",
+   "when": "設定或修改建置與部署流程；要自動化品質關卡、在 CI 裡設定測試執行器、或擬定部署策略時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/ci-cd-and-automation/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "code-review",
@@ -644,17 +716,19 @@
    "group": "檢查與出貨",
    "say": "針對某個固定起點（commit、分支、tag 或 merge-base）到現在的異動，拆成兩個角度平行審查：程式碼有沒有照這個 repo 訂的規範寫、有沒有做到當初 issue 或 spec 要求的東西，兩個子 agent 各查各的，結果並排給你看。",
    "when": "想對一個分支、一個 PR 或還沒收尾的工作同時檢查規範跟需求吻合度時用；跟 gstack 上線前整體把關的 /review 是不同層次的檢查。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "code-review-and-quality",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to…",
-   "when": "",
+   "say": "做多面向的程式碼審查。",
+   "when": "合併任何改動之前；審查自己、其他 agent 或人寫的程式碼；需要在改動進入主分支前，從多個面向評估品質時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/code-review-and-quality/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "devex-review",
@@ -662,27 +736,30 @@
    "group": "檢查與出貨",
    "say": "實際跑一遍，審「別人第一次用這東西順不順」",
    "when": "做完工具想知道別人會不會卡在第一步",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "finishing-a-development-branch",
    "src": "obra",
    "group": "檢查與出貨",
-   "say": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work",
+   "say": "實作完成、所有測試通過、需要決定怎麼整合這份工作時使用。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/finishing-a-development-branch/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "git-workflow-and-versioning",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a…",
-   "when": "",
+   "say": "規範 git 工作流程的做法。",
+   "when": "做任何程式改動時；提交、開分支、解衝突；把凌亂工作區裡未提交的內容拆成乾淨的小提交；開啟或審查 PR；推送⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/git-workflow-and-versioning/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "health",
@@ -690,7 +767,8 @@
    "group": "檢查與出貨",
    "say": "程式碼品質的儀表板",
    "when": "想知道這個專案整體健康度",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "land-and-deploy",
@@ -698,7 +776,8 @@
    "group": "檢查與出貨",
    "say": "合併分支之後接著部署，一路走完不用自己接手。",
    "when": "PR 過了，要真的推上線。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "landing-report",
@@ -706,7 +785,8 @@
    "group": "檢查與出貨",
    "say": "只讀不動的看板：現在有哪些東西排隊等著上線。",
    "when": "想知道「還有什麼卡著沒出去」。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "mattpocock-retro",
@@ -714,17 +794,19 @@
    "group": "檢查與出貨",
    "say": "針對剛結束的一次寫程式過程做檢討，回顧這次是怎麼寫的、卡在哪、學到什麼，產出這一次 coding session 的復盤。",
    "when": "剛寫完一段程式、想針對這一次 coding session 做檢討時用；跟 gstack 的 /retro（週回顧，抓一整週跨專案的節奏與決策）不同，這支只看單一次 session。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "performance-optimization",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or…",
-   "when": "",
+   "say": "優化應用程式效能，涵蓋前端、後端、查詢與資料庫。",
+   "when": "有效能要求、懷疑效能退步、需要改善 Core Web Vitals 或載入時間、需要修 N+1 查詢模式時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/performance-optimization/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "pr",
@@ -732,7 +814,8 @@
    "group": "檢查與出貨",
    "say": "幫你把要開的 PR 內容寫出來，包含這次改了什麼、為什麼要改、怎麼驗證，寫成一份看得懂脈絡的 PR 說明。",
    "when": "要寫 PR 內文、不知道怎麼組織這次改動的說明時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "qa",
@@ -740,7 +823,8 @@
    "group": "檢查與出貨",
    "say": "系統化測一個網站，找到 bug 順手修掉",
    "when": "網頁做完想知道「到底會不會動」",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "qa-only",
@@ -748,27 +832,30 @@
    "group": "檢查與出貨",
    "say": "同上，但只給報告不動手改",
    "when": "你想自己決定要修哪些",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "receiving-code-review",
    "src": "obra",
    "group": "檢查與出貨",
-   "say": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+   "say": "收到程式碼審查意見時使用，要在實作建議之前，尤其是意見不清楚或技術上有疑問時。要求技術上的嚴謹與驗證，不是做表面附和或盲目照做。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/receiving-code-review/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "requesting-code-review",
    "src": "obra",
    "group": "檢查與出貨",
-   "say": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+   "say": "完成任務、實作重大功能、或合併之前使用，用來驗證工作符合需求。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/requesting-code-review/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "retro",
@@ -776,7 +863,8 @@
    "group": "檢查與出貨",
    "say": "每週工程回顧",
    "when": "週末想回頭看這週做了什麼、哪裡卡住",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "review",
@@ -784,7 +872,8 @@
    "group": "檢查與出貨",
    "say": "進版之前的完整審查，會反覆跑到一輪沒有新發現為止",
    "when": "功能寫完、要合併之前。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "seo-audit",
@@ -792,7 +881,8 @@
    "group": "檢查與出貨",
    "say": "幫網站做 SEO 健檢：抓排名掉了、沒被 Google 收錄、網頁太慢這類問題。",
    "when": "「為什麼搜不到我的網站」「流量掉了」這種時候。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "setup-pre-commit",
@@ -800,7 +890,8 @@
    "group": "檢查與出貨",
    "say": "幫這個 repo 裝上 Husky 的 pre-commit hook，搭配 lint-staged 跑 Prettier 格式化，再加上型別檢查跟測試，讓每次 commit 前自動做好這些檢查。",
    "when": "想加 pre-commit 檢查、設定 Husky、或要在 commit 時自動跑格式化／型別檢查／測試時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ship",
@@ -808,17 +899,19 @@
    "group": "檢查與出貨",
    "say": "出貨全流程：合併主線、跑測試、審 diff、升版號、寫 CHANGELOG、commit、push、開 PR",
    "when": "東西做完要正式送出去。一旦開始就要走到 PR 開完",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "shipping-and-launch",
    "src": "addyosmani",
    "group": "檢查與出貨",
-   "say": "Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a…",
-   "when": "",
+   "say": "準備正式環境的上線。",
+   "when": "準備部署到正式環境、或想問上線前該備齊什麼；需要上線前檢查清單、設定監控、規劃分階段推出時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/shipping-and-launch/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "test-audit",
@@ -826,17 +919,19 @@
    "group": "檢查與出貨",
    "say": "掃過現有測試，找出價值不高或重複的測試，還有那些只為了讓測試能跑、其他地方根本用不到的程式碼，幫忙判斷哪些可以砍掉。",
    "when": "測試數量變多但品質存疑、想清一波沒用的測試跟陪葬程式碼時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "verification-before-completion",
    "src": "obra",
    "group": "檢查與出貨",
-   "say": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+   "say": "在你要宣稱工作完成、已修好或測試通過之前使用，要在提交或建立 PR 之前。要求先跑驗證指令、確認輸出，才能說成功；先有證據，再下斷言。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/verification-before-completion/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "verify-and-stop",
@@ -844,7 +939,8 @@
    "group": "檢查與出貨",
    "say": "只驗證已經做好的東西有沒有達到驗收條件：跑完整套檢查、確認每一項都通過、把結果整理清楚，過程中不會順便擴大範圍去動其他程式碼。",
    "when": "只是要確認完成度、跑收尾檢查、或做最後一哩的驗證時用，不是要繼續開發。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "algorithmic-art",
@@ -852,27 +948,30 @@
    "group": "視覺與設計",
    "say": "用 p5.js 寫程式生成藝術圖，參數可以現場調",
    "when": "想要那種用程式跑出來的幾何或流線圖案",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "banner-design",
    "src": "nextlevelbuilder",
    "group": "視覺與設計",
-   "say": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube…",
+   "say": "設計社群媒體、廣告、網站主視覺、創意素材與印刷用的橫幅。提供多個美術方向選項，可搭配生成或自備的視覺素材。動作：設計、建立、生成橫幅。平台：Facebook、Twitter/X、LinkedIn、YouTube⋯⋯",
    "when": "",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/banner-design/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "brand",
    "src": "nextlevelbuilder",
    "group": "視覺與設計",
-   "say": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
-   "when": "",
+   "say": "品牌語氣、視覺識別、訊息框架、素材管理、品牌一致性。",
+   "when": "用於品牌化內容、語氣、行銷素材、品牌合規與風格指南。",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/brand/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "brand-guidelines",
@@ -880,7 +979,8 @@
    "group": "視覺與設計",
    "say": "套 Anthropic 官方的品牌色與字體",
    "when": "要做的東西想長得像 Anthropic 官方出品",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "canvas-design",
@@ -888,17 +988,19 @@
    "group": "視覺與設計",
    "say": "產出海報那類的靜態視覺，輸出成 png 或 pdf",
    "when": "要一張海報或圖卡",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "design",
    "src": "nextlevelbuilder",
    "group": "視覺與設計",
-   "say": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles…",
+   "say": "綜合設計 skill：品牌識別、設計 token、UI 樣式、標誌生成（55 種風格，使用 Gemini、Atlas Cloud 或 MuAPI AI）、企業識別方案（50 項交付物、CIP 樣機）、HTML 簡報（Chart.js）、橫幅設計（22 種風格⋯⋯",
    "when": "",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "design-consultation",
@@ -906,7 +1008,8 @@
    "group": "視覺與設計",
    "say": "先搞懂你的產品、看過同類的做法，再提一整套設計系統並產字體與配色預覽",
    "when": "從零開始要決定一個站長什麼樣",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "design-html",
@@ -914,7 +1017,8 @@
    "group": "視覺與設計",
    "say": "把設計定稿產成可以直接上線的 HTML／CSS",
    "when": "設計方向敲定了，要變成真的頁面",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "design-review",
@@ -922,7 +1026,8 @@
    "group": "視覺與設計",
    "say": "用設計師的眼睛挑毛病：間距亂、層級不對、AI 味、動畫太慢——然後直接修掉",
    "when": "頁面做完了但總覺得哪裡怪",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "design-shotgun",
@@ -930,17 +1035,19 @@
    "group": "視覺與設計",
    "say": "一次生好幾個設計版本、開比較板、收你的意見再改",
    "when": "不知道要哪個方向，想先看幾個再選。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "design-system",
    "src": "nextlevelbuilder",
    "group": "視覺與設計",
-   "say": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design…",
-   "when": "",
+   "say": "Token 架構、元件規格與簡報生成。三層 token（基礎→語意→元件）、CSS 變數、間距與字級比例、元件規格、策略性簡報製作。",
+   "when": "用於設計 token、系統化設計⋯⋯",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design-system/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "diagram",
@@ -948,7 +1055,8 @@
    "group": "視覺與設計",
    "say": "用一段英文描述（或 mermaid）產出三件套：原始碼、可以在 excalidraw.com 上編輯的檔案、和畫好的 SVG／PNG。",
    "when": "要一張架構圖或流程圖，而且之後想自己搬位置。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "diagram-design",
@@ -956,7 +1064,8 @@
    "group": "視覺與設計",
    "say": "畫各種圖：架構圖、流程圖、時間軸、甘特圖、組織圖⋯⋯產出獨立的 HTML／SVG／PNG，也能重繪 drawio 或 Mermaid 的舊圖。",
    "when": "要一張帶品牌感的圖表當簡報或文件素材時。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "frontend-design",
@@ -964,17 +1073,19 @@
    "group": "視覺與設計",
    "say": "做新介面時的美感方向指引：排版、字體、怎麼不長得像模板",
    "when": "要動手刻畫面之前。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "frontend-ui-engineering",
    "src": "addyosmani",
    "group": "視覺與設計",
-   "say": "Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and…",
-   "when": "",
+   "say": "建出可上線品質、無障礙、響應式的使用者介面。",
+   "when": "建置或修改介面與頁面、建立元件、實作版面、符合 WCAG 無障礙要求、管理狀態，或輸出需要看起來⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/frontend-ui-engineering/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "hallmark",
@@ -982,7 +1093,8 @@
    "group": "視覺與設計",
    "say": "反 AI 味的設計 skill，有 build／audit／redesign／study 四種用法",
    "when": "覺得畫面「看起來就很 AI」。study 可以丟一個你喜歡的網址讓它反推配方",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "impeccable",
@@ -990,7 +1102,8 @@
    "group": "視覺與設計",
    "say": "前端介面的設計總管：規劃、審查、修飾、加動畫，一共 24 個子指令，專門對付「一看就是 AI 做的」那種版面",
    "when": "網頁或畫面做完了想檢查、潤飾；或新畫面動手前先規劃。先在專案跑 /impeccable init",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "open-gstack-browser",
@@ -998,7 +1111,8 @@
    "group": "視覺與設計",
    "say": "開一個內建 AI 側邊欄的 Chromium",
    "when": "想邊看網頁邊叫 AI 動手",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "theme-factory",
@@ -1006,17 +1120,19 @@
    "group": "視覺與設計",
    "say": "十套現成的配色與字體主題，套到簡報、文件、網頁上",
    "when": "懶得自己選色，想直接套一套堪用的",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ui-styling",
    "src": "nextlevelbuilder",
    "group": "視覺與設計",
-   "say": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive…",
-   "when": "",
+   "say": "用 shadcn/ui 元件（建立在 Radix UI + Tailwind 上）、Tailwind CSS 工具類別式樣式，以及 canvas 視覺設計，做出美觀、無障礙的使用者介面。",
+   "when": "用於建置使用者介面、實作設計系統、建立響應式⋯⋯",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/ui-styling/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "ui-ux-pro-max",
@@ -1024,7 +1140,8 @@
    "group": "視覺與設計",
    "say": "UI/UX 資料庫：84 種風格、192 組配色、74 組字型搭配、UX 準則⋯⋯可查詢，涵蓋 22 種技術棧。",
    "when": "設計網頁或 App 時要找配色、字型、版型靈感。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "web-artifacts-builder",
@@ -1032,7 +1149,8 @@
    "group": "視覺與設計",
    "say": "用 React＋Tailwind＋shadcn 做複雜的 claude.ai 網頁 artifact",
    "when": "要做一個有多個元件、會互動的網頁小工具",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "animate",
@@ -1040,7 +1158,8 @@
    "group": "動畫與介面手感",
    "say": "真的把動畫寫出來。會先問「該不該動、為什麼動、用哪條曲線、多長、被打斷怎麼辦」再動手。這一套裡唯一會改程式的。",
    "when": "清單有了、決定要做哪幾條的時候。單一元件想加動畫也可以直接叫。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "animate-expo",
@@ -1048,7 +1167,8 @@
    "group": "動畫與介面手感",
    "say": "React Native／Expo 的動畫版本。多管一件網頁沒有的事——動畫跑在哪一條執行緒上，跑錯就會卡。",
    "when": "做手機 APP 的畫面切換、手勢、震動回饋。網頁不要用這個，用 /animate。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "animation-vocabulary",
@@ -1056,7 +1176,8 @@
    "group": "動畫與介面手感",
    "say": "反查字典。你形容「開起來那個彈一下的感覺」，它告訴你那叫 Pop in。只管命名，不管怎麼做。",
    "when": "講不出某個效果叫什麼名字，想拿正確的詞去跟人或 AI 溝通的時候。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "apple-design",
@@ -1064,7 +1185,8 @@
    "group": "動畫與介面手感",
    "say": "蘋果那套「手指拖到哪東西跟到哪、放手靠慣性滑出去、動畫做到一半可以反手抓回來」的做法，翻成網頁能用的寫法。",
    "when": "做手勢、拖曳、滑動關閉、底部抽屜這類互動的時候。做 APP 會常用到。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ask-sonner",
@@ -1072,7 +1194,8 @@
    "group": "動畫與介面手感",
    "say": "Sonner 這個通知訊息套件的用法手冊：怎麼裝、怎麼叫、怎麼改樣式，以及「通知被彈窗蓋住」這類問題怎麼修。",
    "when": "專案有用到 Sonner 的時候。沒用到就用不上。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "emil-design-eng",
@@ -1080,7 +1203,8 @@
    "group": "動畫與介面手感",
    "say": "這一套背後的判斷哲學——按鈕該有什麼回饋、彈窗從哪長出來、什麼細節讓軟體感覺高級。知識庫型，沒有「執行」的概念。",
    "when": "不用自己叫。Claude 在決定動畫或元件細節時會自己去翻。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "emil-prototype",
@@ -1088,7 +1212,8 @@
    "group": "動畫與介面手感",
    "say": "同一個介面做好幾個真的不一樣的版本，擺在一個可以左右翻的選擇器裡，讓你現場比、挑一個扶正。跟內建的 /prototype 是不同的東西。",
    "when": "一個元件不知道要哪種長相，想看幾版再決定。要自己打斜線叫。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "find-animation-opportunities",
@@ -1096,7 +1221,8 @@
    "group": "動畫與介面手感",
    "say": "掃一遍畫面，找出「該動卻沒動」的地方，給一張清單。只看不改。立場是動畫寧少勿多，所以也會明講哪幾處故意不建議加。",
    "when": "想知道這個網站哪裡可以加動畫。只找沒有的；已經有但做壞的歸 /improve-animations。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "improve-animations",
@@ -1104,7 +1230,8 @@
    "group": "動畫與介面手感",
    "say": "幫現有的動畫做健檢，排出優先順序，產出可以交辦的實作計畫。只看不改。",
    "when": "網站已經有一些動畫，想知道做得對不對。跟 /find-animation-opportunities 是一對——那個管「加沒有的」，這個管「修有的」。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "mobile-native",
@@ -1112,7 +1239,8 @@
    "group": "動畫與介面手感",
    "say": "讓網頁在手機上不像網頁的那些小修正——按下去閃白框、hover 卡住不放、螢幕高度算錯、輸入框一點就整頁放大。",
    "when": "網頁在電腦上好好的、到手機上就怪怪的。做 PWA 或底部抽屜也用得到。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "pick-ui-library",
@@ -1120,7 +1248,8 @@
    "group": "動畫與介面手感",
    "say": "前端套件挑選清單——數字輸入、驗證碼格、圖表、命令面板、拖放、長列表這些各該用哪一個。有立場，不是羅列。",
    "when": "要裝一個前端套件、不知道選哪個。要自己打斜線叫。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "review-animations",
@@ -1128,7 +1257,8 @@
    "group": "動畫與介面手感",
    "say": "挑動畫的毛病。預設當你有問題，要過關得舉證。輸出是一張問題表加一個准不准的判決。",
    "when": "動畫寫完、要送出去之前。要自己打斜線叫，不會自動觸發。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "write-swift",
@@ -1136,7 +1266,8 @@
    "group": "動畫與介面手感",
    "say": "現代 Swift 的寫法——資料怎麼建模、Swift 6 的並行安全、效能與記憶體、測試。跟動畫無關，是這包附的。",
    "when": "寫或改 Swift 的時候；遇到資料競爭、卡住、記憶體循環也可以叫。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "doc-coauthoring",
@@ -1144,7 +1275,8 @@
    "group": "寫東西給人看",
    "say": "帶著你一步一步共同寫文件、提案、技術規格、決策紀錄",
    "when": "要寫一份有結構的正式文件，但不知道從哪開始",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "document-generate",
@@ -1152,7 +1284,8 @@
    "group": "寫東西給人看",
    "say": "從零幫一個功能、模組或整個專案生文件",
    "when": "專案完全沒有文件，要補一份",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "document-release",
@@ -1160,17 +1293,19 @@
    "group": "寫東西給人看",
    "say": "出貨之後把文件同步更新",
    "when": "剛 ship 完，文件還停在上一版",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "documentation-and-adrs",
    "src": "addyosmani",
    "group": "寫東西給人看",
-   "say": "Records decisions and documentation. Use when you need to document an architecture decision (ADR) or the reasoning behind a design choice, when changing public APIs, shipping features, or when you need to record context that future engineers and agents will…",
-   "when": "",
+   "say": "記錄決策與文件。",
+   "when": "需要記錄架構決策（ADR）或某個設計選擇背後的理由；更動公開 API、上線功能；或需要記下未來工程師和 agent 會用到的脈絡時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/documentation-and-adrs/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "internal-comms",
@@ -1178,7 +1313,8 @@
    "group": "寫東西給人看",
    "say": "寫公司內部溝通用的各種文件，照公司慣用格式",
    "when": "要發內部公告、週報、專案更新",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "jackyshen-gen-short-video-script",
@@ -1186,7 +1322,8 @@
    "group": "寫東西給人看",
    "say": "產 30 秒到 3 分鐘的短影音腳本，對應各家平台",
    "when": "要拍抖音、小紅書、Reels 的腳本",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "teach",
@@ -1194,7 +1331,8 @@
    "group": "寫東西給人看",
    "say": "在這個工作區裡教你一個新技能或觀念",
    "when": "想學某個東西但要有人帶",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "writing-for-agents",
@@ -1202,7 +1340,8 @@
    "group": "寫東西給人看",
    "say": "寫給 AI 讀的文件怎麼寫",
    "when": "要改 CLAUDE.md、AGENTS.md 或寫 skill 的時候",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "ab-testing",
@@ -1210,7 +1349,8 @@
    "group": "行銷與成長",
    "say": "規劃並執行 A/B 測試——把使用者隨機分兩群、比較兩個版本哪個表現好，包含要抓多少樣本、跑多久才算數，還幫你經營一整套實驗待辦清單。",
    "when": "想知道兩個做法哪個真的比較好、或想建立固定跑實驗的習慣時用；量測數字用 analytics，頁面轉換本身用 cro。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ad-creative",
@@ -1218,7 +1358,8 @@
    "group": "行銷與成長",
    "say": "大量產生或迭代廣告文案——標題、內文、整組變體，橫跨 Google、Meta、LinkedIn 等平台，也管理創意測試與素材該不該下架的判斷。",
    "when": "要一次生出很多組廣告文案、或幫既有廣告換血時用；投放策略交給 ads，落地頁文案交給 copywriting。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ads",
@@ -1226,7 +1367,8 @@
    "group": "行銷與成長",
    "say": "付費廣告投放策略——在 Google、Meta、LinkedIn 等平台設定受眾、抓預算、出價，並判斷一支廣告什麼時候該收掉。",
    "when": "要規劃或調整投放策略、決定受眾與預算時用；大量生成廣告文案交給 ad-creative，落地頁優化交給 cro。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ai-seo",
@@ -1234,7 +1376,8 @@
    "group": "行銷與成長",
    "say": "讓內容被 ChatGPT、Perplexity 這類 AI 助理引用或推薦，跟傳統 Google SEO（搜尋引擎優化）是不同的遊戲規則，重點在讓 AI 讀得懂、願意引用你。",
    "when": "想知道為什麼 AI 回答都不提你、或想針對 AI 搜尋調整內容時用；傳統技術 SEO 交給 seo-audit。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "analytics",
@@ -1242,7 +1385,8 @@
    "group": "行銷與成長",
    "say": "設定並稽核數據追蹤——GA4（Google Analytics 4）、事件埋點、UTM 參數、Tag Manager 這些，確保你想量的東西真的有被記錄下來。",
    "when": "想知道某個功能有沒有人用、轉換有沒有被追蹤到、或覺得數字兜不起來時用；跨管道歸因交給 attribution。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "aso",
@@ -1250,7 +1394,8 @@
    "group": "行銷與成長",
    "say": "App Store／Google Play 上架頁優化——關鍵字、標題、截圖這些會影響下載率的東西，也會拿你的 App 跟競品比一比。",
    "when": "App 下載數不理想、想調整上架頁、或想知道自己輸在哪時用，丟一個商店連結就能開始查。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "attribution",
@@ -1258,7 +1403,8 @@
    "group": "行銷與成長",
    "say": "搞清楚到底是哪個管道真正帶來轉換與營收——選歸因模型、比對第一次接觸與最後一次接觸的差異，或解決各平台數字兜不起來的問題。",
    "when": "各平台數字互相矛盾、或想知道行銷預算真正花在刀口上時用；埋點設定交給 analytics，廣告像素交給 ads。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "churn-prevention",
@@ -1266,7 +1412,8 @@
    "group": "行銷與成長",
    "say": "降低流失率——設計取消訂閱時的挽留流程、退場優惠、扣款失敗後的補救機制，把想離開的人攔下來，也把單純因為卡刷不過而默默流失的人（非自願流失）找回來。",
    "when": "訂閱數一直往下掉、或想在使用者按下取消前做點什麼時用；取消後的挽回信交給 emails。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "co-marketing",
@@ -1274,7 +1421,8 @@
    "group": "行銷與成長",
    "say": "找異業合作夥伴、規劃聯合行銷活動——兩個品牌一起辦活動、互相曝光給對方的受眾，省下各自單打獨鬥找新客戶的成本，也負責發想有哪些潛在夥伴可以談。",
    "when": "想找人一起辦活動、或還在想該找誰合作時用；既有客戶轉介交給 referrals，上市合作交給 launch。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "cold-email",
@@ -1282,7 +1430,8 @@
    "group": "行銷與成長",
    "say": "寫 B2B（企業對企業）陌生開發信與後續追蹤信——標題怎麼下、開場白怎麼寫、內文怎麼安排才會有人回，而不是被當垃圾信整封刪掉，也管多次追蹤的節奏安排。",
    "when": "要主動聯絡完全不認識的潛在客戶、或想提高陌生信回覆率時用；已經熟的客戶維繫用 emails。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "community-marketing",
@@ -1290,7 +1439,8 @@
    "group": "行銷與成長",
    "say": "經營線上社群帶動成長——從零養一個 Discord 或 Slack 社群、顧論壇、辦活動，把死忠用戶變成願意主動幫你講話、拉新朋友進來的推廣者。",
    "when": "想從零經營一個社群、或想讓現有用戶自發幫你口碑傳播時用；付費找網紅合作交給 influencer-marketing。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "competitor-profiling",
@@ -1298,7 +1448,8 @@
    "group": "行銷與成長",
    "say": "從一串競品網址下手研究、整理出每家競品的完整檔案——賣什麼、怎麼賣、定價策略、強弱點分別在哪，最後輸出成一份份結構化的筆記檔案供後續使用。",
    "when": "手上有一串競品連結、想先做深度研究打底時用；根據這些檔案寫比較頁交給 competitors。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "competitors",
@@ -1306,7 +1457,8 @@
    "group": "行銷與成長",
    "say": "寫競品比較頁與替代方案頁（例如「X vs Y」「X 的替代方案」）——給 SEO 流量也給業務參考，涵蓋單一競品、多個競品、雙向比較共四種不同格式。",
    "when": "想寫一頁跟競品正面比較的頁面、或已有競品研究想變成公開內容時用；業務內部文件交給 sales-enablement。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "content-strategy",
@@ -1314,7 +1466,8 @@
    "group": "行銷與成長",
    "say": "決定該寫什麼內容——部落格主題怎麼選、內容規劃怎麼排、編輯行事曆怎麼訂，解決的是「不知道該寫什麼」這個問題本身，不是動手把稿子寫出來。",
    "when": "完全沒頭緒該產什麼內容、或想排出一套內容主題架構時用；動手寫單篇交給 copywriting，社群內容交給 social。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "copy-editing",
@@ -1322,7 +1475,8 @@
    "group": "行銷與成長",
    "say": "修改、潤飾既有的行銷文案——抓贅字冗詞、把讀起來卡卡的地方順過、幫過時的內容換血更新，前提是手上已經有一份稿子，而不是從零重寫一份新的。",
    "when": "手上已經有一份文案覺得哪裡怪怪的、想潤過再上線時用；從零寫新文案交給 copywriting。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "copywriting",
@@ -1330,7 +1484,8 @@
    "group": "行銷與成長",
    "say": "寫或改任何一頁的行銷文案——首頁、落地頁、定價頁、產品頁，包含標題、CTA（行動呼籲按鈕文字）、價值主張這些決定人家看不看得下去的東西。",
    "when": "要從零寫一頁新文案、或覺得現有文案沒說服力時用；改既有文案交給 copy-editing，信件文案交給 emails。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "cro",
@@ -1338,7 +1493,8 @@
    "group": "行銷與成長",
    "say": "CRO（轉換率優化）——讓已經進到頁面的人有更高比例真的完成你要的動作（填表、下單、註冊），抓的是頁面本身的問題，不是流量夠不夠。",
    "when": "頁面有流量但沒人轉換、或單純想丟個網址請人看哪裡卡住時用；註冊流程交給 signup，彈窗交給 popups。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "customer-research",
@@ -1346,7 +1502,8 @@
    "group": "行銷與成長",
    "say": "做客戶研究並整理成可用的洞察——訪談逐字稿、問卷、客服工單、Reddit 或 G2 上的評論都能拿來分析，也能直接規劃訪談或問卷。",
    "when": "想知道客戶到底在想什麼、卡在哪、為什麼流失時用；研究完拿去寫文案交給 copywriting，拿去改頁面交給 cro。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "directory-submissions",
@@ -1354,7 +1511,8 @@
    "group": "行銷與成長",
    "say": "把產品送進新創、SaaS、AI 工具這類收錄目錄（例如 Product Hunt、G2、AlternativeTo）換取反向連結與曝光，追蹤哪些已投、哪些還沒。",
    "when": "準備上市想鋪目錄曝光、或想長期經營反向連結時用；上市其他環節交給 launch。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "emails",
@@ -1362,7 +1520,8 @@
    "group": "行銷與成長",
    "say": "規劃自動化的信件序列——歡迎信、養客信、喚醒信這類會依觸發條件（例如註冊後第三天沒動作）自動寄出的多封信組合，不是單封的一次性信件。",
    "when": "想設計一整套會自動跑的信件流程時用；陌生開發信交給 cold-email，產品內導覽交給 onboarding。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "events",
@@ -1370,7 +1529,8 @@
    "group": "行銷與成長",
    "say": "規劃辦活動、贊助、上台演講或參加研討會——線上研討會、實體攤位、餐敘、使用者大會，涵蓋主辦、贊助、演講、單純參加四種角色。",
    "when": "在想要不要贊助某場研討會、要不要辦一場線上研討會、或投稿演講機會時用；聯合活動夥伴關係交給 co-marketing。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "free-tools",
@@ -1378,7 +1538,8 @@
    "group": "行銷與成長",
    "say": "規劃、評估或動手做免費小工具（例如計算機、產生器）當行銷手段——靠好用又免費的工具吸引流量、換來反向連結，順便留下對方的 email 名單。",
    "when": "在想要不要做一個免費工具來導流時用；可下載的電子書、範本這類靜態內容交給 lead-magnets。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "image",
@@ -1386,7 +1547,8 @@
    "group": "行銷與成長",
    "say": "產生、編修、優化行銷用的各種圖像——部落格首圖、社群圖卡、產品示意圖、個人檔案橫幅，包含挑對 AI 生圖工具跟後製壓縮優化的實作細節。",
    "when": "要生一張行銷用的圖或優化現有圖片時用；付費廣告的圖像素材交給 ad-creative，影片交給 video。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "influencer-marketing",
@@ -1394,7 +1556,8 @@
    "group": "行銷與成長",
    "say": "找網紅／創作者合作推廣產品——篩選合適的人選、談報酬怎麼算、簡報拍攝需求、確保揭露合規（例如要標業配），並回頭衡量這筆投資划不划算。",
    "when": "想找 KOL 或 YouTuber 業配、或在算該付多少錢時用；聯盟推薦的分潤機制交給 referrals。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "launch",
@@ -1402,7 +1565,8 @@
    "group": "行銷與成長",
    "say": "規劃產品上市或新功能發布——上 Product Hunt、開搶先體驗名單、公告文案怎麼寫，整理成一套完整的發布時程表跟事前該檢查的清單。",
    "when": "準備公開發布一個東西時用；發布後的長期行銷交給 marketing-ideas，發布的優惠設計交給 offers。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "lead-magnets",
@@ -1410,7 +1574,8 @@
    "group": "行銷與成長",
    "say": "規劃可下載的獲客內容（電子書、檢核表、範本）換取 email——決定要做什麼、怎麼包裝、怎麼發送，而不是動手寫內容本身。",
    "when": "想用一份免費資源換取名單時用；互動式免費工具交給 free-tools，內容本身的文字交給 copywriting。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "marketing-council",
@@ -1418,7 +1583,8 @@
    "group": "行銷與成長",
    "say": "模擬一個由知名行銷大師（如 Seth Godin、Ogilvy、Hormozi）組成的顧問團，針對你的行銷問題各自給意見，並點出彼此的分歧再統整建議。",
    "when": "想從多個角度聽聽不同派別的行銷思路、或想知道某位大師會怎麼看你的問題時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "marketing-ideas",
@@ -1426,7 +1592,8 @@
    "group": "行銷與成長",
    "say": "提供 SaaS／軟體產品的行銷點子庫——完全想不到要做什麼、卡住的時候拿來當起點，一次給你一堆涵蓋各種管道、可以直接挑著用的靈感。",
    "when": "完全沒頭緒該做什麼行銷、想要一堆點子刺激思考時用；確定方向後交給對應的專門 skill（ads、social、emails 等）。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "marketing-loops",
@@ -1434,7 +1601,8 @@
    "group": "行銷與成長",
    "say": "設定會自己定期跑的行銷流程——例如每週檢查廣告疲乏、每天巡內容有沒有過時，把其他行銷 skill 串成固定排程執行的循環。",
    "when": "想讓某件行銷工作變成自動定期跑、不用每次手動叫時用；單次的點子發想交給 marketing-ideas。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "marketing-plan",
@@ -1442,7 +1610,8 @@
    "group": "行銷與成長",
    "say": "產出一份完整的行銷計畫——照 AARRR（獲客、活化、留存、推薦、營收）架構寫成十幾個章節，依預算、團隊規模、階段客製，可直接貼進 Notion。",
    "when": "要幫客戶或自己的產品寫一份完整的行銷藍圖時用；定位與目標客群先確認交給 product-marketing。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "marketing-psychology",
@@ -1450,7 +1619,8 @@
    "group": "行銷與成長",
    "say": "把心理學原理套進行銷決策——定錨效應、社會認同、稀缺效應這類影響人怎麼下決定的機制，幫你理解某個手法為什麼有用，或反過來運用在自己的行銷上。",
    "when": "想知道某個行銷手法背後的心理學道理、或想幫文案加點說服力時用；套進頁面交給 cro，套進定價交給 pricing。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "offers",
@@ -1458,7 +1628,8 @@
    "group": "行銷與成長",
    "say": "設計「你到底在賣什麼」這件事本身——怎麼包裝價值、疊贈品、設計保證與稀缺感、命名，適合服務、課程、高價 B2B；純訂閱 SaaS 建議先看 pricing。",
    "when": "覺得東西賣不動、想重新包裝方案時用；純訂閱定價交給 pricing，呈現方案的頁面交給 copywriting。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "onboarding",
@@ -1466,7 +1637,8 @@
    "group": "行銷與成長",
    "say": "優化使用者註冊後的第一次體驗——怎麼讓人第一時間就感受到產品價值（也就是常說的 aha moment），而不是註冊完就沒下文。",
    "when": "使用者有註冊但沒留下來、或想縮短「用起來有感覺」所需時間時用；註冊流程本身交給 signup。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "paywalls",
@@ -1474,7 +1646,8 @@
    "group": "行銷與成長",
    "say": "設計產品內的升級提示——升級畫面、用量到頂時彈出的提示、功能鎖這類「免費用戶什麼時候被要求付費」的每一個關鍵時刻該怎麼呈現。",
    "when": "免費用戶一直不升級、想調整產品內的付費提示時用；對外公開的定價頁交給 pricing 或 cro。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "popups",
@@ -1482,7 +1655,8 @@
    "group": "行銷與成長",
    "say": "設計彈窗、跳出視窗、頂部通知列這類會打斷使用者、換取一個具體動作的元件——例如使用者滑到一半或準備離開網站前，跳出來收集 email 的留信彈窗。",
    "when": "想用彈窗收集 email 或做個公告、想知道彈窗有沒有做對時用；頁面本身的表單交給 cro。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "pricing",
@@ -1490,7 +1664,8 @@
    "group": "行銷與成長",
    "say": "定價與方案包裝策略——該收多少錢、要不要有免費方案、月繳年繳怎麼定，也能直接稽核一頁定價頁好不好懂（對人、對會幫忙比價的 AI 都算）。",
    "when": "不知道該收多少錢、或想稽核定價頁時用；產品內升級提示交給 paywalls，高價客製方案交給 offers。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "product-marketing",
@@ -1498,7 +1673,8 @@
    "group": "行銷與成長",
    "say": "建立一份產品的行銷背景文件——賣什麼、賣給誰、怎麼定位，寫成一份檔案讓其他行銷 skill 都能參考，不用每次重講一遍。",
    "when": "開新專案第一次用到行銷相關 skill 之前先跑一次，把產品脈絡定下來。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "programmatic-seo",
@@ -1506,7 +1682,8 @@
    "group": "行銷與成長",
    "say": "用同一套範本加上一批資料，大量產生 SEO 頁面——例如「工具名＋城市」這種同一模板換參數，重複產出成百上千頁，衝關鍵字覆蓋率的做法。",
    "when": "想針對一大批相近的關鍵字或地點各做一頁時用；先抓現有 SEO 問題交給 seo-audit。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "prospecting",
@@ -1514,7 +1691,8 @@
    "group": "行銷與成長",
    "say": "找出並篩選出值得聯絡的潛在客戶名單——不管是 B2B SaaS、一般企業客戶，還是在地的實體店家，篩出真正符合你目標客群條件的對象。",
    "when": "要建一份陌生開發名單、想知道該找誰時用；名單建好後怎麼寫信交給 cold-email。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "public-relations",
@@ -1522,7 +1700,8 @@
    "group": "行銷與成長",
    "say": "公關與媒體曝光——找記者、寫新聞稿、蹭時事話題、準備上 Podcast 受訪，屬於花時間換來的曝光，不是花錢買的廣告版位。",
    "when": "想被媒體報導、準備接受採訪、或想找記者投稿時用；產品目錄型曝光交給 directory-submissions。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "referrals",
@@ -1530,7 +1709,8 @@
    "group": "行銷與成長",
    "say": "設計並優化客戶轉介或聯盟推廣計畫——怎麼給誘因讓現有用戶主動帶新客戶進來、聯盟夥伴介紹成交後的拆帳比例該怎麼算才合理、才留得住人。",
    "when": "想讓現有客戶幫忙拉新客戶、或設計聯盟拆帳機制時用；上市時的病毒式擴散交給 launch。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "revops",
@@ -1538,7 +1718,8 @@
    "group": "行銷與成長",
    "say": "RevOps（營收營運）——處理行銷線索怎麼評分、怎麼分派給業務、什麼時候該把一個線索從行銷交棒給業務，這類跨部門流程與系統設計。",
    "when": "線索一直卡在行銷部門到不了業務手上、或想理清交接流程時用；陌生開發信交給 cold-email。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "sales-enablement",
@@ -1546,7 +1727,8 @@
    "group": "行銷與成長",
    "say": "做業務團隊要用的資料——簡報、一頁式產品介紹、常見反對意見的應對話術、Demo 稿子，任何能幫業務把一筆單子談成的素材都算。",
    "when": "業務團隊要素材、需要應對反對意見的話術時用；對外公開的競品比較頁交給 competitors。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "schema",
@@ -1554,7 +1736,8 @@
    "group": "行銷與成長",
    "say": "幫網站加上結構化資料標記（JSON-LD、schema.org）——讓 Google 能顯示星等、FAQ 這類加值搜尋結果，而不只是純文字連結。",
    "when": "想讓自己的頁面在 Google 搜尋結果裡顯示更多資訊（例如星星評等）時用；其他 SEO 問題交給 seo-audit。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "signup",
@@ -1562,7 +1745,8 @@
    "group": "行銷與成長",
    "say": "優化註冊、開帳號、免費試用啟用這幾個步驟——找出表單填到一半就放棄的卡點，減少人還沒真正進到產品裡就先流失、白白浪費掉的比例。",
    "when": "很多人開始註冊卻沒完成、想簡化註冊步驟時用；註冊後的引導交給 onboarding。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "site-architecture",
@@ -1570,7 +1754,8 @@
    "group": "行銷與成長",
    "say": "規劃網站的頁面架構——需要哪些頁面、怎麼分類、網址怎麼命名、內部連結怎麼串，是站內導航規劃，不是技術面的 XML sitemap。",
    "when": "在想一個網站到底該有哪些頁面、怎麼互相連結時用；技術 SEO 問題交給 seo-audit。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "sms",
@@ -1578,7 +1763,8 @@
    "group": "行銷與成長",
    "say": "規劃簡訊（SMS/MMS）行銷——歡迎簡訊、購物車未結帳提醒、促銷簡訊，也涵蓋法規面（例如美國的 10DLC、TCPA 規定）。",
    "when": "在想要不要做簡訊行銷、或已經在做想優化時用；信件版的等效流程交給 emails。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "social",
@@ -1586,7 +1772,8 @@
    "group": "行銷與成長",
    "say": "社群媒體內容——LinkedIn／IG／TikTok 的貼文、排程、短影音腳本，也包括社群聆聽（追蹤誰在講你的品牌、該回哪些留言）。",
    "when": "要寫社群貼文、排程、寫短影音腳本、或想知道網路上有誰在提你時用；整體內容規劃交給 content-strategy。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "video",
@@ -1594,7 +1781,8 @@
    "group": "行銷與成長",
    "say": "用 AI 工具或程式化框架產生影片——AI 數位人講話影片、產品示範影片、大量套模板產出的影片，也能拆解參考影片是怎麼做的。",
    "when": "要做 AI 生成影片、或想照著某支參考影片的風格做時用；影片該拍什麼內容交給 social。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "browse",
@@ -1602,7 +1790,8 @@
    "group": "找資料與看影片",
    "say": "快速的無頭瀏覽器，用來測網站、自己試用自己的站",
    "when": "要 AI 實際打開頁面點來點去",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "find-skills",
@@ -1610,7 +1799,8 @@
    "group": "找資料與看影片",
    "say": "找有沒有現成的 skill 能做某件事，找到就幫你裝",
    "when": "「有沒有 skill 可以做 X」。這一頁列的東西就是這樣長出來的",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "last30days",
@@ -1618,7 +1808,8 @@
    "group": "找資料與看影片",
    "say": "查最近 30 天大家在講什麼，抓 Reddit、X、YouTube、抖音、HN、GitHub 的貼文與互動數",
    "when": "想知道某個題目現在的真實風向，不是搜尋引擎的舊資料",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "research",
@@ -1626,7 +1817,8 @@
    "group": "找資料與看影片",
    "say": "針對一個問題，去查可信的第一手資料來源（官方文件、原始 API 說明等），把查到的結果整理成一份 Markdown 檔存進 repo 裡，留下查證過程。",
    "when": "想把某個主題、文件或 API 的事實查清楚、或想把查資料這件事丟給背景 agent 處理時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "retrieval-reflex",
@@ -1634,7 +1826,8 @@
    "group": "找資料與看影片",
    "say": "回答之前先去 gbrain 把相關的頁面翻出來，不要憑記憶答",
    "when": "問到專案長期歷史或以前的決定",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "scrape",
@@ -1642,7 +1835,8 @@
    "group": "找資料與看影片",
    "say": "從一個網頁把資料抓下來",
    "when": "要某個網站的內容變成結構化資料",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "video-perception",
@@ -1650,7 +1844,8 @@
    "group": "找資料與看影片",
    "say": "提到影片檔或 YouTube 網址時自動接手分析",
    "when": "你在對話裡丟了一個影片連結",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "watch",
@@ -1658,7 +1853,8 @@
    "group": "找資料與看影片",
    "say": "看一支影片（網址或本機檔）：下載、抽格、拿字幕，然後可以問它內容",
    "when": "有一支影片懶得看完，想直接問重點",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "webapp-testing",
@@ -1666,7 +1862,8 @@
    "group": "找資料與看影片",
    "say": "用 Playwright 測本機的網頁程式，可以截圖、看主控台",
    "when": "本機起了一個站，要驗前端行為對不對",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-learn",
@@ -1674,17 +1871,19 @@
    "group": "記憶、交接與學習",
    "say": "拿到一份 Caveman 產出的耗 token 排行報告後，逐項提出降低成本的修法，每一項改動都先問過你才動手，做完回報改了什麼、省了多少。",
    "when": "想降低 agent 的 token 花費、精簡太肥的 CLAUDE.md、或把重複貼的內容搬進 cavemem 時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "context-engineering",
    "src": "addyosmani",
    "group": "記憶、交接與學習",
-   "say": "Optimizes agent context setup. Use when starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context for a project.",
-   "when": "",
+   "say": "優化 agent 的脈絡設定。",
+   "when": "開新 session、agent 輸出品質下降、在任務之間切換，或需要為專案設定規則檔與脈絡時。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/context-engineering/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "context-restore",
@@ -1692,7 +1891,8 @@
    "group": "記憶、交接與學習",
    "say": "把上次存的進度讀回來",
    "when": "新開一個 session，要接著上次做。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "context-save",
@@ -1700,7 +1900,8 @@
    "group": "記憶、交接與學習",
    "say": "把現在做到哪、還差什麼存起來",
    "when": "session 要結束、或 context 快滿了",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "handoff",
@@ -1708,7 +1909,8 @@
    "group": "記憶、交接與學習",
    "say": "把目前這輪對話壓縮整理成一份交接文件，讓另一個 agent（或之後的你）接手時不用從頭看完整段對話，就能知道進度到哪、還缺什麼。",
    "when": "這輪對話要換人接手、或要把目前進度存下來給下一個 agent 用時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "i-have-adhd",
@@ -1716,7 +1918,8 @@
    "group": "記憶、交接與學習",
    "say": "把輸出改成 ADHD 友善：先講下一步、多步驟編號、每次重講現在的狀態、不岔題、給具體時間估計",
    "when": "覺得回覆太長、抓不到重點、看完不知道要做什麼",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "learn",
@@ -1724,7 +1927,8 @@
    "group": "記憶、交接與學習",
    "say": "管理這個專案踩過的坑與心得",
    "when": "踩到坑當下記一筆，下次不會再踩",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "plan-tune",
@@ -1732,7 +1936,8 @@
    "group": "記憶、交接與學習",
    "say": "學習你對「什麼問題該問、什麼別問」的偏好，之後少打斷你",
    "when": "同一種確認被問到煩",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "setup-gbrain",
@@ -1740,7 +1945,8 @@
    "group": "記憶、交接與學習",
    "say": "幫電腦裝 gbrain：CLI、本機資料庫、MCP 註冊",
    "when": "第一次要用語意搜尋之前",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "sync-gbrain",
@@ -1748,17 +1954,19 @@
    "group": "記憶、交接與學習",
    "say": "讓 gbrain 跟上這個 repo 目前的程式碼",
    "when": "程式改很多之後，語意搜尋開始答不準",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "using-agent-skills",
    "src": "addyosmani",
    "group": "記憶、交接與學習",
-   "say": "Discovers and invokes agent skills. Use when starting a session, or when you need to decide which skill or workflow applies to the piece of work at hand. This is the meta-skill that governs how all other skills are discovered and invoked.",
-   "when": "",
+   "say": "找出並呼叫 agent skill。",
+   "when": "開始 session、或需要判斷手上這件工作該用哪個 skill 或流程時。這是管理所有其他 skill 如何被找到與呼叫的元 skill。",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/using-agent-skills/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "docx",
@@ -1766,7 +1974,8 @@
    "group": "做檔案",
    "say": "Word 檔（.docx／.dotx）的建立、讀取、編修",
    "when": "任何跟 Word 有關的事：報告、備忘錄、信、範本、追蹤修訂",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ffmpeg-analyse-video",
@@ -1774,7 +1983,8 @@
    "group": "做檔案",
    "say": "用 ffmpeg 抽格＋AI 看圖，產出帶時間軸的影片內容摘要",
    "when": "手上有影片檔，想知道裡面發生什麼",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "make-pdf",
@@ -1782,7 +1992,8 @@
    "group": "做檔案",
    "say": "把 markdown 檔變成排版精美的 PDF",
    "when": "寫好的筆記或報告要印出來或寄給人",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "pdf",
@@ -1790,7 +2001,8 @@
    "group": "做檔案",
    "say": "PDF 的一切：讀內容、合併、拆開、旋轉、加浮水印、填表單、掃描件 OCR",
    "when": "手上有 PDF 要處理，或要產一份 PDF",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "pptx",
@@ -1798,7 +2010,8 @@
    "group": "做檔案",
    "say": "簡報檔（.pptx／.potx）的建立、讀取、編修",
    "when": "要做投影片，或要把別人的簡報內容抽出來",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "slack-gif-creator",
@@ -1806,17 +2019,19 @@
    "group": "做檔案",
    "say": "做 Slack 專用的動畫 GIF，含尺寸限制與檢查",
    "when": "要做一張貼在 Slack 的動圖",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "slides",
    "src": "nextlevelbuilder",
    "group": "做檔案",
-   "say": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+   "say": "用 Chart.js、設計 token、響應式版面、文案公式與依情境的簡報策略，製作策略性的 HTML 簡報。",
    "when": "",
    "used": false,
    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/slides/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "xlsx",
@@ -1824,7 +2039,8 @@
    "group": "做檔案",
    "say": "試算表（.xlsx／.csv）的建立、讀取、編修、圖表",
    "when": "要做或整理一份 Excel。也吃很亂的表格資料幫你整乾淨",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "cavecrew",
@@ -1832,7 +2048,8 @@
    "group": "輸出風格",
    "say": "什麼時候該把工作丟給 caveman 風格的子 agent（找程式碼／小修改／審 diff）",
    "when": "context 快滿了，想把雜活外包出去",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman",
@@ -1840,7 +2057,8 @@
    "group": "輸出風格",
    "say": "把回覆壓縮成「山頂洞人」講法，省 65% 輸出但技術內容不減。分 lite／full／ultra 三級",
    "when": "想省輸出字數時開著。關掉說「stop caveman」或「normal mode」。",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "caveman-commit",
@@ -1848,7 +2066,8 @@
    "group": "輸出風格",
    "say": "產壓縮過的 commit 訊息，Conventional Commits 格式",
    "when": "要寫 commit 但不想寫長篇",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-compress",
@@ -1856,7 +2075,8 @@
    "group": "輸出風格",
    "say": "把 CLAUDE.md、待辦這類長期記憶檔壓縮成 caveman 格式省輸入 token，原檔會另存備份",
    "when": "CLAUDE.md 長到每次都吃掉一堆 context",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-help",
@@ -1864,7 +2084,8 @@
    "group": "輸出風格",
    "say": "caveman 全部模式與指令的速查卡",
    "when": "忘記有哪些 caveman 指令",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "caveman-review",
@@ -1872,7 +2093,8 @@
    "group": "輸出風格",
    "say": "一個問題一行的程式碼審查意見：位置、問題、修法",
    "when": "看 PR 意見看到眼花",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-stats",
@@ -1880,7 +2102,8 @@
    "group": "輸出風格",
    "say": "看這次 session 真實的 token 用量與省下多少",
    "when": "好奇 caveman 到底有沒有省到",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "humanizer",
@@ -1888,7 +2111,8 @@
    "group": "輸出風格",
    "say": "把讀起來很像 AI 寫的英文文字，改成像本人講話的口吻，但意思不變——抓的是「不是 X 而是 Y」這種句型、三件套排比、破折號滿天飛這些 AI 慣用套路。",
    "when": "英文文章讀起來有 AI 腔、想潤成更像真人寫的時候用；中文版本用 humanizer-zh。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "humanizer-zh",
@@ -1896,7 +2120,8 @@
    "group": "輸出風格",
    "say": "幫中文文章、留言、文件抓出空話、重複、罐頭式的表達，改得更自然，但事實跟語氣不變。用來潤既有文字，不保證能騙過 AI 偵測工具。",
    "when": "中文文字讀起來很制式、很像範本套出來的時候用；英文版用 humanizer。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "careful",
@@ -1904,7 +2129,8 @@
    "group": "安全與環境設定",
    "say": "碰到會刪東西的指令先攔下來問你。",
    "when": "要跑不熟的腳本，怕它手滑。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-discover",
@@ -1912,7 +2138,8 @@
    "group": "安全與環境設定",
    "say": "掃過 repo 裡每一處呼叫 LLM 的地方，標成獨立的 workflow，讓 Caveman Cloud（另一個用量監控服務，跟講話用的 caveman 模式是兩回事）照 workflow 拆花費，不再全部混成一筆。",
    "when": "想知道 LLM 花費是哪個功能燒的，但現在全部混在同一筆總額時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "caveman-setup",
@@ -1920,7 +2147,8 @@
    "group": "安全與環境設定",
    "say": "把這個 repo 接上 Caveman Cloud 的閘道，讓每一次呼叫 LLM 都被量測到、看得到花費，接線過程本身不改變任何既有的行為或輸出。",
    "when": "第一次要幫專案裝上 LLM 用量監控、或要說「set up caveman」時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "claude-api",
@@ -1928,7 +2156,8 @@
    "group": "安全與環境設定",
    "say": "Claude API／SDK 的完整參考：模型代號、價格、參數、串流、工具呼叫、快取",
    "when": "要寫串 Claude API 的程式。別憑記憶寫模型代號和價格，先讀這個",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "connect-chrome",
@@ -1936,7 +2165,8 @@
    "group": "安全與環境設定",
    "say": "開一個 AI 控制得動的 Chromium，側邊欄擴充已經內建好。",
    "when": "要讓 AI 自己點網頁、填表單、看畫面。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "cso",
@@ -1944,17 +2174,19 @@
    "group": "安全與環境設定",
    "say": "資安長模式：從「會不會被打」的角度重看一遍。",
    "when": "東西要對外開放之前，想先被挑一次毛病。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "diagnosing-superpowers",
    "src": "obra",
    "group": "安全與環境設定",
-   "say": "Use when a superpowers session went wrong and your human partner wants to know why — repeated work, ignored plans, stumbles, poor results, a skill that didn't fire, \"it took too long\", \"why is it so expensive\", \"what is it doing\" — or wants to build a bug…",
+   "say": "當一個 superpowers session 出了問題、你的人類夥伴想知道原因時使用：重複做工、無視計畫、跌跌撞撞、結果差、某個 skill 沒有觸發、「花太久」「為什麼這麼貴」「它在做什麼」，或想建立一份 bug⋯⋯",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/diagnosing-superpowers/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "freeze",
@@ -1962,7 +2194,8 @@
    "group": "安全與環境設定",
    "say": "把這個 session 能改的檔案鎖在指定資料夾裡，別的地方碰不到。",
    "when": "叫 AI 動一個大專案，怕它跑去改別的資料夾。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "git-guardrails-claude-code",
@@ -1970,7 +2203,8 @@
    "group": "安全與環境設定",
    "say": "幫你在 Claude Code 裡裝上 hook，擋掉危險的 git 指令（像 push、reset --hard、clean、branch -D 這類）在真正執行之前先攔下來，避免 agent 手滑做出不可逆的操作。",
    "when": "想預防 Claude Code 誤跑破壞性 git 指令、或想加一層 git 安全網時用。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "gstack-upgrade",
@@ -1978,7 +2212,8 @@
    "group": "安全與環境設定",
    "say": "把 gstack 更新到最新版",
    "when": "看到提示說有新版",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "guard",
@@ -1986,7 +2221,8 @@
    "group": "安全與環境設定",
    "say": "完整護欄：危險指令警告 ＋ 只准改指定資料夾，兩件事一起開。",
    "when": "一次把兩道防線都打開，不想分兩個指令。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "pair-agent",
@@ -1994,17 +2230,19 @@
    "group": "安全與環境設定",
    "say": "把遠端的 AI agent 接上你自己的瀏覽器。",
    "when": "雲端那邊的 agent 需要用到你這台的登入狀態。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "security-and-hardening",
    "src": "addyosmani",
    "group": "安全與環境設定",
-   "say": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building…",
-   "when": "",
+   "say": "強化程式碼，防範漏洞。",
+   "when": "稽核輸入處理器的漏洞、處理使用者輸入、認證、資料儲存或外部整合，或檢查登入流程能否防範 OWASP Top Ten 時⋯⋯",
    "used": false,
    "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/security-and-hardening/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   },
   {
    "name": "setup-browser-cookies",
@@ -2012,7 +2250,8 @@
    "group": "安全與環境設定",
    "say": "把你真的在用的瀏覽器 cookie 匯進無頭瀏覽器，讓它帶著你的登入狀態跑。",
    "when": "要 AI 去看需要登入才進得去的頁面。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "setup-deploy",
@@ -2020,7 +2259,8 @@
    "group": "安全與環境設定",
    "say": "設定 /land-and-deploy 要部署到哪、怎麼部署。",
    "when": "第一次要用自動部署之前，先把設定填好。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "setup-matt-pocock-skills",
@@ -2028,7 +2268,8 @@
    "group": "安全與環境設定",
    "say": "幫這個 repo 把 Matt Pocock 那包工程向 skill 需要的環境準備好：設定 issue tracker、triage 要用的標籤詞彙、還有領域文件（domain doc）該放哪裡，是用其他工程 skill 之前的一次性設定。",
    "when": "第一次要在這個專案用 Matt Pocock 那包工程向 skill（像 triage、to-spec、wayfinder）之前，先跑一次這支做初始化。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "unfreeze",
@@ -2036,7 +2277,8 @@
    "group": "安全與環境設定",
    "say": "解掉 /freeze 設的那道界線，恢復成哪裡都能改。",
    "when": "鎖定的工作做完了，接下來要動別的地方。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "wizard",
@@ -2044,7 +2286,8 @@
    "group": "安全與環境設定",
    "say": "產一支互動腳本，帶著你走完只有人能做的步驟",
    "when": "要申請 API 金鑰、在第三方後台按設定、設 CI secrets 這種 AI 代勞不了的事",
-   "used": true
+   "used": true,
+   "ai": true
   },
   {
    "name": "ios-clean",
@@ -2052,7 +2295,8 @@
    "group": "iOS 專用",
    "say": "把除錯用的 DebugBridge 套件和所有 #if DEBUG 的接線從 app 裡拆乾淨。",
    "when": "iOS app 要送審或出正式版之前。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ios-design-review",
@@ -2060,7 +2304,8 @@
    "group": "iOS 專用",
    "say": "在真的手機上看畫面，挑視覺上的問題。",
    "when": "iOS app 做完了，想知道哪裡看起來不對。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ios-fix",
@@ -2068,7 +2313,8 @@
    "group": "iOS 專用",
    "say": "自己找 iOS 的 bug 自己修，不用一步一步帶。",
    "when": "有一個 iOS bug，想直接丟給它處理。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ios-qa",
@@ -2076,7 +2322,8 @@
    "group": "iOS 專用",
    "say": "接真的手機測 SwiftUI app，實機跑不是模擬器。",
    "when": "iOS app 要驗功能，而且模擬器測不出來。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "ios-sync",
@@ -2084,7 +2331,8 @@
    "group": "iOS 專用",
    "say": "把 iOS 的除錯橋接重新對齊最新的 gstack 樣板。",
    "when": "gstack 更新過之後，iOS 那邊的接線要跟上。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "_gstack-command",
@@ -2092,7 +2340,8 @@
    "group": "自動觸發（不用自己叫）",
    "say": "gstack 的總機：你打任何一個 gstack 指令，它負責轉到對的那一支。",
    "when": "不用自己叫，打 /ship、/review 那些的時候它自己會動。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "academy-guide",
@@ -2100,7 +2349,8 @@
    "group": "自動觸發（不用自己叫）",
    "say": "你問「Claude 怎麼用」的時候，它會順便推薦官方 Claude Academy 的課程或教學。",
    "when": "不用自己叫。問「這功能怎麼開」「怎麼上手」時它自己會冒出來。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "discernment-nudge",
@@ -2108,17 +2358,19 @@
    "group": "自動觸發（不用自己叫）",
    "say": "它給完建議或草稿之後，反過來丟兩三個問題叫你自己查證、別照單全收。",
    "when": "不用自己叫。問到「該怎麼決定」這種會照著做的答案時它自己會加。",
-   "used": false
+   "used": false,
+   "ai": true
   },
   {
    "name": "using-superpowers",
    "src": "obra",
    "group": "自動觸發（不用自己叫）",
-   "say": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+   "say": "開始任何對話時使用：建立如何找到並使用 skill，要求在任何回應（包括釐清問題）之前先呼叫 skill。",
    "when": "",
    "used": false,
    "url": "https://github.com/obra/superpowers/blob/main/skills/using-superpowers/SKILL.md",
-   "en": true
+   "en": false,
+   "ai": true
   }
  ]
 }

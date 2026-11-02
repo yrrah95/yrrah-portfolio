@@ -32,15 +32,19 @@ for (const s of src.skills) {
 // 併入「沒裝、只收進網站」的目錄（data/catalog.json，由 fetch-catalog 產生）；同作者同名的已裝 skill 不重複收
 const catFile = path.join(here, 'data', 'catalog.json');
 const catGroups = JSON.parse(fs.readFileSync(path.join(here, 'data', 'catalog-groups.json'), 'utf8'));
+const catZh = JSON.parse(fs.readFileSync(path.join(here, 'data', 'catalog-zh.json'), 'utf8'));
 let added = 0;
 if (fs.existsSync(catFile)) {
   const have = new Set(out.map((x) => x.src + '/' + x.name));
   for (const c of JSON.parse(fs.readFileSync(catFile, 'utf8')).skills) {
     if (have.has(c.author + '/' + c.name)) continue;
-    out.push({ name: c.name, src: c.author, group: catGroups[c.author + '/' + c.name] || '其他', say: c.desc, when: '', used: false, url: c.url, en: true });
+    const zh = catZh[c.author + '/' + c.name];
+    out.push({ name: c.name, src: c.author, group: catGroups[c.author + '/' + c.name] || '其他', say: zh ? zh.say : c.desc, when: zh ? zh.when : '', used: false, url: c.url, en: !zh });
     added++;
   }
 }
+// 中文說明一律是 AI 產生（工作站清單用 AI 翻原文、目錄用 AI 翻公開說明）；還沒有中文的 en=true，先放原文
+out.forEach((x) => { x.ai = !x.en; });
 const rank = (g) => (GROUPS.includes(g) ? GROUPS.indexOf(g) : 99);
 out.sort((a, b) => rank(a.group) - rank(b.group) || a.name.localeCompare(b.name));
 fs.writeFileSync(path.join(here, 'data', 'skills.json'), JSON.stringify({ scanned: src.掃描日, groups: [...GROUPS, '其他'], skills: out }, null, 1) + '\n');
