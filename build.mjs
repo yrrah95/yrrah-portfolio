@@ -111,9 +111,9 @@ const index = page({
   title: 'Claude Code Everyday',
   desc: '每天一個 Claude Code 用法，Threads 貼文的完整存檔。',
   depth: '',
-  body: `<header class="top"><h1>Claude Code Everyday</h1>
-<input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></header>
-<div class="sortbar"><select id="sk" aria-label="排序方式"><option value="d">最新</option><option value="v">最多瀏覽</option><option value="l">最多按讚</option></select><button type="button" id="sd" aria-label="切換降冪或升冪">↓ 降冪</button></div>
+  body: `<header class="top"><h1>Claude Code Everyday</h1></header>
+<div class="bar"><div class="sortbar"><label class="sel"><select id="sk" aria-label="排序方式"><option value="d">最新</option><option value="v">最多瀏覽</option><option value="l">最多按讚</option></select></label><button type="button" id="sd" aria-label="切換降冪或升冪">↓ 降冪</button></div>
+<input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></div>
 <main class="grid" id="grid">${list(posts)}</main>
 <p class="empty" id="empty" hidden>沒有符合的貼文</p>
 <footer><a href="${PROFILE_URL}" rel="noopener">@yrrah9_</a></footer>

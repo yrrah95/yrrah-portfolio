@@ -7,7 +7,7 @@ a{color:inherit}
 .top h1{margin:0;font-size:28px}
 .top.slim{padding:20px 16px 0;max-width:640px}
 .back{text-decoration:none;color:var(--mute)}
-#q{flex:1 1 220px;max-width:340px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font:inherit}
+#q{flex:1 1 220px;max-width:340px;height:40px;box-sizing:border-box;margin-left:auto;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font:inherit}
 .grid{max-width:1080px;margin:0 auto;padding:8px 16px 40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
 .card{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding-bottom:14px}
 .card[hidden]{display:none}
@@ -19,9 +19,14 @@ a{color:inherit}
 .noimg b{font-size:19px;line-height:1.5;font-weight:800;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .day{font-size:13px;font-weight:700;color:var(--accent);padding:0 14px}
 .ttl{padding:0 14px;font-weight:600;line-height:1.5}
-.sortbar{max-width:1080px;margin:0 auto;padding:0 16px 12px;display:flex;gap:8px}
-.sortbar select,.sortbar button{font:inherit;padding:6px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);cursor:pointer}
-.sortbar select:focus-visible,.sortbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar{max-width:1080px;margin:0 auto;padding:0 16px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sortbar{display:inline-flex;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.sel{position:relative;display:flex}
+.sel::after{content:"";position:absolute;right:14px;top:50%;width:6px;height:6px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.sortbar select{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:var(--fg);font:inherit;padding:0 36px 0 14px;cursor:pointer;color-scheme:light dark}
+.sortbar button{border:0;border-left:1px solid var(--line);background:transparent;color:var(--accent);font:inherit;font-weight:700;padding:0 16px;cursor:pointer}
+.sortbar select:focus-visible,.sortbar button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.sortbar button:hover,.sortbar select:hover{background:var(--line)}
 .meta{padding:0 14px;font-size:13px;color:var(--mute);min-height:1.7em}
 .meta:empty{display:none}
 .empty{text-align:center;color:var(--mute)}
