@@ -111,7 +111,7 @@ const index = page({
   depth: '',
   body: `<header class="top"><h1>Claude Code Everyday</h1>
 <input id="q" type="search" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></header>
-<nav class="tabs" id="tabs"><button class="on" data-s="d">最新</button><button data-s="v">瀏覽量</button><button data-s="l">按讚量</button></nav>
+<nav class="tabs" id="tabs"><button class="on" data-s="d">最新</button><button data-s="v">最多瀏覽</button><button data-s="l">最多按讚</button></nav>
 <main class="grid" id="grid">${list(posts)}</main>
 <p class="empty" id="empty" hidden>沒有符合的貼文</p>
 <footer><a href="${PROFILE_URL}" rel="noopener">@yrrah9_</a></footer>
