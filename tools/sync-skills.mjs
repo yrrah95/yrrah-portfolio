@@ -29,7 +29,19 @@ for (const s of src.skills) {
     used: s.把握 === '用過',
   });
 }
+// 併入「沒裝、只收進網站」的目錄（data/catalog.json，由 fetch-catalog 產生）；同作者同名的已裝 skill 不重複收
+const catFile = path.join(here, 'data', 'catalog.json');
+const catGroups = JSON.parse(fs.readFileSync(path.join(here, 'data', 'catalog-groups.json'), 'utf8'));
+let added = 0;
+if (fs.existsSync(catFile)) {
+  const have = new Set(out.map((x) => x.src + '/' + x.name));
+  for (const c of JSON.parse(fs.readFileSync(catFile, 'utf8')).skills) {
+    if (have.has(c.author + '/' + c.name)) continue;
+    out.push({ name: c.name, src: c.author, group: catGroups[c.author + '/' + c.name] || '其他', say: c.desc, when: '', used: false, url: c.url, en: true });
+    added++;
+  }
+}
 const rank = (g) => (GROUPS.includes(g) ? GROUPS.indexOf(g) : 99);
 out.sort((a, b) => rank(a.group) - rank(b.group) || a.name.localeCompare(b.name));
 fs.writeFileSync(path.join(here, 'data', 'skills.json'), JSON.stringify({ scanned: src.掃描日, groups: [...GROUPS, '其他'], skills: out }, null, 1) + '\n');
-console.log(`輸出 ${out.length} 個（略過：自製 ${skipped.自製}、無說明 ${skipped.無說明}），來源掃描日 ${src.掃描日}`);
+console.log(`輸出 ${out.length} 個（其中目錄收進 ${added} 個；略過：自製 ${skipped.自製}、無說明 ${skipped.無說明}），來源掃描日 ${src.掃描日}`);

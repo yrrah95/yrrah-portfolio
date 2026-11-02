@@ -51,12 +51,32 @@
    "used": false
   },
   {
+   "name": "constraint-driven-development",
+   "src": "addyosmani",
+   "group": "想清楚要做什麼",
+   "say": "Establishes a project's quality bar as a written contract and stops agents quietly lowering it. Interviews the user on which dimensions matter, supplies sane default thresholds when they have no number in mind, records everything in CONSTRAINTS.md, and…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/constraint-driven-development/SKILL.md",
+   "en": true
+  },
+  {
    "name": "domain-modeling",
    "src": "mattpocock",
    "group": "想清楚要做什麼",
    "say": "幫忙建立跟磨利一個專案的領域模型：把系統裡在講的名詞定義清楚、寫進或更新 GLOSSARY.md，也記錄或修改架構決策紀錄（ADR，就是「為什麼這樣設計」的存證）。",
    "when": "在討論 codebase 裡的名詞定義、要寫或改 GLOSSARY.md、或要記一筆 ADR 時用。",
    "used": false
+  },
+  {
+   "name": "doubt-driven-development",
+   "src": "addyosmani",
+   "group": "想清楚要做什麼",
+   "say": "Subjects every non-trivial decision to a fresh-context adversarial review before it stands. Use when you want every assumption cross-examined before proceeding, when stress-testing a plan for hidden failure modes, when correctness matters more than speed…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/doubt-driven-development/SKILL.md",
+   "en": true
   },
   {
    "name": "grill-me",
@@ -89,6 +109,16 @@
    "say": "gstack 那整套 skill 的總機，忘記該用哪一個就問它",
    "when": "記不起來 /spec /review /ship 誰負責什麼",
    "used": true
+  },
+  {
+   "name": "idea-refine",
+   "src": "addyosmani",
+   "group": "想清楚要做什麼",
+   "say": "Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/idea-refine/SKILL.md",
+   "en": true
   },
   {
    "name": "interview-me",
@@ -139,6 +169,16 @@
    "used": true
   },
   {
+   "name": "planning-and-task-breakdown",
+   "src": "addyosmani",
+   "group": "想清楚要做什麼",
+   "say": "Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/planning-and-task-breakdown/SKILL.md",
+   "en": true
+  },
+  {
    "name": "prototype",
    "src": "mattpocock",
    "group": "想清楚要做什麼",
@@ -153,6 +193,16 @@
    "say": "把「我想做一個 X」變成寫得出程式的規格，分五個階段逼問細節",
    "when": "腦中有個想法但講不出細節的時候。這是 gstack 流水線的第一站",
    "used": true
+  },
+  {
+   "name": "spec-driven-development",
+   "src": "addyosmani",
+   "group": "想清楚要做什麼",
+   "say": "Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when drafting a PRD or requirements document with objectives and scope, or when requirements are unclear, ambiguous, or only…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/spec-driven-development/SKILL.md",
+   "en": true
   },
   {
    "name": "to-questionnaire",
@@ -195,12 +245,32 @@
    "used": false
   },
   {
+   "name": "writing-plans",
+   "src": "obra",
+   "group": "想清楚要做什麼",
+   "say": "Use when you have a spec or requirements for a multi-step task, before touching code",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/writing-plans/SKILL.md",
+   "en": true
+  },
+  {
    "name": "ai-elements",
    "src": "vercel",
    "group": "寫程式",
    "say": "用 ai-elements 元件庫拼 AI 聊天介面：對話串、訊息、工具顯示、輸入框。",
    "when": "要做聊天機器人或 AI 助理的網頁介面時。",
    "used": false
+  },
+  {
+   "name": "api-and-interface-design",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/api-and-interface-design/SKILL.md",
+   "en": true
   },
   {
    "name": "caveman-explore",
@@ -211,12 +281,42 @@
    "used": false
   },
   {
+   "name": "code-simplification",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/code-simplification/SKILL.md",
+   "en": true
+  },
+  {
    "name": "codex",
    "src": "gstack",
    "group": "寫程式",
    "say": "把 OpenAI 的 Codex CLI 包起來用，有三種模式。",
    "when": "想讓另一家的模型也看一次這段程式碼。",
    "used": false
+  },
+  {
+   "name": "debugging-and-error-recovery",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/debugging-and-error-recovery/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "deprecation-and-migration",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when migrating a database schema in production, such as renaming or dropping a column without downtime…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/deprecation-and-migration/SKILL.md",
+   "en": true
   },
   {
    "name": "deslop-shared-libs",
@@ -233,6 +333,26 @@
    "say": "針對難纏的 bug 或效能突然變差的狀況，走一套系統化的診斷迴圈：先重現問題、縮小範圍、驗證假設，逐步逼近真正的根因，而不是憑感覺亂改。",
    "when": "遇到「除錯」「修這個 bug」、東西壞掉、噴錯、或效能忽然變慢時用。",
    "used": false
+  },
+  {
+   "name": "dispatching-parallel-agents",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/dispatching-parallel-agents/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "executing-plans",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/executing-plans/SKILL.md",
+   "en": true
   },
   {
    "name": "implement",
@@ -257,6 +377,16 @@
    "say": "掃過整個 codebase 找出哪些地方值得「挖深」（介面設計還能改善），整理成一份視覺化的 HTML 報告，再挑其中一項用連環逼問的方式把它想清楚。",
    "when": "想幫整個專案的架構做一次健檢、找出值得優化的模組時用。",
    "used": false
+  },
+  {
+   "name": "incremental-implementation",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next task from a plan. Use when rolling a change out behind a feature flag, when you're about to…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/incremental-implementation/SKILL.md",
+   "en": true
   },
   {
    "name": "investigate",
@@ -307,6 +437,16 @@
    "used": false
   },
   {
+   "name": "observability-and-instrumentation",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/observability-and-instrumentation/SKILL.md",
+   "en": true
+  },
+  {
    "name": "safe-refactor",
    "src": "caveman",
    "group": "寫程式",
@@ -339,6 +479,16 @@
    "used": false
   },
   {
+   "name": "source-driven-development",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Grounds every implementation decision in official documentation. Use when you want to verify an approach against the official docs before implementing it, or when you want authoritative, source-cited code free from outdated patterns. Use when building with…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md",
+   "en": true
+  },
+  {
    "name": "subagent-driven-development",
    "src": "obra",
    "group": "寫程式",
@@ -355,6 +505,16 @@
    "used": false
   },
   {
+   "name": "systematic-debugging",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md",
+   "en": true
+  },
+  {
    "name": "tdd",
    "src": "mattpocock",
    "group": "寫程式",
@@ -363,12 +523,52 @@
    "used": false
   },
   {
+   "name": "test-driven-development",
+   "src": "addyosmani",
+   "group": "寫程式",
+   "say": "Drives development with tests using the red-green-refactor loop. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/test-driven-development/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "test-driven-development",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when implementing any feature or bugfix, before writing implementation code",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "using-git-worktrees",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/using-git-worktrees/SKILL.md",
+   "en": true
+  },
+  {
    "name": "wait-what",
    "src": "mattpocock",
    "group": "寫程式",
    "say": "等等，剛剛那段沒聽懂——叫它重講一次",
    "when": "Claude 講太快或太術語，你想要換個說法。",
    "used": false
+  },
+  {
+   "name": "writing-skills",
+   "src": "obra",
+   "group": "寫程式",
+   "say": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/writing-skills/SKILL.md",
+   "en": true
   },
   {
    "name": "benchmark",
@@ -385,6 +585,16 @@
    "say": "拿同一個 gstack 流程跑不同模型，比它們的結果與花費。",
    "when": "想知道某個流程用哪個模型比較划算。",
    "used": false
+  },
+  {
+   "name": "browser-testing-with-devtools",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Tests in real browsers via Chrome DevTools MCP. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/browser-testing-with-devtools/SKILL.md",
+   "en": true
   },
   {
    "name": "canary",
@@ -419,6 +629,16 @@
    "used": false
   },
   {
+   "name": "ci-cd-and-automation",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/ci-cd-and-automation/SKILL.md",
+   "en": true
+  },
+  {
    "name": "code-review",
    "src": "mattpocock",
    "group": "檢查與出貨",
@@ -427,12 +647,42 @@
    "used": false
   },
   {
+   "name": "code-review-and-quality",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/code-review-and-quality/SKILL.md",
+   "en": true
+  },
+  {
    "name": "devex-review",
    "src": "gstack",
    "group": "檢查與出貨",
    "say": "實際跑一遍，審「別人第一次用這東西順不順」",
    "when": "做完工具想知道別人會不會卡在第一步",
    "used": false
+  },
+  {
+   "name": "finishing-a-development-branch",
+   "src": "obra",
+   "group": "檢查與出貨",
+   "say": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/finishing-a-development-branch/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "git-workflow-and-versioning",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/git-workflow-and-versioning/SKILL.md",
+   "en": true
   },
   {
    "name": "health",
@@ -467,6 +717,16 @@
    "used": false
   },
   {
+   "name": "performance-optimization",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/performance-optimization/SKILL.md",
+   "en": true
+  },
+  {
    "name": "pr",
    "src": "mattpocock",
    "group": "檢查與出貨",
@@ -489,6 +749,26 @@
    "say": "同上，但只給報告不動手改",
    "when": "你想自己決定要修哪些",
    "used": false
+  },
+  {
+   "name": "receiving-code-review",
+   "src": "obra",
+   "group": "檢查與出貨",
+   "say": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/receiving-code-review/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "requesting-code-review",
+   "src": "obra",
+   "group": "檢查與出貨",
+   "say": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/requesting-code-review/SKILL.md",
+   "en": true
   },
   {
    "name": "retro",
@@ -531,12 +811,32 @@
    "used": true
   },
   {
+   "name": "shipping-and-launch",
+   "src": "addyosmani",
+   "group": "檢查與出貨",
+   "say": "Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/shipping-and-launch/SKILL.md",
+   "en": true
+  },
+  {
    "name": "test-audit",
    "src": "gstack",
    "group": "檢查與出貨",
    "say": "掃過現有測試，找出價值不高或重複的測試，還有那些只為了讓測試能跑、其他地方根本用不到的程式碼，幫忙判斷哪些可以砍掉。",
    "when": "測試數量變多但品質存疑、想清一波沒用的測試跟陪葬程式碼時用。",
    "used": false
+  },
+  {
+   "name": "verification-before-completion",
+   "src": "obra",
+   "group": "檢查與出貨",
+   "say": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/verification-before-completion/SKILL.md",
+   "en": true
   },
   {
    "name": "verify-and-stop",
@@ -555,6 +855,26 @@
    "used": false
   },
   {
+   "name": "banner-design",
+   "src": "nextlevelbuilder",
+   "group": "視覺與設計",
+   "say": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/banner-design/SKILL.md",
+   "en": true
+  },
+  {
+   "name": "brand",
+   "src": "nextlevelbuilder",
+   "group": "視覺與設計",
+   "say": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/brand/SKILL.md",
+   "en": true
+  },
+  {
    "name": "brand-guidelines",
    "src": "anthropic-agent-skills",
    "group": "視覺與設計",
@@ -569,6 +889,16 @@
    "say": "產出海報那類的靜態視覺，輸出成 png 或 pdf",
    "when": "要一張海報或圖卡",
    "used": false
+  },
+  {
+   "name": "design",
+   "src": "nextlevelbuilder",
+   "group": "視覺與設計",
+   "say": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design/SKILL.md",
+   "en": true
   },
   {
    "name": "design-consultation",
@@ -603,6 +933,16 @@
    "used": false
   },
   {
+   "name": "design-system",
+   "src": "nextlevelbuilder",
+   "group": "視覺與設計",
+   "say": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design-system/SKILL.md",
+   "en": true
+  },
+  {
    "name": "diagram",
    "src": "gstack",
    "group": "視覺與設計",
@@ -625,6 +965,16 @@
    "say": "做新介面時的美感方向指引：排版、字體、怎麼不長得像模板",
    "when": "要動手刻畫面之前。",
    "used": true
+  },
+  {
+   "name": "frontend-ui-engineering",
+   "src": "addyosmani",
+   "group": "視覺與設計",
+   "say": "Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/frontend-ui-engineering/SKILL.md",
+   "en": true
   },
   {
    "name": "hallmark",
@@ -657,6 +1007,16 @@
    "say": "十套現成的配色與字體主題，套到簡報、文件、網頁上",
    "when": "懶得自己選色，想直接套一套堪用的",
    "used": false
+  },
+  {
+   "name": "ui-styling",
+   "src": "nextlevelbuilder",
+   "group": "視覺與設計",
+   "say": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/ui-styling/SKILL.md",
+   "en": true
   },
   {
    "name": "ui-ux-pro-max",
@@ -801,6 +1161,16 @@
    "say": "出貨之後把文件同步更新",
    "when": "剛 ship 完，文件還停在上一版",
    "used": false
+  },
+  {
+   "name": "documentation-and-adrs",
+   "src": "addyosmani",
+   "group": "寫東西給人看",
+   "say": "Records decisions and documentation. Use when you need to document an architecture decision (ADR) or the reasoning behind a design choice, when changing public APIs, shipping features, or when you need to record context that future engineers and agents will…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/documentation-and-adrs/SKILL.md",
+   "en": true
   },
   {
    "name": "internal-comms",
@@ -1307,6 +1677,16 @@
    "used": false
   },
   {
+   "name": "context-engineering",
+   "src": "addyosmani",
+   "group": "記憶、交接與學習",
+   "say": "Optimizes agent context setup. Use when starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context for a project.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/context-engineering/SKILL.md",
+   "en": true
+  },
+  {
    "name": "context-restore",
    "src": "gstack",
    "group": "記憶、交接與學習",
@@ -1371,6 +1751,16 @@
    "used": false
   },
   {
+   "name": "using-agent-skills",
+   "src": "addyosmani",
+   "group": "記憶、交接與學習",
+   "say": "Discovers and invokes agent skills. Use when starting a session, or when you need to decide which skill or workflow applies to the piece of work at hand. This is the meta-skill that governs how all other skills are discovered and invoked.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/using-agent-skills/SKILL.md",
+   "en": true
+  },
+  {
    "name": "docx",
    "src": "anthropic-agent-skills",
    "group": "做檔案",
@@ -1417,6 +1807,16 @@
    "say": "做 Slack 專用的動畫 GIF，含尺寸限制與檢查",
    "when": "要做一張貼在 Slack 的動圖",
    "used": false
+  },
+  {
+   "name": "slides",
+   "src": "nextlevelbuilder",
+   "group": "做檔案",
+   "say": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/slides/SKILL.md",
+   "en": true
   },
   {
    "name": "xlsx",
@@ -1547,6 +1947,16 @@
    "used": false
   },
   {
+   "name": "diagnosing-superpowers",
+   "src": "obra",
+   "group": "安全與環境設定",
+   "say": "Use when a superpowers session went wrong and your human partner wants to know why — repeated work, ignored plans, stumbles, poor results, a skill that didn't fire, \"it took too long\", \"why is it so expensive\", \"what is it doing\" — or wants to build a bug…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/diagnosing-superpowers/SKILL.md",
+   "en": true
+  },
+  {
    "name": "freeze",
    "src": "gstack",
    "group": "安全與環境設定",
@@ -1585,6 +1995,16 @@
    "say": "把遠端的 AI agent 接上你自己的瀏覽器。",
    "when": "雲端那邊的 agent 需要用到你這台的登入狀態。",
    "used": false
+  },
+  {
+   "name": "security-and-hardening",
+   "src": "addyosmani",
+   "group": "安全與環境設定",
+   "say": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building…",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/addyosmani/agent-skills/blob/main/skills/security-and-hardening/SKILL.md",
+   "en": true
   },
   {
    "name": "setup-browser-cookies",
@@ -1689,6 +2109,16 @@
    "say": "它給完建議或草稿之後，反過來丟兩三個問題叫你自己查證、別照單全收。",
    "when": "不用自己叫。問到「該怎麼決定」這種會照著做的答案時它自己會加。",
    "used": false
+  },
+  {
+   "name": "using-superpowers",
+   "src": "obra",
+   "group": "自動觸發（不用自己叫）",
+   "say": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+   "when": "",
+   "used": false,
+   "url": "https://github.com/obra/superpowers/blob/main/skills/using-superpowers/SKILL.md",
+   "en": true
   }
  ]
 }
