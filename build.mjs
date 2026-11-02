@@ -258,12 +258,11 @@ if (skillData) {
     const kinds = (p.plugin ? 'plugin ' : '') + (p.hook ? 'hook' : '');
     const gs = [...new Set(list.map((s) => s.group))];
     const pt = (p.name + ' ' + packZh[p.repo] + ' ' + p.repo).toLowerCase();
+    const link = list.length > 1 ? esc(p.src) + '/' : esc(list[0].src) + '/' + esc(list[0].name) + '/';
     const items = list.map((s) => '<li data-g="' + esc(s.group) + '" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.group).toLowerCase()) + '"><a href="' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span></a></li>').join('');
-    return '<li class="pk" data-k="' + kinds.trim() + '" data-g="' + esc(gs.join('|')) + '" data-pt="' + esc(pt) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name + ' ' + s.say).join(' ').toLowerCase()) + '"><details>'
-      + '<summary><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code>' + (p.plugin ? '<span class="kd">Plugin</span>' : '') + (p.hook ? '<span class="kd">Hook</span>' : '') + '<span class="ska">AI翻譯</span></span>'
+    return '<li class="pk" data-k="' + kinds.trim() + '" data-g="' + esc(gs.join('|')) + '" data-pt="' + esc(pt) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name + ' ' + s.say).join(' ').toLowerCase()) + '"><a class="pkl" href="' + link + '"><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code>' + (p.plugin ? '<span class="kd">Plugin</span>' : '') + (p.hook ? '<span class="kd">Hook</span>' : '') + '<span class="ska">AI翻譯</span></span>'
       + '<span class="pkd">' + esc(packZh[p.repo]) + '</span><span class="heat" aria-hidden="true"><i style="width:' + Math.max(2, Math.round(p.stars / maxStars * 100)) + '%"></i></span></span>'
-      + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + list.length + '</span> 個 skill</span></span></summary>'
-      + '<div class="pkx"><ul class="pks">' + items + '</ul><p class="pkf"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p></div></details></li>';
+      + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + list.length + '</span> 個 skill</span></span></a></li>';
   }).join('\n');
   const railBtn = (attr, v, label, n) => '<button type="button" ' + attr + '="' + esc(v) + '" aria-pressed="false">' + esc(label) + '<small>' + n + '</small></button>';
   const rail = '<aside class="rail"><section><h2>類型</h2>' + railBtn('data-ty', '', '全部', packs.length) + railBtn('data-ty', 'plugin', 'Plugin', packs.filter((p) => p.plugin).length) + railBtn('data-ty', 'hook', 'Hook', packs.filter((p) => p.hook).length) + '</section>'
@@ -283,8 +282,8 @@ if (skillData) {
       + "function hit(p,st,sg){const kw=q.value.trim().toLowerCase();if(!st&&ty&&p.dataset.k.split(' ').indexOf(ty)<0)return false;if(!sg&&g&&p.dataset.g.split('|').indexOf(g)<0)return false;return!kw||p.dataset.t.indexOf(kw)>=0}\n"
       + "function save(){try{sessionStorage.setItem(K.ty,ty);sessionStorage.setItem(K.g,g);sessionStorage.setItem(K.q,q.value)}catch(_){}}\n"
       + "function render(){const kw=q.value.trim().toLowerCase();let n=0;\n"
-      + "ps.forEach(p=>{const on=hit(p);p.hidden=!on;if(!on)return;n++;const r=p.querySelector('.rk');r.textContent=n;r.classList.toggle('top',n<=3);\n"
-      + "const all=kw&&p.dataset.pt.indexOf(kw)>=0;let c=0;p.querySelectorAll('.pks li').forEach(li=>{const v=(!g||li.dataset.g===g)&&(!kw||all||li.dataset.t.indexOf(kw)>=0);li.hidden=!v;if(v)c++});p.querySelector('.pkc .n').textContent=c});\n"
+      + "ps.forEach(p=>{const on=hit(p);p.hidden=!on;if(!on)return;n++;const r=p.querySelector('.rk');r.textContent=n;r.classList.toggle('top',n<=3)\n"
+      + "});\n"
       + "em.hidden=n>0;\n"
       + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=ps.filter(p=>hit(p,true)&&(v===''||p.dataset.k.split(' ').indexOf(v)>=0)).length});\n"
       + "document.querySelectorAll('[data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=ps.filter(p=>hit(p,false,true)&&(v===''||p.dataset.g.split('|').indexOf(v)>=0)).length})}\n"
@@ -297,10 +296,43 @@ if (skillData) {
   fs.mkdirSync(path.join(OUT, 'skill'), { recursive: true });
   fs.writeFileSync(path.join(OUT, 'skill', 'index.html'), skillPage);
   // 詳細頁：完整中文說明、什麼時候用、原文、貼文裡提到過的 Day、來源連結
+  const backJs = (a, b) => "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='" + a + "'||r.pathname==='" + b + "')){history.back();return false}}catch(e){}";
+  let packPageN = 0;
+  const packHasPage = (p) => packSkills(p).length > 1;
+  for (const p of packs) {
+    if (!packHasPage(p)) continue;
+    const list = packSkills(p);
+    const secs = groups.map((g) => ({ g, items: list.filter((s) => s.group === g) })).filter((x) => x.items.length);
+    const html = page({
+      title: p.name + '｜Skill｜Claude Code Everyday',
+      desc: packZh[p.repo],
+      depth: '../../',
+      active: 'skill',
+      body: '<header class="top slim skdh"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
+        + '<article class="skd">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
+        + '<div class="tags">' + (p.plugin ? '<span class="tg">Plugin</span>' : '') + (p.hook ? '<span class="tg">Hook</span>' : '') + '<span class="ska">AI翻譯</span></div>\n'
+        + '<p class="lede">' + esc(packZh[p.repo]) + '</p>\n'
+        + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span><a href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a></p>\n'
+        + '<div class="pkt pq"><input id="q" type="search" placeholder="搜尋這個包的 skill" autocomplete="off"></div>\n'
+        + secs.map((x) => '<section class="psec"><h2>' + esc(x.g) + ' <small>' + x.items.length + '</small></h2><ul class="prow">'
+          + x.items.map((s) => '<li data-t="' + esc((s.name + ' ' + s.say).toLowerCase()) + '"><a href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span></a></li>').join('') + '</ul></section>').join('\n')
+        + '\n<p class="empty" id="empty" hidden>沒有符合的 skill</p>\n</article>\n'
+        + '<script>\n'
+        + "const q=document.getElementById('q'),em=document.getElementById('empty');\n"
+        + "q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.psec').forEach(s=>{let c=0;s.querySelectorAll('li').forEach(li=>{const v=!kw||li.dataset.t.indexOf(kw)>=0;li.hidden=!v;if(v)c++});s.hidden=!c;n+=c});em.hidden=n>0})\n"
+        + '</script>',
+    });
+    const dir = path.join(OUT, 'skill', p.src);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    packPageN++;
+  }
+  console.log('來源包專屬頁 ' + packPageN + ' 頁');
   const BACK_SKILL = "try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&(r.pathname==='/skill/'||r.pathname==='/skill')){history.back();return false}}catch(e){}";
   const reFor = (n) => { const e = n.replace(/[.*+?^$()|[\]\\{}-]/g, '\\$&'); return n.includes('-') ? new RegExp('(?<![A-Za-z0-9-])' + e + '(?![A-Za-z0-9-])', 'i') : new RegExp('(/|`)' + e + '(?![A-Za-z0-9-])'); };
   const relPosts = (s) => { const re = reFor(s.name); return posts.filter((p) => re.test((p.body || '') + '\n' + (p.cta || ''))); };
   let detailN = 0, relN = 0;
+  const pkOf = (s) => srcPack[s.src];
   for (const s of sk) {
     const rel = relPosts(s);
     if (rel.length) relN++;
@@ -311,10 +343,10 @@ if (skillData) {
       desc: s.say.slice(0, 110),
       depth: '../../../',
       active: 'skill',
-      body: '<header class="top slim skdh"><a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a></header>\n'
+      body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
         + '<article class="skd">\n'
         + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
-        + '<div class="tags"><span class="tg">' + esc(s.group) + '</span><span class="tg">' + esc(s.src) + '</span>' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
+        + '<div class="tags"><span class="tg">' + esc(s.group) + '</span>' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + '' + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
         + '<p class="lede"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>\n'
         + (s.when ? '<section><h2>什麼時候用</h2><p>' + esc(s.when) + '</p></section>\n' : '')
         + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
