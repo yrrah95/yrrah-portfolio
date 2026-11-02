@@ -346,8 +346,8 @@ if (skillData) {
       desc: zhOf(p).slice(0, 110),
       depth: '../../',
       active: 'skill',
-      body: '<header class="top slim skdh"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
-        + '<article class="skd">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
+      body: '<header class="top slim skdh skph"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
+        + '<article class="skd skp">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
         + '<div class="tags">' + (p.plugin ? '<span class="tg">Plugin</span>' : '') + (isZh(p) ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
         + '<p class="lede"' + (isZh(p) ? '' : ' lang="en"') + '>' + esc(zhOf(p)) + '</p>\n'
         + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
