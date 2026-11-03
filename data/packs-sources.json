@@ -338,7 +338,7 @@
       "src": "x-nvidia-skillspector",
       "repo": "NVIDIA/SkillSpector",
       "name": "SkillSpector",
-      "fetchSkills": true
+      "countOnly": true
     },
     {
       "src": "x-affaan-m-ecc",

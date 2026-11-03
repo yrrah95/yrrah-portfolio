@@ -262,7 +262,9 @@ if (skillData) {
   // 新收錄 skill 的功能分類（AI 依中文說明判斷，只能選現有功能名）：data/skill-groups.json，鍵＝來源/名稱
   const GRP_FILE = path.join(here, 'data', 'skill-groups.json');
   const skillGrp = fs.existsSync(GRP_FILE) ? JSON.parse(fs.readFileSync(GRP_FILE, 'utf8')) : {};
-  sk.forEach((s) => { const g = skillGrp[s.src + '/' + s.name]; if (s.group === UNSORTED && g && skillData.groups.includes(g)) s.group = g; });
+  // 功能分類清單：原有的（來自工作站）加上網站新增的兩類，「其他」留在最後（沒有成員就不顯示）
+  const GROUPS = skillData.groups.filter((g) => g !== '其他').concat(['科學研究', '財務與創業'], ['其他']);
+  sk.forEach((s) => { const g = skillGrp[s.src + '/' + s.name]; if (s.group === UNSORTED && g && GROUPS.includes(g)) s.group = g; });
   if (process.env.DUMP_UNSORTED) fs.writeFileSync(process.env.DUMP_UNSORTED, JSON.stringify(sk.filter((s) => s.group === UNSORTED).map((s) => ({ k: s.src + '/' + s.name, name: s.name, say: s.say, pack: srcPack[s.src].name }))));
   console.log('還沒分類的 skill：' + sk.filter((s) => s.group === UNSORTED).length + ' / ' + sk.length);
   console.log('仍是英文原文的 skill：' + sk.filter((s) => s.en).length + ' / ' + sk.length);
@@ -278,8 +280,8 @@ if (skillData) {
   if (droppedSk.length) console.log('略過 ' + droppedSk.length + ' 個不在來源包內的 skill：' + droppedSk.map((s) => s.src + '/' + s.name).join('、'));
   const gc = {}, ac = {};
   sk.forEach((s) => { gc[s.group] = (gc[s.group] || 0) + 1; ac[s.src] = (ac[s.src] || 0) + 1; });
-  const groups = skillData.groups.filter((g) => gc[g]);
-  const groupOrder = skillData.groups.concat([UNSORTED]);
+  const groups = GROUPS.filter((g) => gc[g]);
+  const groupOrder = GROUPS.concat([UNSORTED]);
   const authors = Object.keys(ac);
   const wan = (n) => (n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 萬' : String(n));
   const packSkills = (p) => sk.filter((s) => srcPack[s.src] === p);
