@@ -78,7 +78,9 @@ const beacon = BEACON
 const BUILT = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10); // 網站建置日（台灣時間）
 const ARROW = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
 const navHtml = (depth, active) => `<nav class="nav"><div class="in"><a class="brand" href="${depth || './'}" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="${depth}logo-dark.png"><img src="${depth}logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="${depth || './'}"${active === 'posts' ? ' aria-current="page"' : ''}>Tips</a><a href="${depth}skill/"${active === 'skill' ? ' aria-current="page"' : ''}>Skill</a><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads ${ARROW}</a></div></div></nav>`;
-const footHtml = `<footer class="foot"><div class="in"><span>Claude Code Everyday｜每天一個 Claude Code 用法</span><span class="r"><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads @yrrah9_ ${ARROW}</a><span>網站更新於 ${BUILT}</span></span></div></footer>`;
+// CTA 留言最後一行是這一頁自己的網址，放在自己的頁面上是多餘的
+const ctaShown = (p) => (p.cta || '').replace(/\s*https?:\/\/[^\s/]+\/d\/\d+\/?\s*$/, '').trim();
+const footHtml = `<footer class="foot"><div class="in"><span class="r"><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads @yrrah9_ ${ARROW}</a><span>網站更新於 ${BUILT}</span></span></div></footer>`;
 const page = ({ title, desc, body, depth, active = 'posts' }) => `<!doctype html>
 <html lang="zh-Hant">
 <head>
@@ -196,23 +198,21 @@ function carousel(p) {
   const n = imgs.length;
   const slides = imgs.map((u, i) => `<img src="${u}" alt="Day ${p.day} 第 ${i + 1} 張" ${i ? 'loading="lazy"' : ''}>`).join('');
   if (n === 1) return `<div class="car one"><div class="track">${slides}</div></div>`;
-  const dots = imgs.map((_, i) => `<button type="button" aria-label="第 ${i + 1} 張"${i ? '' : ' class="on"'}></button>`).join('');
   return `<div class="car" data-n="${n}" tabindex="0" aria-roledescription="carousel" aria-label="Day ${p.day} 圖卡">
   <div class="track">${slides}</div>
   <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
   <button type="button" class="nav next" aria-label="下一張">›</button>
-  <div class="bar"><span class="count">1 / ${n}</span><span class="dots">${dots}</span></div>
+  <div class="bar"><span class="count">1 / ${n}</span></div>
 </div>
 <script>
-(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),ds=c.querySelectorAll('.dots button'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=ds.length;
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=+c.dataset.n;
 var want=null;
 function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
 function base(){return want===null?cur():want}
 function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
-t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ds.forEach(function(d,k){d.classList.toggle('on',k===i)});ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
 ['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
 pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
-ds.forEach(function(d,k){d.onclick=function(){go(k)}});
 c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
 })();
 </script>`;
@@ -294,7 +294,7 @@ if (skillData) {
     const pt = (p.name + ' ' + zhOf(p) + ' ' + p.repo).toLowerCase();
     const ext = list.length === 0;
     const link = ext ? esc(p.url) + '" target="_blank" rel="noopener' : (list.length > 1 ? esc(p.src) + '/' : esc(list[0].src) + '/' + esc(list[0].name) + '/');
-    return '<li class="pk" data-g="' + esc(gs.join('|')) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name).join(' ').toLowerCase()) + '"><a class="pkl" href="' + link + '"><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code><span class="kd">Plugin</span>' + (isZh(p) ? '<span class="ska">AI翻譯</span>' : '') + '</span>'
+    return '<li class="pk" data-g="' + esc(gs.join('|')) + '" data-t="' + esc(pt + ' ' + list.map((s) => s.name).join(' ').toLowerCase()) + '"><a class="pkl" href="' + link + '"><span class="rk" aria-hidden="true"></span><span class="pkb"><span class="pkn"><code>' + esc(p.name) + '</code></span>'
       + '<span class="pkd"' + (isZh(p) ? '' : ' lang="en"') + '>' + esc(zhOf(p)) + '</span><span class="heat" aria-hidden="true"><i style="width:' + Math.max(2, Math.round(p.stars / maxStars * 100)) + '%"></i></span></span>'
       + '<span class="pkr"><span class="stv"><b>★</b> ' + wan(p.stars) + '</span><span class="pkc"><span class="n">' + nOf(p) + '</span> 個 skill' + (ext ? ' ' + ARROW : '') + '</span></span></a></li>';
   }).join('\n');
@@ -307,7 +307,7 @@ if (skillData) {
     desc: sk.length + ' 個 Claude Code skill 與 ' + pluginPacks.length + ' 個 plugin。',
     depth: '../',
     active: 'skill',
-    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">只收熱門專案（1 萬星以上、近一年有更新）。有中文的是 AI 翻譯，以原文為準；還沒翻譯的顯示英文原文。不保證安全，安裝前請自己看過內容。</p></header>\n'
+    body: '<header class="top home"><h1 class="sr">Skill</h1><p class="lead">只收熱門專案（1 萬星以上、近一年有更新）。中文為 AI 翻譯，不保證安全，安裝前請自己看過內容。</p></header>\n'
       + '<div class="cw">' + rail + '<div class="cmain"><div class="pkt"><input id="q" type="search" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off"></div>\n'
       + '<div id="sv"><div class="crows" id="sl"></div><nav class="pager" id="pg" aria-label="分頁" hidden></nav></div>\n'
       + '<div id="pv" hidden><ol class="pklist" id="grid">' + rows + '</ol></div>\n'
@@ -364,7 +364,7 @@ if (skillData) {
       active: 'skill',
       body: '<header class="top slim skdh skph"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
         + '<article class="skd skp">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
-        + '<div class="tags">' + (p.plugin ? '<span class="tg">Plugin</span>' : '') + (isZh(p) ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
+        + (isZh(p) ? '<div class="tags"><span class="ska">AI翻譯</span></div>\n' : '')
         + '<p class="lede"' + (isZh(p) ? '' : ' lang="en"') + '>' + esc(zhOf(p)) + '</p>\n'
         + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
         + '<a class="gh" href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a>\n'
@@ -397,7 +397,6 @@ if (skillData) {
     const p = pkOf(s); if (!p) return '';
     const it = [];
     if (s.inst) it.push('<div><dt>安裝次數</dt><dd class="hot">' + bigN(s.inst) + '</dd></div>');
-    it.push('<div><dt>所屬包星數</dt><dd>' + bigN(p.stars) + ' <small>★</small></dd></div>');
     it.push('<div><dt>授權</dt><dd>' + esc(p.license || '未標示') + '</dd></div>');
     it.push('<div><dt>包最近更新</dt><dd>' + esc(p.pushed) + '</dd></div>');
     return '<dl class="facts">' + it.join('') + '</dl>\n';
@@ -410,7 +409,7 @@ if (skillData) {
   const installHtml = (s) => {
     const p = pkOf(s); if (!p || !s.inst) return '';
     const cmd = 'npx skills add ' + p.url + ' --skill ' + (ALIAS[s.name] || s.dir || s.name);
-    return '<section><h2>怎麼裝</h2><div class="cmd"><code class="mono">' + esc(cmd) + '</code><button type="button" data-copy>複製</button></div><p class="note">裝進你的 Claude Code。這個網站不保證安全，裝之前先看過原文。</p></section>\n';
+    return '<section><h2>怎麼裝</h2><div class="cmd"><code class="mono">' + esc(cmd) + '</code><button type="button" data-copy>複製</button></div></section>\n';
   };
   const COPY_JS = '<script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var c=b.parentNode.querySelector("code");function ok(){b.textContent="已複製";setTimeout(function(){b.textContent="複製"},1500)}function sel(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="請按 Ctrl+C"}try{navigator.clipboard.writeText(c.textContent).then(ok,sel)}catch(e){sel()}})})</script>';
   for (const s of sk) {
@@ -433,9 +432,9 @@ if (skillData) {
         + (vsx.when || s.when ? '<section><h2>什麼時候用</h2><p class="when">' + esc(vsx.when || s.when) + '</p></section>\n' : '')
         + vsHtml(vsx)
         + installHtml(s)
-        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p><p class="orig-note">原作者的說明，以原文為準。</p></section>\n' : '')
+        + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
         + (rel.length ? '<section><h2>相關貼文</h2><ul class="rel">' + rel.map((p) => '<li><a href="../../../d/' + p.day + '/"><span class="day">Day ' + p.day + '</span>' + esc(p.title) + '</a></li>').join('') + '</ul></section>\n' : '')
-        + '<div class="go">' + (s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a>' : '') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="sub" href="../../' + esc(pkOf(s).src) + '/">看 ' + esc(pkOf(s).name) + ' 的 ' + packSkills(pkOf(s)).length + ' 個 skill</a>' : '') + '</div>\n'
+        + (s.url ? '<div class="go"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a></div>\n' : '')
         + COPY_JS
         + '</article>',
     });
@@ -465,7 +464,7 @@ posts.forEach((p, i) => {
   </div>
   ${carousel(p)}
   <div class="act">
-    ${p.cta ? `<pre class="cta">${esc(p.cta)}</pre>` : ''}
+    ${ctaShown(p) ? `<pre class="cta">${esc(ctaShown(p))}</pre>` : ''}
     <p class="src"><a href="${esc(p.permalink || PROFILE_URL)}" rel="noopener">${p.permalink ? '在 Threads 看原文' : '到 Threads 追蹤 @yrrah9_'}</a></p>
   </div>
   ${explainHtml(p.day)}
