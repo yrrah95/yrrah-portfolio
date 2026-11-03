@@ -41,10 +41,10 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 /batch 後面接你要改的事
 
 要在 git 專案裡用 它會先給你看計畫</pre>
+    
     <p class="src"><a href="https://www.threads.com/@yrrah9_/post/De38KnECYhM" rel="noopener">在 Threads 看原文</a></p>
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>/batch</code> 是 Claude Code 內建的指令。<br>一個改法要套到很多檔案時，打它。<br>它先把大改動拆成 5 到 30 份，你點頭才開始做。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>在 git 專案裡打開 Claude Code。</li><li>輸入 <code>/batch</code>，後面接你要改的事。</li><li>看它列出的計畫，同意才開始動工。</li></ol><p>它適合能拆成獨立小塊的大改動。<br>範例：整個 <code>src/</code> 從 JS 改成 TS。</p></div><div class="ex"><h2>它怎麼做</h2><ol><li>先調查：讀過你的程式，拆成 5 到 30 份獨立的工作。</li><li>給你看：列出計畫，你同意才開始動工。</li><li>分頭做：每一份派一個背景 agent，各用獨立工作區。</li><li>各收尾：每份自己改、自己跑測試，再送出變更。</li></ol></div></section>
-  
   <nav class="pn"><a href="../99/">← Day 99</a><a href="../101/">Day 101 →</a></nav>
 </article>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>

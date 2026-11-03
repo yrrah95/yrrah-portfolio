@@ -43,10 +43,10 @@ claude update
 
 再到 ~/.claude/settings.json 的大括號裡加一行:
 &quot;attribution&quot;: false</pre>
+    
     <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>叫 Claude Code 幫你 commit。<br>每一筆最後都會自動多一行 Co-Authored-By 署名。<br>新版有一行設定，把 commit 和 PR 的署名一起關掉。</p></div><div class="ex"><h2>它預設會加什麼</h2><ul><li>commit：最後一行 Co-Authored-By。</li><li>署名寫誰：你當下在用的那個模型。</li><li>PR 說明：最後一行寫是 Claude Code 產的。</li><li>雲端與遠端控制：commit 還附對話連結。</li></ul><p>出處是官方設定文件的 attribution 節。</p></div><div class="ex"><h2>以前和現在</h2><ul><li>以前：<code>commit</code> 設空字串，<code>pr</code> 設空字串，<code>sessionUrl</code> 關掉。</li><li>2.1.281 起：一行設成 <code>false</code>。三個一次關掉。效果完全一樣。</li></ul></div><div class="ex"><h2>怎麼關掉</h2><ol><li>打 <code>claude update</code>，更新到 2.1.281 以上。舊版會跳過整份設定。</li><li>打開 <code>~/.claude/settings.json</code>。</li><li>在大括號裡加 <code>&quot;attribution&quot;: false</code>。</li><li>叫它 commit 一次，確認最後那行署名不見了。</li></ol></div></section>
-  
   <nav class="pn"><a href="../69/">← Day 69</a><a href="../71/">Day 71 →</a></nav>
 </article>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>

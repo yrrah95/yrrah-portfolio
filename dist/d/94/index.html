@@ -41,10 +41,10 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
 claude -p &quot;git rebase 跟 git merge 差在哪？&quot; --append-system-prompt &quot;回答一律三行以內，每行不超過 20 個字&quot;
 
 問題和規則換成你自己的</pre>
+    
     <p class="src"><a href="https://www.threads.com/@yrrah9_/post/Deoe9_RCUqp" rel="noopener">在 Threads 看原文</a></p>
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>--append-system-prompt</code> 是 Claude Code 的旗標。<br>它在打開時臨時加一條規則。<br>貼文說：同一題的回答從 77 行變 3 行。<br>不用改 <code>CLAUDE.md</code>。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>輸入 <code>claude -p</code>。</li><li>接上你的問題，例如 <code>git rebase 跟 git merge 差在哪</code>。</li><li>接上旗標 <code>--append-system-prompt</code>。</li><li>接上規則，例如 <code>回答一律三行以內，每行不超過 20 個字</code>。</li></ol><p>原本的規矩都在，只多這一條。<br>長規則放進檔案，旗標後面加 <code>-file</code>。</p></div><div class="ex"><h2>怎麼測</h2><ul><li>沒加旗標：回答共 77 行，開頭先說差別在怎麼處理歷史紀錄。</li><li>加了旗標：回答只有 3 行。</li><li>merge 保留分支歷史，多一個 merge commit。</li><li>rebase 把 commit 接到新基底，歷史線性。</li><li>已 push 的共用分支勿 rebase。</li></ul></div><div class="ex"><h2>注意</h2><ul><li>這條規則只管這次打開。開新對話沒加，就沒有這條。</li><li>少了 append 的 <code>--system-prompt</code> 是整個換掉。</li><li>每次都要的規則，寫進 <code>CLAUDE.md</code> 比較省事。</li></ul></div></section>
-  
   <nav class="pn"><a href="../93/">← Day 93</a><a href="../95/">Day 95 →</a></nav>
 </article>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>
