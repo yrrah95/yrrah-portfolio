@@ -15,7 +15,7 @@
 <h1><code>/cavecrew</code></h1>
 <div class="tags"><span class="tg">輸出風格</span><a class="tg" href="../../caveman/">caveman</a><span class="ska">AI翻譯</span></div>
 <p class="lede">什麼時候該把工作丟給 caveman 風格的子 agent（找程式碼／小修改／審 diff）</p>
-<dl class="facts"><div><dt>安裝次數</dt><dd class="hot">36.7 萬</dd></div><div><dt>授權</dt><dd>Apache-2.0</dd></div><div><dt>包最近更新</dt><dd>2026-11-02</dd></div></dl>
+<dl class="facts"><div><dt>安裝次數</dt><dd class="hot">36.7 萬</dd></div><div><dt>專案星數</dt><dd>11.7 萬 <small>★</small></dd></div><div><dt>授權</dt><dd>Apache-2.0</dd></div><div><dt>專案更新</dt><dd>2026-11-02</dd></div></dl>
 <section><h2>什麼時候用</h2><p class="when">context 快滿了，想把雜活外包出去</p></section>
 <section><h2>怎麼裝</h2><div class="cmd"><code class="mono">npx skills add https://github.com/JuliusBrussee/caveman --skill cavecrew</code><button type="button" data-copy>複製</button></div></section>
 <section><h2>原文</h2><p class="orig" lang="en">Decision guide for delegating to caveman-style subagents. Tells the main thread WHEN to spawn `cavecrew-investigator` (locate code), `cavecrew-builder` (1-2 file edit), or `cavecrew-reviewer` (diff review) instead of doing the work inline or using vanilla `Explore`. Subagent output is caveman-compressed so the tool-result injected back into main context is ~60% smaller — main context lasts longer across long sessions. Trigger: &quot;delegate to subagent&quot;, &quot;use cavecrew&quot;, &quot;spawn investigator/builder/reviewer&quot;, &quot;save context&quot;, &quot;compressed agent output&quot;.</p></section>

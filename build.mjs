@@ -397,8 +397,9 @@ if (skillData) {
     const p = pkOf(s); if (!p) return '';
     const it = [];
     if (s.inst) it.push('<div><dt>安裝次數</dt><dd class="hot">' + bigN(s.inst) + '</dd></div>');
+    it.push('<div><dt>專案星數</dt><dd>' + bigN(p.stars) + ' <small>★</small></dd></div>');
     it.push('<div><dt>授權</dt><dd>' + esc(p.license || '未標示') + '</dd></div>');
-    it.push('<div><dt>包最近更新</dt><dd>' + esc(p.pushed) + '</dd></div>');
+    it.push('<div><dt>專案更新</dt><dd>' + esc(p.pushed) + '</dd></div>');
     return '<dl class="facts">' + it.join('') + '</dl>\n';
   };
   const vsHtml = (x) => {
