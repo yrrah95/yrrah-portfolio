@@ -259,6 +259,12 @@ if (skillData) {
   const zhKey = (s) => s.src + '/' + s.name + '|' + crypto.createHash('md5').update(s.say).digest('hex').slice(0, 8);
   sk.forEach((s) => { const z = skillZh[zhKey(s)]; if (z) { s.say = z; s.ai = true; s.en = false; } });
   if (process.env.DUMP_EN) fs.writeFileSync(process.env.DUMP_EN, JSON.stringify(sk.filter((s) => s.en).map((s) => ({ k: zhKey(s), en: s.say })), null, 0));
+  // 新收錄 skill 的功能分類（AI 依中文說明判斷，只能選現有功能名）：data/skill-groups.json，鍵＝來源/名稱
+  const GRP_FILE = path.join(here, 'data', 'skill-groups.json');
+  const skillGrp = fs.existsSync(GRP_FILE) ? JSON.parse(fs.readFileSync(GRP_FILE, 'utf8')) : {};
+  sk.forEach((s) => { const g = skillGrp[s.src + '/' + s.name]; if (s.group === UNSORTED && g && skillData.groups.includes(g)) s.group = g; });
+  if (process.env.DUMP_UNSORTED) fs.writeFileSync(process.env.DUMP_UNSORTED, JSON.stringify(sk.filter((s) => s.group === UNSORTED).map((s) => ({ k: s.src + '/' + s.name, name: s.name, say: s.say, pack: srcPack[s.src].name }))));
+  console.log('還沒分類的 skill：' + sk.filter((s) => s.group === UNSORTED).length + ' / ' + sk.length);
   console.log('仍是英文原文的 skill：' + sk.filter((s) => s.en).length + ' / ' + sk.length);
   const INST_FILE = path.join(here, 'data', 'installs.json');
   const instData = fs.existsSync(INST_FILE) ? JSON.parse(fs.readFileSync(INST_FILE, 'utf8')) : { fetched: '', installs: {} };
