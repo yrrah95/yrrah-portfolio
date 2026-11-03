@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T02:50:40.456Z",
+  "title": "Design System: Claude Code Everyday",
+  "extensions": {
+    "colorMeta": {
+      "stamp-orange": {
+        "role": "primary",
+        "displayName": "印章橘紅（淺色）",
+        "canonical": "#b04a28",
+        "tonalRamp": [
+          "#35160c",
+          "#5d2715",
+          "#85381e",
+          "#ad4927",
+          "#c17156",
+          "#d39a87",
+          "#e5c4b8",
+          "#f7edea"
+        ]
+      },
+      "night-stamp-orange": {
+        "role": "primary",
+        "displayName": "印章橘紅（深色）",
+        "canonical": "#e08a66",
+        "tonalRamp": [
+          "#43291f",
+          "#764936",
+          "#aa684d",
+          "#dd8865",
+          "#e7a387",
+          "#eebeaa",
+          "#f5d9cd",
+          "#fcf3f0"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "米色紙",
+        "canonical": "#f6f1e6",
+        "tonalRamp": [
+          "#4a4845",
+          "#827f7a",
+          "#bab6ae",
+          "#f2eee3",
+          "#f8f4eb",
+          "#faf7f1",
+          "#fcfaf7",
+          "#fefefd"
+        ]
+      },
+      "paper-card": {
+        "role": "neutral",
+        "displayName": "卡片紙",
+        "canonical": "#fbf8f0",
+        "tonalRamp": [
+          "#4b4a48",
+          "#85837f",
+          "#bebcb6",
+          "#f7f4ed",
+          "#fcfaf3",
+          "#fdfbf7",
+          "#fefdfa",
+          "#fffefe"
+        ]
+      },
+      "paper-code": {
+        "role": "neutral",
+        "displayName": "程式碼紙",
+        "canonical": "#ece5d3",
+        "tonalRamp": [
+          "#47453f",
+          "#7d7970",
+          "#b3ada0",
+          "#e9e2d0",
+          "#f0ebdc",
+          "#f4f1e6",
+          "#f9f6f1",
+          "#fdfcfb"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "墨色",
+        "canonical": "#201f1a",
+        "tonalRamp": [
+          "#0a0908",
+          "#11100e",
+          "#181714",
+          "#201f1a",
+          "#504f4b",
+          "#83827f",
+          "#b6b5b4",
+          "#e9e9e8"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "灰墨",
+        "canonical": "#6b6558",
+        "tonalRamp": [
+          "#201e1a",
+          "#39352f",
+          "#514c43",
+          "#696457",
+          "#8b867c",
+          "#ada9a2",
+          "#ceccc8",
+          "#f0f0ee"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "細線",
+        "canonical": "#e0d8c6",
+        "tonalRamp": [
+          "#43413b",
+          "#767269",
+          "#aaa496",
+          "#ddd5c3",
+          "#e7e0d2",
+          "#eee9df",
+          "#f5f2ec",
+          "#fcfbf9"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "暖黑",
+        "canonical": "#1c1b17",
+        "tonalRamp": [
+          "#080807",
+          "#0f0e0c",
+          "#151411",
+          "#1c1b17",
+          "#4d4c49",
+          "#81807e",
+          "#b4b4b3",
+          "#e8e8e8"
+        ]
+      },
+      "night-card": {
+        "role": "neutral",
+        "displayName": "暖黑卡片",
+        "canonical": "#25241f",
+        "tonalRamp": [
+          "#0b0b09",
+          "#141310",
+          "#1c1b17",
+          "#24231f",
+          "#54534f",
+          "#868582",
+          "#b7b7b5",
+          "#e9e9e9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Skill 詳細頁的 skill 名稱。"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "頁面主標題。"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "貼文標題、套件名稱、排名數字。"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "內文與貼文全文，長文行高 1.8。"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "區塊小標、日期、標籤、數字說明。"
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "skill 名稱與安裝指令，等寬。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "dropdown",
+        "value": "0 8px 24px rgba(0,0,0,.28)",
+        "purpose": "排序下拉選單，浮在列表上方。"
+      },
+      {
+        "name": "floating-button",
+        "value": "0 2px 10px rgba(0,0,0,.3)",
+        "purpose": "回到頂端按鈕。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "hover-border",
+        "value": "border-color .15s",
+        "purpose": "卡片與列表 hover 時框線變化。"
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition-duration: .01ms",
+        "purpose": "系統設定「減少動態」時關閉過場。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-narrow",
+        "value": "520px"
+      },
+      {
+        "name": "phone",
+        "value": "560px"
+      },
+      {
+        "name": "tablet",
+        "value": "760px"
+      },
+      {
+        "name": "desktop",
+        "value": "860px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "主要動作（到 GitHub 看原文、看專案）。",
+      "html": "<a class=\"ds-btn\" href=\"#\">到 GitHub 看原文 ↗</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);text-decoration:none;font-weight:700}.ds-btn:hover{background:var(--accent);color:var(--bg)}.ds-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "分類或來源套件的藥丸標籤。",
+      "html": "<span class=\"ds-tag\">想清楚要做什麼</span>",
+      "css": ".ds-tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 12px;line-height:26px;font-size:14px;color:var(--mute)}"
+    },
+    {
+      "name": "Facts Grid",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "詳細頁的四格數字：安裝次數、專案星數、授權、專案更新。",
+      "html": "<dl class=\"ds-facts\"><div><dt>安裝次數</dt><dd class=\"hot\">150 萬</dd></div><div><dt>授權</dt><dd>MIT</dd></div></dl>",
+      "css": ".ds-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin:0;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}.ds-facts div{background:var(--card);padding:12px 14px}.ds-facts dt{font-size:14px;color:var(--mute);line-height:1.4}.ds-facts dd{margin:2px 0 0;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}.ds-facts .hot{color:var(--accent)}"
+    },
+    {
+      "name": "Command Box",
+      "kind": "input",
+      "refersTo": "command-box",
+      "description": "可複製的安裝指令。",
+      "html": "<div class=\"ds-cmd\"><code>npx skills add https://github.com/mattpocock/skills --skill grill-me</code><button type=\"button\">複製</button></div>",
+      "css": ".ds-cmd{display:flex;border:1px solid var(--line);border-radius:10px;background:var(--code);overflow:hidden}.ds-cmd code{flex:1;min-width:0;padding:12px 14px;font:14px/1.6 ui-monospace,Consolas,monospace;overflow-x:auto;white-space:nowrap}.ds-cmd button{border:0;border-left:1px solid var(--line);background:transparent;color:var(--accent);font:inherit;font-weight:700;padding:0 16px;cursor:pointer}.ds-cmd button:hover{background:var(--line)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Paper Archive（紙本索引卡）",
+    "overview": "一個把 Threads 短貼文和 skill 清單整理成可以翻找的索引卡的網站。米色紙、細線、深墨色字，只有一種橘紅像印章一樣蓋在重要的數字和連結上。",
+    "keyCharacteristics": [
+      "暖米色（淺）與暖黑（深）兩套完整配色",
+      "單一點綴色：橘紅",
+      "平面為主，靠細線與底色差分層",
+      "只用系統字，不載入網路字體",
+      "固定字級階梯"
+    ],
+    "rules": [
+      {
+        "name": "The One Stamp Rule",
+        "body": "橘紅出現的地方，是這一頁最值得看的東西。",
+        "section": "colors"
+      },
+      {
+        "name": "The Both Themes Rule",
+        "body": "每個新顏色同時定義淺色與深色，走 token，文字對比度 4.5:1 以上。",
+        "section": "colors"
+      },
+      {
+        "name": "The No New Size Rule",
+        "body": "想要新字級，先確認既有九階是否不夠。",
+        "section": "typography"
+      },
+      {
+        "name": "The Measure Rule",
+        "body": "長文行寬限制在約 34em。",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "會對齊比較的數字一律 tabular-nums。",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "靜止時沒有陰影；只有浮動元件有。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "所有顏色走 token，淺深兩個值同時定義",
+      "字級走 --fs-*、內容寬度走 --wrap",
+      "互動元素的可點高度至少 40px",
+      "長文加 text-wrap: pretty，標題加 balance",
+      "同一個說法在整個網站只說一次"
+    ],
+    "donts": [
+      "引入網路字體或第二個字族",
+      "用 800 或 600 字重",
+      "在元件裡寫死色碼或 px 字級",
+      "用 kicker、漸層字、單側粗彩色邊框、巢狀卡片",
+      "用陰影分層",
+      "為了看起來完整而加說明字"
+    ]
+  }
+}

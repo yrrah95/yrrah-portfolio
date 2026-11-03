@@ -72,8 +72,10 @@ function imagesFor(day, r) {
   return files.map((f) => RAW + f);
 }
 
+// 量測碼只在正式站網址載入：預覽分支（demo-*.pages.dev）、本機預覽、別人另存的頁面都不會灌進數據
+const PROD_HOST = 'yrrah-5i5.pages.dev';
 const beacon = BEACON
-  ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${esc(BEACON)}"}'></script>`
+  ? `<script>if(location.hostname==='${PROD_HOST}'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"${esc(BEACON)}"}';document.head.appendChild(s)}</script>`
   : '';
 const BUILT = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10); // 網站建置日（台灣時間）
 const ARROW = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
