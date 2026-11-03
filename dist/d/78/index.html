@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Day 78｜Claude 做長任務的時候 旁邊可以多一個 agent 盯著</title>
 <meta name="description" content="Claude 做長任務的時候 旁邊可以多一個 agent 盯著">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 78｜Claude 做長任務的時候 旁邊可以多一個 agent 盯著">
+<meta property="og:description" content="Claude 做長任務的時候 旁邊可以多一個 agent 盯著">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D78/01-cover.png">
 <link rel="stylesheet" href="../../style.css">
 <script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
 </head>
 <body>
+<a class="skip" href="#main">跳到內容</a>
 <nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
 <header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post">
+<main id="main"><article class="post">
   <div class="head">
     <h1><span class="day">Day 78</span>Claude 做長任務的時候 旁邊可以多一個 agent 盯著</h1>
     <time>2026-10-02</time>
@@ -43,7 +48,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p>You should know 是 Claude Code 的內建外掛。<br>Claude 做長任務時，旁邊多一個 agent 盯著。<br>它發現你漏看的事，會在輸入框上面提醒你。<br>它是內建外掛，不用另外安裝。</p></div><div class="ex"><h2>提醒分兩種</h2><ul><li>You should know：某個東西怎麼運作，跟你有關。</li><li>Heads up：這次工作裡要小心的事。</li><li>Heads up 包括 Claude 做的決定，和結果有誤的情況。</li></ul></div><div class="ex"><h2>怎麼打開</h2><ol><li>外掛預設是關的。要自己打開。</li><li>在 Claude Code 裡打 <code>/plugin enable cc-plugin-you-should-know@builtin</code>。</li><li>找不到時，到 <code>/plugin</code> 的 Installed 頁。</li><li>在那一頁選 Show disabled。</li></ol></div><div class="ex"><h2>打開之前</h2><ul><li>版本要 2.1.287 以上。</li><li>條件是 first-party 且遙測開著。</li><li>組織沒開放就看不到。</li><li>要關掉，在 <code>/plugin</code> 裡 disable 它。</li></ul></div></section>
   <nav class="pn"><a href="../77/">← Day 77</a><a href="../79/">Day 79 →</a></nav>
-</article>
+</article></main>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>

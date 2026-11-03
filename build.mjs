@@ -97,17 +97,22 @@ const ctaHtml = (p) => {
   return '<div class="inst"><p class="insl">' + esc(lines[0]) + '</p><div class="cmd"><code class="mono ml">' + esc(cmd) + '</code><button type="button" data-copy>複製</button></div></div>' + (rest ? '<pre class="cta">' + esc(rest) + '</pre>' : '');
 };
 const footHtml = `<footer class="foot"><div class="in"><span class="r"><a href="${PROFILE_URL}" rel="noopener" target="_blank">Threads @yrrah9_ ${ARROW}</a><span>網站更新於 ${BUILT}</span></span></div></footer>`;
-const page = ({ title, desc, body, depth, active = 'posts' }) => `<!doctype html>
+const page = ({ title, desc, body, depth, active = 'posts', img = '' }) => `<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(desc)}">${img ? `
+<meta property="og:image" content="${esc(img)}">` : ''}
 <link rel="stylesheet" href="${depth}style.css">
 ${beacon}
 </head>
 <body>
+<a class="skip" href="#main">跳到內容</a>
 ${navHtml(depth, active)}
 ${body}
 ${footHtml}
@@ -139,7 +144,7 @@ const index = page({
   body: `<header class="top home"><h1 class="sr">Claude Code Everyday</h1><p class="lead">每天一個 Claude Code 用法，Threads 貼文的完整存檔，共 ${posts.length} 篇。</p></header>
 <div class="bar"><div class="sortbar"><div class="dd"><button type="button" class="ddb" id="sk" aria-haspopup="listbox" aria-expanded="false"><span id="skl">最新</span><svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><ul class="ddm" id="ddm" role="listbox" hidden><li role="option" data-v="d" aria-selected="true">最新</li><li role="option" data-v="v" aria-selected="false">最多瀏覽</li><li role="option" data-v="l" aria-selected="false">最多按讚</li></ul></div><button type="button" class="dirb" id="sd" aria-label="降冪" title="降冪"><svg class="arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h11M4 18h6"/></svg></button></div>
 <input id="q" type="search" aria-label="搜尋貼文" placeholder="搜尋，例如 hooks、/clear" autocomplete="off"></div>
-<main class="grid" id="grid">${list(posts)}</main>
+<main id="main"><div class="grid" id="grid">${list(posts)}</div></main>
 <nav class="pager" id="pg" aria-label="分頁" hidden></nav>
 <p class="empty" id="empty" hidden>沒有符合的貼文</p>
 <script>
@@ -325,8 +330,8 @@ if (skillData) {
     desc: sk.length + ' 個 Claude Code skill 與 ' + pluginPacks.length + ' 個 plugin。',
     depth: '../',
     active: 'skill',
-    body: '<header class="top home"><h1>Skill 目錄</h1><p class="lead">只收熱門專案：1 萬星以上、近一年有更新。</p></header>\n'
-      + '<div class="cw">' + rail + '<main class="cmain"><div class="pkt"><input id="q" type="search" aria-label="搜尋 Skill 與 Plugin" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off">' + gsel + '</div>\n'
+    body: '<header class="top home"><h1 id="ph">Skill 目錄</h1><p class="lead">只收熱門專案：1 萬星以上、近一年有更新。</p></header>\n'
+      + '<div class="cw">' + rail + '<main class="cmain" id="main"><div class="pkt"><input id="q" type="search" aria-label="搜尋 Skill 與 Plugin" placeholder="搜尋，例如 review、設計、gstack" autocomplete="off">' + gsel + '</div>\n'
       + '<div class="stat" id="stat" aria-live="polite" hidden></div>\n'
       + '<div id="sv"><div class="chead" aria-hidden="true"><span>Skill</span><span>說明</span><span>安裝次數</span></div><div class="crows" id="sl"></div><nav class="pager" id="pg" aria-label="分頁" hidden></nav></div>\n'
       + '<div id="pv" hidden><ol class="pklist" id="grid">' + rows + '</ol></div>\n'
@@ -349,7 +354,7 @@ if (skillData) {
       + "function save(){try{sessionStorage.setItem(K.ty,ty);sessionStorage.setItem(K.g,g);sessionStorage.setItem(K.q,q.value);sessionStorage.setItem(K.p,String(page))}catch(_){}}\n"
       + "function render(){\n"
       + "const sAll=D.filter(x=>sHit(x)),pAll=ps.filter(p=>pHit(p));let any;\n"
-      + "sv.hidden=ty!=='skill';pv.hidden=ty==='skill';\n"
+      + "sv.hidden=ty!=='skill';pv.hidden=ty==='skill';$('ph').textContent=ty==='skill'?'Skill 目錄':'Plugin 目錄';\n"
       + "if(ty==='skill'){const n=Math.max(1,Math.ceil(sAll.length/PER));if(page>n)page=n;if(page<1)page=1;any=sAll.length>0;\n"
       + "sl.innerHTML=sAll.slice((page-1)*PER,page*PER).map(x=>'<a class=\"crow\" href=\"'+E(x.s)+'/'+E(x.n)+'/\"><code>/'+E(x.n)+'</code><span class=\"d\"'+(x.en?' lang=\"en\"':'')+'>'+E(x.d)+'</span><span class=\"g\">'+E(x.p)+'</span><span class=\"in\">'+fmt(x.i)+'</span></a>').join('');\n"
       + "if(n<=1){pg.hidden=true;pg.innerHTML=''}else{pg.hidden=false;let h='<button type=\"button\" data-p=\"'+(page-1)+'\" aria-label=\"上一頁\"'+(page===1?' disabled':'')+'>'+CL+'</button>';\n"
@@ -357,7 +362,7 @@ if (skillData) {
       + "h+='<button type=\"button\" data-p=\"'+(page+1)+'\" aria-label=\"下一頁\"'+(page===n?' disabled':'')+'>'+CR+'</button>';pg.innerHTML=h}}\n"
       + "else{any=pAll.length>0;let n=0;ps.forEach(p=>{const on=pHit(p);p.hidden=!on;if(!on)return;n++;const r=p.querySelector('.rk');r.textContent=n;r.classList.toggle('top',n<=3)})}\n"
       + "em.hidden=any;\n"
-      + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=v==='skill'?sAll.length:pAll.length});\n"
+      + "document.querySelectorAll('[data-ty]').forEach(b=>{const v=b.dataset.ty;b.setAttribute('aria-pressed',String(v===ty));b.querySelector('small').textContent=v==='skill'?D.filter(x=>sHit(x,true)).length:ps.filter(p=>pHit(p,true)).length});\n"
       + "const cnt=v=>ty==='skill'?D.filter(x=>sHit(x,true)&&(v===''||x.g===v)).length:ps.filter(p=>pHit(p,true)&&(v===''||p.dataset.g.split('|').indexOf(v)>=0)).length;\n"
       + "document.querySelectorAll('.rail [data-g]').forEach(b=>{const v=b.dataset.g;b.setAttribute('aria-pressed',String(v===g));b.querySelector('small').textContent=cnt(v)});\n"
       + "[...gs.options].forEach(o=>{o.textContent=(o.value===''?'功能：全部':o.value)+'（'+cnt(o.value)+'）'});gs.value=g;\n"
@@ -388,14 +393,14 @@ if (skillData) {
       depth: '../../',
       active: 'skill',
       body: '<header class="top slim skdh skph"><a class="back" href="../" onclick="' + backJs('/skill/', '/skill') + '">← Skill</a></header>\n'
-        + '<article class="skd skp">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
+        + '<main id="main"><article class="skd skp">\n<h1><code>' + esc(p.name) + '</code></h1>\n'
         + (isZh(p) ? '<div class="tags"><span class="ska">AI翻譯</span></div>\n' : '')
         + '<p class="lede"' + (isZh(p) ? '' : ' lang="en"') + '>' + esc(zhOf(p)) + '</p>\n'
         + '<p class="pkf"><span><b class="ac">★</b> ' + wan(p.stars) + '</span><span>' + list.length + ' 個 skill</span><span>授權 ' + esc(p.license || '未標示') + '</span><span>最近更新 ' + esc(p.pushed) + '</span></p>\n'
         + '<a class="gh" href="' + esc(p.url) + '" target="_blank" rel="noopener">到 GitHub 看專案 ' + ARROW + '</a>\n'
         + '<div class="pkt pq"><input id="q" type="search" aria-label="搜尋這個包的 skill" placeholder="搜尋這個包的 skill" autocomplete="off"></div>\n'
         + '<div class="chead" aria-hidden="true"><span>Skill</span><span>說明</span><span>安裝次數</span></div><div class="crows">' + list.map((s) => '<a class="crow" data-t="' + esc((s.name + ' ' + s.say + ' ' + s.group).toLowerCase()) + '" href="../' + esc(s.src) + '/' + esc(s.name) + '/"><code>/' + esc(s.name) + '</code><span class="d"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</span><span class="g">' + (s.group === UNSORTED ? '' : esc(s.group)) + '</span><span class="in">' + fmtN(s.inst) + '</span></a>').join('') + '</div>'
-        + '\n<p class="empty" id="empty" hidden><span>沒有符合的 skill</span><button type="button" id="clr">清除搜尋</button></p>\n</article>\n'
+        + '\n<p class="empty" id="empty" hidden><span>沒有符合的 skill</span><button type="button" id="clr">清除搜尋</button></p>\n</article></main>\n'
         + '<script>\n'
         + "const q=document.getElementById('q'),em=document.getElementById('empty');\n"
         + "q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.crow').forEach(r=>{const v=!kw||r.dataset.t.indexOf(kw)>=0;r.hidden=!v;if(v)n++});em.hidden=n>0})\n"
@@ -415,7 +420,9 @@ if (skillData) {
   // 貼文提到的專案：GitHub 連結、marketplace add、skills add 後面的 owner/repo。同名 skill 要來自同一個專案才算相關
   const repoSet = (p) => { const t = (p.body || '') + '\n' + (p.cta || ''); const set = new Set(); for (const re of [/github\.com\/([\w.-]+\/[\w.-]+)/gi, /marketplace add\s+([\w.-]+\/[\w.-]+)/gi, /skills add\s+([\w.-]+\/[\w.-]+)/gi]) for (const m of t.matchAll(re)) set.add(m[1].replace(/\.git$/i, '').toLowerCase()); return set; };
   const repoByDay = new Map(posts.map((p) => [p.day, repoSet(p)]));
-  const relPosts = (s) => { const re = reFor(s.name), rp = srcPack[s.src].repo.toLowerCase(); return posts.filter((p) => repoByDay.get(p.day).has(rp) && re.test((p.body || '') + '\n' + (p.cta || ''))); };
+  // 指令寫法「--skill 名稱」也算提到（名稱前面沒有斜線，reFor 抓不到）；名稱用原名（ALIAS 對回）
+  const skillFlag = (s) => new RegExp('--skill\\s+' + (ALIAS[s.name] || s.name).replace(/[.*+?^$()|[\]\\{}-]/g, '\\$&') + '(?![A-Za-z0-9-])');
+  const relPosts = (s) => { const re = reFor(s.name), fl = skillFlag(s), rp = srcPack[s.src].repo.toLowerCase(); return posts.filter((p) => { const t = (p.body || '') + '\n' + (p.cta || ''); return repoByDay.get(p.day).has(rp) && (re.test(t) || fl.test(t)); }); };
   let detailN = 0, relN = 0;
   const pkOf = (s) => srcPack[s.src];
   // 詳細頁的手寫補充（跟相近 skill 差在哪、較短的「什麼時候用」）：data/skill-vs.json，沒有就略過
@@ -453,7 +460,7 @@ if (skillData) {
       depth: '../../../',
       active: 'skill',
       body: '<header class="top slim skdh">' + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="back" href="../../' + esc(pkOf(s).src) + '/" onclick="' + backJs('/skill/' + pkOf(s).src + '/', '/skill/' + pkOf(s).src) + '">← ' + esc(pkOf(s).name) + '</a>' + BACK_FROM_LIST : '<a class="back" href="../../" onclick="' + BACK_SKILL + '">← Skill</a>') + '</header>\n'
-        + '<article class="skd">\n'
+        + '<main id="main"><article class="skd">\n'
         + '<h1><code>/' + esc(s.name) + '</code></h1>\n'
         + '<div class="tags">' + (s.group === UNSORTED ? '' : '<span class="tg">' + esc(s.group) + '</span>') + (pkOf(s) && packHasPage(pkOf(s)) ? '<a class="tg" href="../../' + esc(pkOf(s).src) + '/">' + esc(pkOf(s).name) + '</a>' : '<span class="tg">' + esc(s.src) + '</span>') + (s.ai ? '<span class="ska">AI翻譯</span>' : '') + '</div>\n'
         + '<p class="lede"' + (s.en ? ' lang="en"' : '') + '>' + esc(s.say) + '</p>\n'
@@ -463,9 +470,9 @@ if (skillData) {
         + installHtml(s)
         + (s.orig && s.orig !== s.say ? '<section><h2>原文</h2><p class="orig"' + origLang + '>' + esc(s.orig) + '</p></section>\n' : '')
         + (rel.length ? '<section><h2>相關貼文</h2><ul class="rel">' + rel.map((p) => '<li><a href="../../../d/' + p.day + '/"><span class="day">Day ' + p.day + '</span>' + esc(p.title) + '</a></li>').join('') + '</ul></section>\n' : '')
-        + (s.url ? '<div class="go"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">到 GitHub 看原文 ' + ARROW + '</a></div>\n' : '')
+        + (s.url || (pkOf(s) && pkOf(s).url) ? '<div class="go"><a href="' + esc(s.url || pkOf(s).url) + '" target="_blank" rel="noopener">到 GitHub 看' + (s.url ? '原文' : '專案') + ' ' + ARROW + '</a></div>\n' : '')
         + COPY_JS
-        + '</article>',
+        + '</article></main>',
     });
     const dir = path.join(OUT, 'skill', s.src, s.name);
     fs.mkdirSync(dir, { recursive: true });
@@ -497,9 +504,10 @@ posts.forEach((p, i) => {
   const html = page({
     title: `Day ${p.day}｜${p.title}`,
     desc: p.title,
+    img: p.images[0] || p.cover || '',
     depth: '../../',
     body: `<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post${p.images.length || p.cover ? "" : " nocar"}">
+<main id="main"><article class="post${p.images.length || p.cover ? "" : " nocar"}">
   <div class="head">
     <h1><span class="day">Day ${p.day}</span>${esc(p.title)}</h1>
     <time>${p.date}</time>
@@ -513,7 +521,7 @@ posts.forEach((p, i) => {
   </div>
   ${explainHtml(p.day)}
   <nav class="pn">${older ? `<a href="../${older.day}/">← Day ${older.day}</a>` : '<span></span>'}${newer ? `<a href="../${newer.day}/">Day ${newer.day} →</a>` : ''}</nav>
-</article>${ctaHtml(p).includes('data-copy') ? COPY_JS : ''}`,
+</article></main>${ctaHtml(p).includes('data-copy') ? COPY_JS : ''}`,
   });
   const d = path.join(OUT, 'd', String(p.day));
   fs.mkdirSync(d, { recursive: true });

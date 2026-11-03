@@ -281,3 +281,10 @@ a.tg::after{content:"";position:absolute;inset:-6px 0}
 .gsel{display:block;flex:1 1 100%}
 .chead{display:none}
 }
+
+/* critique 第二輪：功能欄選中改輕、手機數字加單位、跳到內容 */
+.rail .fsec button[aria-pressed=true]{background:var(--line);color:var(--fg)}
+.rail .fsec button[aria-pressed=true] small{color:var(--fg)}
+.skip{position:absolute;left:8px;top:-64px;z-index:30;padding:0 16px;line-height:40px;border-radius:10px;background:var(--accent);color:var(--on-acc);font-weight:700;text-decoration:none}
+.skip:focus{top:8px}
+@media (max-width:760px){.crow .in:not(:empty)::after{content:" 安裝"}}

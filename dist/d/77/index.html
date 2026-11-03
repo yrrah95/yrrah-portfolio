@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Day 77｜不用每次叮嚀「commit 前先驗證」</title>
 <meta name="description" content="不用每次叮嚀「commit 前先驗證」">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 77｜不用每次叮嚀「commit 前先驗證」">
+<meta property="og:description" content="不用每次叮嚀「commit 前先驗證」">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D77/01-cover.png">
 <link rel="stylesheet" href="../../style.css">
 <script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
 </head>
 <body>
+<a class="skip" href="#main">跳到內容</a>
 <nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
 <header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post">
+<main id="main"><article class="post">
   <div class="head">
     <h1><span class="day">Day 77</span>不用每次叮嚀「commit 前先驗證」</h1>
     <time>2026-10-01</time>
@@ -46,7 +51,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>verify</code> 是一個 skill 的名字。<br>貼文說有這個 skill，Claude 動手 commit 前就會被提醒去跑它。<br>你不用每次叮嚀「commit 前先驗證」。</p></div><div class="ex"><h2>它做什麼</h2><ul><li>把 app 跑起來，看改動有沒有效。</li><li>不拿測試或型別檢查交差。</li><li>跑通的做法記進 <code>SKILL.md</code>。</li><li>下次直接照做，不重新摸索。</li></ul></div><div class="ex"><h2>怎麼建立</h2><ul><li>名字：skill 名字要剛好叫 <code>verify</code>。</li><li>最省事：在專案裡打 <code>/verify</code>。跑通後它自己存好。</li><li>自己寫：建 <code>.claude/skills/verify/SKILL.md</code>。</li><li>個人用：放 <code>~/.claude/skills/verify/</code>。每個專案都套用。</li></ul></div><div class="ex"><h2>什麼時候提醒</h2><ul><li>commit 之前：Claude 會被提醒先跑它。</li><li>只改文件：不提醒。</li><li>只改測試：不提醒。</li><li>沒有 <code>verify</code>：不會有這個提醒。</li><li>版本要 2.1.286 以上。</li></ul></div></section>
   <nav class="pn"><a href="../76/">← Day 76</a><a href="../78/">Day 78 →</a></nav>
-</article>
+</article></main>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>

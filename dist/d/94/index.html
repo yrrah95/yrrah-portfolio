@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Day 94｜Claude Code 有個 --append-system-prompt 旗標</title>
 <meta name="description" content="Claude Code 有個 --append-system-prompt 旗標">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 94｜Claude Code 有個 --append-system-prompt 旗標">
+<meta property="og:description" content="Claude Code 有個 --append-system-prompt 旗標">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D94/01-cover.png">
 <link rel="stylesheet" href="../../style.css">
 <script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
 </head>
 <body>
+<a class="skip" href="#main">跳到內容</a>
 <nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
 <header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post">
+<main id="main"><article class="post">
   <div class="head">
     <h1><span class="day">Day 94</span>Claude Code 有個 --append-system-prompt 旗標</h1>
     <time>2026-10-18</time>
@@ -46,7 +51,7 @@ claude -p &quot;git rebase 跟 git merge 差在哪？&quot; --append-system-prom
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>--append-system-prompt</code> 是 Claude Code 的旗標。<br>它在打開時臨時加一條規則。<br>貼文說：同一題的回答從 77 行變 3 行。<br>不用改 <code>CLAUDE.md</code>。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>輸入 <code>claude -p</code>。</li><li>接上你的問題，例如 <code>git rebase 跟 git merge 差在哪</code>。</li><li>接上旗標 <code>--append-system-prompt</code>。</li><li>接上規則，例如 <code>回答一律三行以內，每行不超過 20 個字</code>。</li></ol><p>原本的規矩都在，只多這一條。<br>長規則放進檔案，旗標後面加 <code>-file</code>。</p></div><div class="ex"><h2>怎麼測</h2><ul><li>沒加旗標：回答共 77 行，開頭先說差別在怎麼處理歷史紀錄。</li><li>加了旗標：回答只有 3 行。</li><li>merge 保留分支歷史，多一個 merge commit。</li><li>rebase 把 commit 接到新基底，歷史線性。</li><li>已 push 的共用分支勿 rebase。</li></ul></div><div class="ex"><h2>注意</h2><ul><li>這條規則只管這次打開。開新對話沒加，就沒有這條。</li><li>少了 append 的 <code>--system-prompt</code> 是整個換掉。</li><li>每次都要的規則，寫進 <code>CLAUDE.md</code> 比較省事。</li></ul></div></section>
   <nav class="pn"><a href="../93/">← Day 93</a><a href="../95/">Day 95 →</a></nav>
-</article>
+</article></main>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>

@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Day 100｜Claude Code 內建有個 /batch 指令</title>
 <meta name="description" content="Claude Code 內建有個 /batch 指令">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 100｜Claude Code 內建有個 /batch 指令">
+<meta property="og:description" content="Claude Code 內建有個 /batch 指令">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D100/01-cover.png">
 <link rel="stylesheet" href="../../style.css">
 <script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
 </head>
 <body>
+<a class="skip" href="#main">跳到內容</a>
 <nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
 <header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
-<article class="post">
+<main id="main"><article class="post">
   <div class="head">
     <h1><span class="day">Day 100</span>Claude Code 內建有個 /batch 指令</h1>
     <time>2026-10-24</time>
@@ -46,7 +51,7 @@ c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.
   </div>
   <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>/batch</code> 是 Claude Code 內建的指令。<br>一個改法要套到很多檔案時，打它。<br>它先把大改動拆成 5 到 30 份，你點頭才開始做。</p></div><div class="ex"><h2>怎麼用</h2><ol><li>在 git 專案裡打開 Claude Code。</li><li>輸入 <code>/batch</code>，後面接你要改的事。</li><li>看它列出的計畫，同意才開始動工。</li></ol><p>它適合能拆成獨立小塊的大改動。<br>範例：整個 <code>src/</code> 從 JS 改成 TS。</p></div><div class="ex"><h2>它怎麼做</h2><ol><li>先調查：讀過你的程式，拆成 5 到 30 份獨立的工作。</li><li>給你看：列出計畫，你同意才開始動工。</li><li>分頭做：每一份派一個背景 agent，各用獨立工作區。</li><li>各收尾：每份自己改、自己跑測試，再送出變更。</li></ol></div></section>
   <nav class="pn"><a href="../99/">← Day 99</a><a href="../101/">Day 101 →</a></nav>
-</article>
+</article></main>
 <footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-03</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
