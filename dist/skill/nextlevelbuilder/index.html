@@ -30,7 +30,7 @@ const q=document.getElementById('q'),em=document.getElementById('empty');
 q.addEventListener('input',()=>{const kw=q.value.trim().toLowerCase();let n=0;document.querySelectorAll('.crow').forEach(r=>{const v=!kw||r.dataset.t.indexOf(kw)>=0;r.hidden=!v;if(v)n++});em.hidden=n>0})
 document.getElementById('clr').addEventListener('click',()=>{q.value='';q.dispatchEvent(new Event('input'));q.focus()})
 </script>
-<footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-09</span></span></div></footer>
+<footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-10</span></span></div></footer>
 <button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
 </body>
