@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 122｜Claude 官方 19.6 萬星的 skill 庫裡 有個做 Excel 的 skill 叫 xlsx</title>
+<meta name="description" content="Claude 官方 19.6 萬星的 skill 庫裡 有個做 Excel 的 skill 叫 xlsx">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 122｜Claude 官方 19.6 萬星的 skill 庫裡 有個做 Excel 的 skill 叫 xlsx">
+<meta property="og:description" content="Claude 官方 19.6 萬星的 skill 庫裡 有個做 Excel 的 skill 叫 xlsx">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/01-cover.png">
+<link rel="stylesheet" href="../../style.css">
+<script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到內容</a>
+<nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
+<main id="main"><article class="post">
+  <div class="head">
+    <h1><span class="day">Day 122</span>Claude 官方 19.6 萬星的 skill 庫裡 有個做 Excel 的 skill 叫 xlsx</h1>
+    <time>2026-11-17</time>
+    <div class="text">它規定 Claude 總和要寫成公式 不准把算好的數字直接填進格子
+檢查出公式錯誤 就不准交件</div>
+  </div>
+  <div class="car" data-n="5" tabindex="0" aria-roledescription="carousel" aria-label="Day 122 圖卡">
+  <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/01-cover.png" alt="Day 122 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/02-doc.png" alt="Day 122 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/03-doc.png" alt="Day 122 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/04-doc.png" alt="Day 122 第 4 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D122/05-list.png" alt="Day 122 第 5 張" loading="lazy"></div>
+  <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
+  <button type="button" class="nav next" aria-label="下一張">›</button>
+  <div class="bar"><span class="count">1 / 5</span></div>
+</div>
+<script>
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=+c.dataset.n;
+var want=null;
+function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
+function base(){return want===null?cur():want}
+function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
+pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
+c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
+})();
+</script>
+  <div class="act">
+    <div class="inst"><p class="insl">安裝方法:</p><div class="cmd"><code class="mono ml">claude plugin marketplace add anthropics/skills
+claude plugin install document-skills@anthropic-agent-skills</code><button type="button" data-copy>複製</button></div></div>
+    <section class="rs"><h2>相關 套件</h2><ul class="rel"><li><a href="../../skill/anthropic-agent-skills/"><span class="day mono">anthropics/skills</span>套件，共 19 個 skill</a></li></ul></section>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  </div>
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>xlsx</code> 是 <code>anthropics/skills</code> 這個 repo 的 skill。<br>這個 repo 是 Anthropic 官方的 skill 庫，有 19.6 萬以上的星數。<br>這個 skill 規定 Claude 怎麼做 Excel 檔案。<br>這一篇拆開它的 <code>SKILL.md</code>，看它怎麼對 Claude 下指令。</p></div><div class="ex"><h2>怎麼裝</h2><ol><li>輸入 <code>claude plugin marketplace add anthropics/skills</code></li><li>輸入 <code>claude plugin install document-skills@anthropic-agent-skills</code></li></ol><p><code>document-skills</code> 這個 plugin 有 4 個 skill。<code>xlsx</code> 是其中一個。</p></div><div class="ex"><h2>每份都要守的</h2><ul><li>公式：寫公式，不填算好的數字。輸入的數字改了，表格要跟著重算。</li><li>零錯誤：檢查出公式錯誤，就不准交件。</li><li>照你說的：工作表名稱、欄位標題、你指定的公式，一字不改。</li><li>數字來源：手填的數字，都在旁邊註明來源。</li><li>字型：整份用 Arial 這類正式字型。</li></ul></div><div class="ex"><h2>沒報錯不等於算對</h2><ul><li>原文說：檢查過關，只代表公式算得出來，不代表公式是對的。</li><li>例子：範圍差一格，檔案沒有錯誤，數字卻是錯的。</li><li>也算：公式抓到別列的格子，也不報錯。</li><li>先做：先寫兩三條公式，核對它們抓到的數字。</li><li>再做：數字對了，才鋪開整張表。</li></ul></div><div class="ex"><h2>改你的舊檔時</h2><ul><li>照原樣：原檔的習慣，蓋過這個 skill 的規則。</li><li>先找：找出原檔留給人填的格子。這些格子有不同的字色或底色。</li><li>只寫那裡：原本的公式，一個都不碰。</li><li>舊的錯：說錯誤本來就有，要打開原檔來證明。</li></ul></div><div class="ex"><h2>財務表的顏色</h2><ul><li>藍字：手動填的數字。</li><li>黑字：公式算出來的。</li><li>綠字：從別的工作表抓來的。</li><li>紅字：從別的檔案抓來的。</li><li>黃底：重要的預估數字，還有要你填的格子。</li></ul><p>你另外交代，或原檔已有別的做法，就不用這套顏色。</p></div><div class="ex"><h2>出處</h2><ul><li><code>xlsx</code> 的 <code>SKILL.md</code>：https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md</li><li>plugin 名稱與 marketplace 名稱：https://github.com/anthropics/skills/blob/main/.claude-plugin/marketplace.json</li></ul></div></section>
+  <nav class="pn"><a href="../121/">← Day 121</a></nav>
+</article></main><script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var c=b.parentNode.querySelector("code");function ok(){b.textContent="已複製";setTimeout(function(){b.textContent="複製"},1500)}function sel(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="請按 Ctrl+C"}try{navigator.clipboard.writeText(c.textContent).then(ok,sel)}catch(e){sel()}})})</script>
+<footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-17</span></span></div></footer>
+<button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
+</body>
+</html>
