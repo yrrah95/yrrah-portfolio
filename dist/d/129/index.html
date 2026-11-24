@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Day 129｜33.2 萬星的 mattpocock/skills 裡 有個 skill 叫 git-guardrails-claude-code</title>
+<meta name="description" content="33.2 萬星的 mattpocock/skills 裡 有個 skill 叫 git-guardrails-claude-code">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Day 129｜33.2 萬星的 mattpocock/skills 裡 有個 skill 叫 git-guardrails-claude-code">
+<meta property="og:description" content="33.2 萬星的 mattpocock/skills 裡 有個 skill 叫 git-guardrails-claude-code">
+<meta property="og:image" content="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D129/01-cover.png">
+<link rel="stylesheet" href="../../style.css">
+<script>if(location.hostname==='yrrah-5i5.pages.dev'){var s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';s.dataset.cfBeacon='{"token":"94e5999fd12342548a22a3ab26a9bfd4"}';document.head.appendChild(s)}</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到內容</a>
+<nav class="nav"><div class="in"><a class="brand" href="../../" aria-label="Claude Code Everyday 首頁"><picture><source media="(prefers-color-scheme:dark)" srcset="../../logo-dark.png"><img src="../../logo-light.png" alt="Claude Code Everyday" width="280" height="26"></picture></a><div class="links"><a href="../../" aria-current="page">Tips</a><a href="../../skill/">Skill</a><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div></nav>
+<header class="top slim"><a class="back" href="../../" onclick="try{var r=new window.URL(document.referrer);if(r.origin===location.origin&&r.pathname==='/'){history.back();return false}}catch(e){}">← 全部貼文</a></header>
+<main id="main"><article class="post">
+  <div class="head">
+    <h1><span class="day">Day 129</span>33.2 萬星的 mattpocock/skills 裡 有個 skill 叫 git-guardrails-claude-code</h1>
+    <time>2026-11-24</time>
+    <div class="text">它規定 Claude 先問你 要在這個專案還是所有專案 擋掉危險的 git 指令
+裝好之後 還要 Claude 自己測一次 確認真的擋得住</div>
+  </div>
+  <div class="car" data-n="4" tabindex="0" aria-roledescription="carousel" aria-label="Day 129 圖卡">
+  <div class="track"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D129/01-cover.png" alt="Day 129 第 1 張" ><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D129/02-doc.png" alt="Day 129 第 2 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D129/03-steps.png" alt="Day 129 第 3 張" loading="lazy"><img src="https://raw.githubusercontent.com/yrrah95/threads-cards/main/tips/D129/04-doc.png" alt="Day 129 第 4 張" loading="lazy"></div>
+  <button type="button" class="nav prev" aria-label="上一張" hidden>‹</button>
+  <button type="button" class="nav next" aria-label="下一張">›</button>
+  <div class="bar"><span class="count">1 / 4</span></div>
+</div>
+<script>
+(function(){var c=document.currentScript.previousElementSibling,t=c.querySelector('.track'),pv=c.querySelector('.prev'),nx=c.querySelector('.next'),ct=c.querySelector('.count'),n=+c.dataset.n;
+var want=null;
+function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
+function base(){return want===null?cur():want}
+function go(i){i=Math.max(0,Math.min(n-1,i));want=i;t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}
+t.addEventListener('scroll',function(){var i=cur();if(want!==null&&i===want)want=null;ct.textContent=(i+1)+' / '+n;pv.hidden=i===0;nx.hidden=i===n-1},{passive:true});
+['touchstart','wheel','pointerdown'].forEach(function(ev){t.addEventListener(ev,function(){want=null},{passive:true})});
+pv.onclick=function(){go(base()-1)};nx.onclick=function(){go(base()+1)};
+c.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(base()-1);e.preventDefault()}if(e.key==='ArrowRight'){go(base()+1);e.preventDefault()}});
+})();
+</script>
+  <div class="act">
+    <div class="inst"><p class="insl">安裝方法(在專案資料夾的終端機跑):</p><div class="cmd"><code class="mono ml">npx skills add https://github.com/mattpocock/skills --skill git-guardrails-claude-code</code><button type="button" data-copy>複製</button></div></div>
+    <section class="rs"><h2>相關 Skill 與套件</h2><ul class="rel"><li><a href="../../skill/mattpocock/git-guardrails-claude-code/"><span class="day mono">/git-guardrails-claude-code</span>幫你在 Claude Code 裡裝上 hook，擋掉危險的 git 指令（像 push、reset --hard、clean、branch -D 這類）在真正執行之前先攔下來，避免 agent 手滑做出不可逆的操作。</a></li><li><a href="../../skill/mattpocock/"><span class="day mono">mattpocock/skills</span>套件，共 31 個 skill</a></li></ul></section>
+    <p class="src"><a href="https://www.threads.com/@yrrah9_" rel="noopener">到 Threads 追蹤 @yrrah9_</a></p>
+  </div>
+  <section class="explain"><div class="ex"><h2>這是什麼</h2><p><code>git-guardrails-claude-code</code> 是 <code>mattpocock/skills</code> 這個 repo 的 skill。<br>這個 repo 有 33 萬以上的星數，使用 MIT 授權。<br>這個 skill 叫 Claude 裝一個 hook。<br>這個 hook 在 Claude 跑危險的 git 指令之前擋下它。<br>這一篇拆開它的 <code>SKILL.md</code>，看它怎麼對 Claude 下指令。</p></div><div class="ex"><h2>怎麼裝</h2><ol><li>在專案資料夾打開終端機。</li><li>輸入 <code>npx skills add https://github.com/mattpocock/skills --skill git-guardrails-claude-code</code>。</li></ol><p>這個 skill 放在 repo 的 <code>misc</code> 資料夾。<br><code>mattpocock-skills</code> plugin 沒有收這個 skill。<br>附的腳本用 <code>jq</code> 讀出 Claude 要跑的指令。</p></div><div class="ex"><h2>它擋下哪些指令</h2><ul><li><code>git push</code>：把改動推上網，強制覆蓋的也算。</li><li><code>git reset --hard</code>：丟掉還沒存進紀錄的改動。</li><li><code>git clean -f</code>、<code>git clean -fd</code>：刪掉沒被 git 追蹤的新檔案。</li><li><code>git branch -D</code>：直接刪掉分支，不管有沒有合併。</li><li><code>git checkout .</code>、<code>git restore .</code>：把改到一半的檔案全部還原。</li></ul></div><div class="ex"><h2>裝的五個步驟</h2><ol><li>先問你：只擋這個專案，還是所有專案。</li><li>放腳本：複製附的腳本，設成可以執行。</li><li>寫設定：把 hook 加進 <code>settings.json</code>。已經有設定就合併，不蓋掉。</li><li>問增減：問你要多擋或少擋哪幾條。</li><li>自己測：送一條假的 <code>git push</code> 給腳本。腳本要印出 <code>BLOCKED</code> 才算過。</li></ol></div><div class="ex"><h2>擋下的那一刻</h2><ul><li>什麼時候查：Claude 每次要跑終端機指令之前。</li><li>怎麼比對：指令裡有清單上的字，就擋。</li><li>被擋之後：那條指令不會執行。</li><li>Claude 看到：使用者不准它做這件事。</li></ul></div><div class="ex"><h2>出處</h2><ul><li><code>git-guardrails-claude-code</code> 的 <code>SKILL.md</code>：https://github.com/mattpocock/skills/blob/main/skills/misc/git-guardrails-claude-code/SKILL.md</li><li>附的腳本：https://github.com/mattpocock/skills/blob/main/skills/misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh</li><li>安裝指令：https://skills.sh/mattpocock/skills/git-guardrails-claude-code</li><li>plugin 收了哪些 skill：https://github.com/mattpocock/skills/blob/main/.claude-plugin/plugin.json</li></ul></div></section>
+  <nav class="pn"><a href="../128/">← Day 128</a></nav>
+</article></main><script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var c=b.parentNode.querySelector("code");function ok(){b.textContent="已複製";setTimeout(function(){b.textContent="複製"},1500)}function sel(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="請按 Ctrl+C"}try{navigator.clipboard.writeText(c.textContent).then(ok,sel)}catch(e){sel()}})})</script>
+<footer class="foot"><div class="in"><span class="r"><a href="https://www.threads.com/@yrrah9_" rel="noopener" target="_blank">Threads @yrrah9_ <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span>網站更新於 2026-11-24</span></span></div></footer>
+<button type="button" class="totop" id="totop" aria-label="回到最上面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script>(function(){var b=document.getElementById('totop');function f(){b.classList.toggle('show',window.scrollY>500)}addEventListener('scroll',f,{passive:true});f();b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}})();</script>
+</body>
+</html>

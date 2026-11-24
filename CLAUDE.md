@@ -22,4 +22,4 @@ Claude Code Everyday（Threads @yrrah9_）貼文存檔網站。零依賴靜態�
 
 ## 收工
 
-`/ship` 或手動 commit 後，異動說明寫進 `.claude/worklog.md` 最上面。
+`/gstack-ship` 或手動 commit 後，異動說明寫進 `.claude/worklog.md` 最上面。
